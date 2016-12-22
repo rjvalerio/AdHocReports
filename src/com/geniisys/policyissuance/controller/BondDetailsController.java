@@ -61,16 +61,22 @@ public class BondDetailsController extends HttpServlet {
 				errorMsg = "No data found.";
 			}
 
-			System.out.println("errorMsg " + errorMsg);
+			//System.out.println("errorMsg " + errorMsg);
 			request.setAttribute("errorMsg", errorMsg);
 			page = "/pages/policy issuance/bond detail maintenance/bondDetailSub.jsp";
 			getServletContext().getRequestDispatcher(page).forward(request, response);
 		}
 		if (action.equals("updateBondDetails")) {
-			Integer policyId = Integer.parseInt(request.getParameter("policyId"));
-			String bondDtl = request.getParameter("bondDtl");
+			BondDetailService bondDetailService = new BondDetailServiceImpl();
+			try {
+				bondDetailService.updateBondDetail(request);
+			} catch (SQLException e) {
+				errorMsg = e.getMessage();
+			}
 			
-			
+			request.setAttribute("errorMsg", errorMsg);
+			page = "/pages/policy issuance/bond detail maintenance/bondDetailSub.jsp";
+			getServletContext().getRequestDispatcher(page).forward(request, response);
 		}
 	}
 }
