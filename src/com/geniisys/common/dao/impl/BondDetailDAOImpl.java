@@ -29,6 +29,7 @@ private SqlMapClient sqlMap;
 
 	@Override
 	public void updateBondDetail(Map<String, Object> params) throws SQLException {
+		sqlMap = MyAppSqlConfig.getSqlMapInstance();
 		sqlMap.update("updateBondDetail", params);
 	}
 }

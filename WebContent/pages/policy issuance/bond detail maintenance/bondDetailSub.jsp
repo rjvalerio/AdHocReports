@@ -59,6 +59,7 @@
 			onCreate : showNotice("Please wait..."),
 			onComplete : function(response) {
 				hideNotice("");
+				var errorMsg = $F("errorMsg");
 				if (checkBlankNull(errorMsg)) {
 					showMessageBox("Update Success", "I");
 				} else {
