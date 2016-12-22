@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NON_RENEW_NIA_SIGNATORY" language="groovy" pageWidth="540" pageHeight="792" columnWidth="540" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="279dfd0c-a869-4771-b500-c9ac415c3f88">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_POLICY_ID" class="java.lang.String"/>
+	<parameter name="P_NOTED_BY" class="java.lang.String"/>
+	<parameter name="P_NOTED_BY_DESIGNATION" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[-- Created by Joyce Anne G. Camino
+-- for Non Renewal Notice of NIA
+-- Dec. 28, 2015
+
+SELECT *
+FROM TABLE(NON_RENEW_PCI_PKG.GET_SIGNATORY_DETAILS($P{P_POLICY_ID}))]]>
+	</queryString>
+	<field name="SIGNATORY" class="java.lang.String"/>
+	<field name="DESIGNATION" class="java.lang.String"/>
+	<detail>
+		<band height="87" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="35" width="183" height="15" forecolor="#000000" uuid="6f390a52-2869-419e-8cad-1b21a4d152a9"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SIGNATORY}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="50" width="183" height="13" forecolor="#000000" uuid="f2e70cf2-2c33-4362-9ee7-370d247817f9"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESIGNATION}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="0" width="183" height="15" forecolor="#000000" uuid="59446499-7357-41a9-8ef3-ff55d165c81c"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Yours truly,"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="315" y="35" width="183" height="15" forecolor="#000000" uuid="8fe1cd6d-a6bb-414d-a866-03c7b178e928"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Noted by:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="315" y="63" width="183" height="12" isPrintWhenDetailOverflows="true" uuid="ba4bb227-1c7b-4428-ba5d-330eb78c32d3"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_NOTED_BY}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="315" y="75" width="183" height="12" isPrintWhenDetailOverflows="true" uuid="ef033eaa-03cc-4120-bba5-0384e82c159a"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_NOTED_BY_DESIGNATION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="dailyProdBookingReport" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7ea0fad6-002c-46cd-a894-55c1963aadd1">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_MONTH" class="java.lang.String"/>
+	<parameter name="P_YEAR" class="java.lang.String"/>
+	<parameter name="P_BRANCH" class="java.lang.String"/>
+	<parameter name="P_LINE_CD" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT COUNT(policy_id),cred_branch,line_cd,sum(prem),sum(net_prem) from(
+select A.POLICY_ID,A.POLICY,a.line_cd, a.cred_branch, GET_ISS_NAME(a.cred_branch)BRANCH, a.prem, a.incept_date, a.expiry_date, a.intermediary, b.net_prem, c.facul_prem, d.treaty_prem
+from
+(
+select A.POLICY_ID,GET_POLICY_NO(A.POLICY_ID)POLICY, line_cd, cred_branch, sum(b.prem_amt * currency_rt)prem, a.incept_date, a.expiry_date,
+c.INTRMDRY_INTM_NO, j.intm_type||'-'||j.intm_no||' / '||j.ref_intm_cd||' / '||j.intm_name "INTERMEDIARY"
+ from
+gipi_polbasic a, gipi_invoice b, gipi_comm_invoice c, giis_intermediary j
+where a.booking_mth = $P{P_MONTH}
+and a.booking_year = $P{P_YEAR}
+and a.policy_id = b.policy_id
+and a.pol_flag !='5'
+and a.REG_POLICY_SW = 'Y'
+AND A.SPLD_FLAG <> '2'
+and b.iss_Cd = c.iss_cd(+)
+and c.INTRMDRY_INTM_NO = j.intm_no (+)
+and b.prem_seq_no = c.prem_seq_no(+)
+AND CRED_BRANCH  = $P{P_BRANCH}--cred_branch
+AND LINE_CD = $P{P_LINE_CD}
+group by a.line_cd, a.cred_branch, A.POLICY_ID, a.incept_date, a.expiry_date,INTRMDRY_INTM_NO,
+j.intm_type||'-'||j.intm_no||' / '||j.ref_intm_cd||' / '||j.intm_name
+)a,
+(
+select A.POLICY_ID,GET_POLICY_NO(A.POLICY_ID)POLICY, a.line_cd, a.cred_branch, sum(c.dist_prem * d.currency_rt) net_prem
+from gipi_polbasic a, giuw_pol_dist b, GIUW_POLICYDS_DTL c, gipi_invoice d
+where a.policy_id =b.policy_id
+and b.dist_no = c.dist_no
+and a.policy_id = d.policy_id
+and pol_flag !='5'
+and REG_POLICY_SW = 'Y'
+AND C.SHARE_CD=1
+and a.booking_mth = $P{P_MONTH}
+and a.booking_year = $P{P_YEAR}
+and b.dist_flag = '3'
+group by  a.line_cd, a.cred_branch,A.POLICY_ID
+--group by a.line_cd, a.cred_branch, a.policy_id
+)b,
+(
+select A.POLICY_ID,GET_POLICY_NO(A.POLICY_ID)POLICY,a.line_cd, a.cred_branch, sum(c.dist_prem * d.currency_rt) facul_prem
+from gipi_polbasic a, giuw_pol_dist b, GIUW_POLICYDS_DTL c, gipi_invoice d
+where a.policy_id =b.policy_id
+and b.dist_no = c.dist_no
+and a.policy_id = d.policy_id
+and pol_flag !='5'
+and REG_POLICY_SW = 'Y'
+AND C.SHARE_CD=999
+and a.booking_mth =  $P{P_MONTH}
+and a.booking_year =  $P{P_YEAR}
+and b.dist_flag = '3'
+group by  a.line_cd, a.cred_branch,A.POLICY_ID
+)c,
+(
+select A.POLICY_ID,GET_POLICY_NO(A.POLICY_ID)POLICY, a.line_cd, a.cred_branch, sum(c.dist_prem * d.currency_rt) treaty_prem
+from gipi_polbasic a, giuw_pol_dist b, GIUW_POLICYDS_DTL c, gipi_invoice d
+where a.policy_id =b.policy_id
+and b.dist_no = c.dist_no
+and a.policy_id = d.policy_id
+and pol_flag !='5'
+and REG_POLICY_SW = 'Y'
+AND C.SHARE_CD not in(999,1)
+and a.booking_mth =  $P{P_MONTH}
+and a.booking_year =  $P{P_YEAR}
+and b.dist_flag = '3'
+ group by  a.line_cd, a.cred_branch,A.POLICY_ID
+)d
+where
+A.POLICY=B.POLICY(+)AND
+A.POLICY=C.POLICY(+)AND
+A.POLICY=D.POLICY(+)
+/*a.line_cd = b.line_cd(+)
+and a.cred_branch = b.cred_branch(+)
+and a.line_cd = c.line_cd(+)
+and a.cred_branch = c.cred_branch(+)
+and a.line_cd = d.line_cd(+)
+and a.cred_branch =d.cred_branch(+)*/
+ORDER BY POLICY, BRANCH, LINE_CD)
+GROUP BY cred_branch,line_cd/*,prem,net_prem,facul_prem,treaty_prem*/]]>
+	</queryString>
+	<field name="COUNT(POLICY_ID)" class="java.math.BigDecimal"/>
+	<field name="CRED_BRANCH" class="java.lang.String"/>
+	<field name="LINE_CD" class="java.lang.String"/>
+	<field name="SUM(PREM)" class="java.math.BigDecimal"/>
+	<field name="SUM(NET_PREM)" class="java.math.BigDecimal"/>
+	<variable name="V_TOTAL_COUNT" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{COUNT(POLICY_ID)}]]></variableExpression>
+	</variable>
+	<variable name="V_TOTAL_PREM" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUM(PREM)}]]></variableExpression>
+	</variable>
+	<variable name="V_TOTAL_RETENTION" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUM(NET_PREM)}]]></variableExpression>
+	</variable>
+	<variable name="SUM(PREM)_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUM(PREM)}]]></variableExpression>
+	</variable>
+	<variable name="COUNT(POLICY_ID)_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{COUNT(POLICY_ID)}]]></variableExpression>
+	</variable>
+	<variable name="SUM(PREM)_2" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUM(PREM)}]]></variableExpression>
+	</variable>
+	<variable name="SUM(NET_PREM)_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SUM(NET_PREM)}]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="85" splitType="Stretch">
+			<textField>
+				<reportElement uuid="618ec284-370c-474c-bc09-5525b61e0c12" positionType="Float" x="451" y="0" width="80" height="15"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="3941d80b-abac-41f7-bbcf-1872f7ad6413" positionType="Float" x="531" y="0" width="40" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e77f7977-75a2-4c51-b6cb-afb29ee9696b" positionType="Float" x="1" y="60" width="571" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DAILY PRODUCTION]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement uuid="4eee4ac4-ff71-4835-bbfe-12e54bf36be3" positionType="Float" x="49" y="0" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="173dbc7a-d231-4f66-8bdc-4a1600eb71e0" positionType="Float" x="0" y="0" width="49" height="15"/>
+				<textElement/>
+				<text><![CDATA[Rundate:]]></text>
+			</staticText>
+			<textField pattern="h:mm:ss a">
+				<reportElement uuid="e73423fb-f32b-4b23-b7e6-930b8ce82f0f" positionType="Float" x="49" y="15" width="100" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="5acce044-f5b2-47cc-9569-ff899550bb12" positionType="Float" x="0" y="15" width="49" height="15"/>
+				<textElement/>
+				<text><![CDATA[Runtime:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f61fb20e-45e6-48f9-9ec7-e014cc532c32" positionType="Float" x="13" y="30" width="60" height="15"/>
+				<textElement/>
+				<text><![CDATA[Filter Month:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c6b2c0aa-3f59-4a80-8640-b84b32be0e8f" positionType="Float" x="11" y="45" width="60" height="15"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Year:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="c5b2ff9f-a039-4176-9760-4c2d9c82d174" positionType="Float" x="73" y="30" width="76" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{P_MONTH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="44e16645-9b87-4107-bd8b-682876b84958" positionType="Float" x="73" y="45" width="76" height="15"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{P_YEAR}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="5b0b7397-0749-4847-aef5-32d0afe227bd" x="13" y="15" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["CREDITING BRANCH"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="774d86b1-1e8d-4175-b853-320e1ce2f45f" x="136" y="15" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["LINE"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="5ee1dfcc-675a-4b98-8b15-47e7c55317a3" x="249" y="15" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["NO. OF POL."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="99e63a70-9e75-4420-a121-d55d72655446" x="365" y="15" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["PREMIUM"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="21297285-b30f-4501-a3b4-8cfe778e5fae" x="472" y="15" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["RETENTION"]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement uuid="345be142-038b-41c2-818c-ecf18d83110f" x="12" y="13" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{CRED_BRANCH}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5d6ae5e7-e86e-4931-ab59-ffe4c45db1b2" x="136" y="13" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{LINE_CD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b76a3cbf-82e3-4b0e-814e-2bccc3c18305" x="249" y="13" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{COUNT(POLICY_ID)}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="64dc2a4d-e180-4c1e-90a0-7582a214ea8d" x="365" y="13" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{SUM(PREM)}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement uuid="4da724a4-a663-4b53-bbc0-b0936e23596d" x="471" y="13" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{SUM(NET_PREM)}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="49">
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="edec864e-132d-4756-944b-8ed882e0af27" x="13" y="14" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["OVERALL TOTAL"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="24341c72-6d15-4195-b8de-e885097a9389" x="249" y="14" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_TOTAL_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cc1b7344-5dc5-4c64-a862-4e6cc461f039" x="365" y="14" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_TOTAL_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="59a6b203-4499-42d3-806c-ffc35cf3977b" x="471" y="14" width="100" height="20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{V_TOTAL_RETENTION}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="1a057391-c9b5-4c11-b557-d244d60d8ada" x="13" y="33" width="558" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

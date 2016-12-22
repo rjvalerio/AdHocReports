@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+
+	<welcome-file-list>
+		<welcome-file>pages/index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<!-- reports dir -->
+	<context-param>
+		<param-name>REPORTS_DIR</param-name>
+		<!-- <param-value>C:/GeniisysAdHocReports/REPORTS/</param-value> -->
+		<!-- <param-value>\\10.20.39.30\c$\GENIISYS_WEB\GeniisysAdHocReports\REPORTS</param-value> -->
+		<param-value>C:/GENIISYS_WEB/GeniisysAdHocReports/REPORTS</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>GENERATED_REPORTS_DIR</param-name>
+		<param-value>C:/GENIISYS_WEB/GeniisysAdHocReports/GENERATED_REPORTS/</param-value>
+		<!-- <param-value>\\10.20.39.99\c$\GeniisysAdHocReports\GENERATED_REPORTS</param-value> -->
+	</context-param>
+	
+	<!-- when applying to live, uncomment adhoc user in welcomeUser.jsp and menu.jsp -->
+
+	<!-- <filter>
+		<filter-name>ServletFilter</filter-name>
+		<filter-class>com.geniisys.filter.ServletFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ServletFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+
+	<servlet>
+		<servlet-name>PrintController</servlet-name>
+		<servlet-class>com.geniisys.controller.PrintController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PrintController</servlet-name>
+		<url-pattern>/print</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>GIISUserController</servlet-name>
+		<servlet-class>com.geniisys.common.controller.GIISUserController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GIISUserController</servlet-name>
+		<url-pattern>/GIISUserController</url-pattern>
+	</servlet-mapping>
+
+	<!-- policy issuance -->
+	<servlet>
+		<servlet-name>OutputController</servlet-name>
+		<servlet-class>com.geniisys.common.controller.OutputController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OutputController</servlet-name>
+		<url-pattern>/OutputController</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>RenewalNoticeController</servlet-name>
+		<servlet-class>com.geniisys.policyissuance.controller.RenewalNoticeController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RenewalNoticeController</servlet-name>
+		<url-pattern>/RenewalNoticeController</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>OnePagerController</servlet-name>
+		<servlet-class>com.geniisys.policyissuance.controller.OnePagerController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OnePagerController</servlet-name>
+		<url-pattern>/OnePagerController</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>NonRenewalController</servlet-name>
+		<servlet-class>com.geniisys.policyissuance.controller.NonRenewalController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>NonRenewalController</servlet-name>
+		<url-pattern>/NonRenewalController</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>BondsReportController</servlet-name>
+		<servlet-class>com.geniisys.policyissuance.controller.BondsReportController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BondsReportController</servlet-name>
+		<url-pattern>/BondsReportController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>BondDetailsController</servlet-name>
+		<servlet-class>com.geniisys.policyissuance.controller.BondDetailsController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BondDetailsController</servlet-name>
+		<url-pattern>/BondDetailsController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ThankYouLetterController</servlet-name>
+		<servlet-class>com.geniisys.policyissuance.controller.ThankYouLetterController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ThankYouLetterController</servlet-name>
+		<url-pattern>/ThankYouLetterController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ConfirmedPolicyController</servlet-name>
+		<servlet-class>com.geniisys.policyissuance.controller.ConfirmedPolicyController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ConfirmedPolicyController</servlet-name>
+		<url-pattern>/ConfirmedPolicyController</url-pattern>
+	</servlet-mapping>
+	<!-- end policy issuance -->
+
+	<!-- claims -->
+	<servlet>
+		<servlet-name>McSwornController</servlet-name>
+		<servlet-class>com.geniisys.claims.controller.McSwornController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>McSwornController</servlet-name>
+		<url-pattern>/McSwornController</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>DemandLetterController</servlet-name>
+		<servlet-class>com.geniisys.claims.controller.DemandLetterController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DemandLetterController</servlet-name>
+		<url-pattern>/DemandLetterController</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>OfferLetterController</servlet-name>
+		<servlet-class>com.geniisys.claims.controller.OfferLetterController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OfferLetterController</servlet-name>
+		<url-pattern>/OfferLetterController</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>TransmittalController</servlet-name>
+		<servlet-class>com.geniisys.claims.controller.TransmittalController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TransmittalController</servlet-name>
+		<url-pattern>/TransmittalController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LossesPaidController</servlet-name>
+		<servlet-class>com.geniisys.claims.controller.LossesPaidController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LossesPaidController</servlet-name>
+		<url-pattern>/LossesPaidController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ClaimsListingController</servlet-name>
+		<servlet-class>com.geniisys.claims.controller.ClaimsListingController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ClaimsListingController</servlet-name>
+		<url-pattern>/ClaimsListingController</url-pattern>
+	</servlet-mapping>
+	<!-- end claims -->
+	
+	<!-- collections -->
+	<servlet>
+		<servlet-name>CommissionFundController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.CommissionFundController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CommissionFundController</servlet-name>
+		<url-pattern>/CommissionFundController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>JvPerUserController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.JvPerUserController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>JvPerUserController</servlet-name>
+		<url-pattern>/JvPerUserController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PaidPremiumsController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.PaidPremiumsController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PaidPremiumsController</servlet-name>
+		<url-pattern>/PaidPremiumsController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ReceiptedDollarAcctController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.ReceiptedDollarAcctController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReceiptedDollarAcctController</servlet-name>
+		<url-pattern>/ReceiptedDollarAcctController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CollectionBreakdownController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.CollectionBreakdownController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CollectionBreakdownController</servlet-name>
+		<url-pattern>/CollectionBreakdownController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>OutstandingAPDCController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.OutstandingAPDCController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OutstandingAPDCController</servlet-name>
+		<url-pattern>/OutstandingAPDCController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>InquiryMetrobankController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.InquiryMetrobankController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InquiryMetrobankController</servlet-name>
+		<url-pattern>/InquiryMetrobankController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SOAperAssdIntmController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.SOAperAssdIntmController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SOAperAssdIntmController</servlet-name>
+		<url-pattern>/SOAperAssdIntmController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>SoaOrixExtController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.SoaOrixExtController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SoaOrixExtController</servlet-name>
+		<url-pattern>/SoaOrixExtController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>IssuedApdcController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.IssuedApdcController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>IssuedApdcController</servlet-name>
+		<url-pattern>/IssuedApdcController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>OsApdcController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.OsApdcController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OsApdcController</servlet-name>
+		<url-pattern>/OsApdcController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>IntertradeCheckReportController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.IntertradeCheckReportController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>IntertradeCheckReportController</servlet-name>
+		<url-pattern>/IntertradeCheckReportController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>UpdateRefNameController</servlet-name>
+		<servlet-class>com.geniisys.collections.controller.UpdateRefNameController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UpdateRefNameController</servlet-name>
+		<url-pattern>/UpdateRefNameController</url-pattern>
+	</servlet-mapping>
+	<!-- end collections -->
+	
+	<!-- underwriting -->
+	<servlet>
+		<servlet-name>CatAccumulationController</servlet-name>
+		<servlet-class>com.geniisys.underwriting.controller.CatAccumulationController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CatAccumulationController</servlet-name>
+		<url-pattern>/CatAccumulationController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PostedPoliciesController</servlet-name>
+		<servlet-class>com.geniisys.underwriting.controller.PostedPoliciesController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PostedPoliciesController</servlet-name>
+		<url-pattern>/PostedPoliciesController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>IssuedBondsController</servlet-name>
+		<servlet-class>com.geniisys.underwriting.controller.IssuedBondsController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>IssuedBondsController</servlet-name>
+		<url-pattern>/IssuedBondsController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PremProductionController</servlet-name>
+		<servlet-class>com.geniisys.underwriting.controller.PremProductionController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PremProductionController</servlet-name>
+		<url-pattern>/PremProductionController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ToyotaDealersController</servlet-name>
+		<servlet-class>com.geniisys.underwriting.controller.ToyotaDealersController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ToyotaDealersController</servlet-name>
+		<url-pattern>/ToyotaDealersController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>BatchGenerationController</servlet-name>
+		<servlet-class>com.geniisys.underwriting.controller.BatchGenerationController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BatchGenerationController</servlet-name>
+		<url-pattern>/BatchGenerationController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PsBankController</servlet-name>
+		<servlet-class>com.geniisys.underwriting.controller.PsBankController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PsBankController</servlet-name>
+		<url-pattern>/PsBankController</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>PamsIssuanceController</servlet-name>
+		<servlet-class>com.geniisys.underwriting.controller.PamsIssuanceController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>PamsIssuanceController</servlet-name>
+		<url-pattern>/PamsIssuanceController</url-pattern>
+	</servlet-mapping>
+	<!-- end underwriting -->
+	
+	<!-- reinsurance -->
+	<servlet>
+		<servlet-name>RiBinderController</servlet-name>
+		<servlet-class>com.geniisys.reinsurance.controller.RiBinderController</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RiBinderController</servlet-name>
+		<url-pattern>/RiBinderController</url-pattern>
+	</servlet-mapping>
+	<!-- end reinsurance -->
+
+</web-app>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RENEW_NIA_TAX_SUB" language="groovy" pageWidth="286" pageHeight="792" columnWidth="286" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a39873fc-c313-467f-b242-a48391320c72">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Arial 9" isDefault="true" isBlankWhenNull="true" fontName="Arial" fontSize="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<parameter name="P_POLICY_ID" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT *
+FROM TABLE(RENEW_NIA_PKG.get_tax_details($P{P_POLICY_ID}))]]>
+	</queryString>
+	<field name="TAX_DESC" class="java.lang.String"/>
+	<field name="TAX_AMT" class="java.math.BigDecimal"/>
+	<field name="PREMIUM" class="java.math.BigDecimal"/>
+	<field name="SHORT_NAME" class="java.lang.String"/>
+	<variable name="V_TOTAL_TAX" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TAX_AMT}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="PREMIUM_1" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREMIUM}]]></variableExpression>
+	</variable>
+	<variable name="TAX_AMT_1" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TAX_AMT}]]></variableExpression>
+	</variable>
+	<variable name="PREMIUM_2" class="java.math.BigDecimal" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREMIUM}]]></variableExpression>
+	</variable>
+	<variable name="CURRENCY" class="java.lang.String">
+		<variableExpression><![CDATA[$F{SHORT_NAME}]]></variableExpression>
+	</variable>
+	<variable name="PREMIUM" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{PREMIUM}+$V{TAX_AMT_1}]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="12">
+			<textField>
+				<reportElement x="156" y="0" width="129" height="12" uuid="5cd4c97c-6bce-4da4-ade8-affa396f0632"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+"AMOUNT"+"</b>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="13">
+			<textField>
+				<reportElement x="0" y="0" width="144" height="12" uuid="0f06b08d-6c8e-4362-913f-8443c0d7eee7"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PREMIUM"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="186" y="12" width="99" height="1" uuid="84c25783-f202-418f-90e7-a5b7f4f6e5c5"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="156" y="0" width="31" height="12" uuid="41e540bb-ee5d-4e02-a482-ec3bf412efef"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SHORT_NAME}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Column" pattern="#,##0.00;-#,##0.00">
+				<reportElement x="187" y="0" width="100" height="12" uuid="98e4b472-3272-4097-b5ba-e7a0c7c3ca92"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PREMIUM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{TAX_DESC}.equals( null )]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00">
+				<reportElement style="Arial 9" x="186" y="0" width="99" height="13" uuid="8fe95213-bb2f-4073-a4b5-93fdf2a7910d"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TAX_AMT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Arial 9" x="0" y="0" width="144" height="13" uuid="eddc83d3-59d9-4bd0-b88f-4873979b1678"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TAX_DESC}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="13">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="99" height="12" isPrintWhenDetailOverflows="true" uuid="393ce898-0d70-467f-b176-2e05df0a471c"/>
+				<textElement markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+"Total Amount Due To Charter Ping An"+"</b>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00">
+				<reportElement x="186" y="0" width="100" height="12" uuid="8e3788b8-ffee-49de-9753-51def80835d0"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PREMIUM}+$V{TAX_AMT_1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="186" y="12" width="99" height="1" uuid="1602c694-1e6d-4986-af6e-685a645442a9"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineStyle="Double"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="187" y="0" width="99" height="1" uuid="50ea11cc-2377-439d-9b1b-e7b5a448d38e"/>
+				<graphicElement>
+					<pen lineWidth="0.5"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="156" y="0" width="31" height="12" uuid="187c5bec-46f9-4691-abe6-10f7b5f6ba04"/>
+				<textElement>
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SHORT_NAME}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

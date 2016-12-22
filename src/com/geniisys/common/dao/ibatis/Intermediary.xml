@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Intermediary">
+
+	<typeAlias alias="Intermediary" type="com.geniisys.common.entity.Intermediary" />
+
+	<resultMap class="com.geniisys.common.entity.Intermediary"
+		id="intmResultMap">
+		<result property="intmNo" column="INTM_NO" />
+		<result property="intmName" column="INTM_NAME" />
+		<result property="intmType" column="INTM_TYPE" />
+	</resultMap>
+
+	<resultMap class="com.geniisys.common.entity.Intermediary"
+		id="intmTypeResultMap">
+		<result property="intmType" column="INTM_TYPE" />
+		<result property="intmName" column="INTM_DESC" />
+	</resultMap>
+
+	<select id="getAllActiveIntermediary" resultMap="intmResultMap">
+		SELECT
+		INTM_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(INTM_NAME,'''',''),'"',''),',',''),CHR(10),''),'\',''))
+		INTM_NAME,INTM_TYPE
+		FROM
+		GIIS_INTERMEDIARY
+		<!-- WHERE ACTIVE_TAG = 'A' -->
+		ORDER BY 2
+	</select>
+
+	<select id="getAllIntermediary" resultMap="intmResultMap">
+		SELECT
+		INTM_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(INTM_NAME,'''',''),'"',''),',',''),CHR(10),''),'\',''))
+		INTM_NAME,INTM_TYPE
+		FROM GIIS_INTERMEDIARY
+		ORDER BY 2
+	</select>
+
+	<select id="getAllDealersIntm" resultMap="intmResultMap">
+		SELECT
+		INTM_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(INTM_NAME,'''',''),'"',''),',',''),CHR(10),''),'\',''))
+		INTM_NAME,INTM_TYPE
+		FROM GIIS_INTERMEDIARY
+		WHERE INTM_TYPE = 'DL'
+		ORDER
+		BY INTM_NO
+	</select>
+
+	<select id="getAllIntmType" resultMap="intmTypeResultMap">
+		SELECT INTM_TYPE,INTM_DESC
+		FROM GIIS_INTM_TYPE
+		ORDER BY 1,2
+	</select>
+
+</sqlMap>

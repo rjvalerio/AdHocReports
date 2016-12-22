@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Branch">
+
+	<typeAlias alias="Branch" type="com.geniisys.common.entity.Branch" />
+
+	<parameterMap class="com.geniisys.common.entity.Branch" id="branchParameterMap">
+		<parameter property="pdfSw" />
+		<parameter property="credPdfSw" />
+		<parameter property="issCd" />
+	</parameterMap>
+
+	<resultMap class="com.geniisys.common.entity.Branch" id="branchResultMap">
+		<result property="issCd" column="ISS_CD" />
+		<result property="issName" column="ISS_NAME" />
+	</resultMap>
+	
+	<resultMap class="com.geniisys.common.entity.Branch" id="branchResultMap2">
+	    <result property="issId" column="ACCT_ISS_CD"/>	
+		<result property="issCd" column="ISS_CD"/>
+		<result property="issName" column="ISS_NAME"/>		
+	</resultMap>
+
+	<!-- <resultMap class="com.geniisys.common.entity.Branch" id="branchResultMap2">
+		<result property="issCd" column="ISS_CD" />
+		<result property="issName" column="ISS_NAME" />
+		<result property="pdfSw" column="PDF_SW" />
+		<result property="credPdfSw" column="CRED_PDF_SW" />
+	</resultMap> -->
+
+	<select id="getAllBranches" resultMap="branchResultMap">
+		SELECT DISTINCT(ISS_CD)
+		"ISS_CD",ISS_NAME FROM GIIS_ISSOURCE ORDER BY 1 ASC
+	</select>
+	
+	<select id="getAllBranches2" resultMap="branchResultMap2">
+		SELECT DISTINCT ACCT_ISS_CD,ISS_CD ,ISS_NAME FROM GIIS_ISSOURCE ORDER BY ISS_CD
+	</select>
+
+	<!-- <select id="getAllBranches2" resultMap="branchResultMap2">
+		SELECT DISTINCT(ISS_CD)
+		"ISS_CD",ISS_NAME,DECODE(PDF_SW,'Y','true','false')PDF_SW,DECODE(CRED_PDF_SW,'Y','true','false')CRED_PDF_SW
+		FROM GIIS_ISSOURCE ORDER BY 1 ASC
+	</select> -->
+
+	<select id="getAllBranches3" resultClass="java.lang.String">
+		<!-- SELECT replace(str,'^',',')str FROM( SELECT (SELECT SUBSTR(SYS_CONNECT_BY_PATH(str, 
+			'^'),2)csv FROM( SELECT str,row_number() over (order by rownum) rn, count 
+			(*) over () cnt from (SELECT '{id:' || rownum || ', data: ["' || a.iss_cd 
+			|| '", "' || a.iss_name || '",' || a.PDF_SW || ',"' || a.CRED_PDF_SW || '"]}' 
+			str from ( SELECT ISS_CD, ISS_NAME,DECODE(PDF_SW, 'Y','true','false')PDF_SW, 
+			DECODE(CRED_PDF_SW,'Y','true','false')CRED_PDF_SW FROM GIIS_ISSOURCE ORDER 
+			BY 2 ASC) a)) WHERE rn = cnt START WITH rn = 1 CONNECT BY rn = PRIOR rn + 
+			1)str FROM DUAL) -->
+		SELECT str || ']}' from(SELECT '{ rows: [' || replace(str,'^',',')str
+		FROM(
+		SELECT (SELECT SUBSTR(SYS_CONNECT_BY_PATH(str, '^'),2)csv FROM(
+		SELECT str,row_number() over (order by rownum) rn, count (*) over () cnt
+		from
+		(SELECT '{id:' || rownum || ', data: ["' || a.iss_cd || '", "' || REPLACE(a.iss_name,'''','`')
+		||
+		'",' || a.PDF_SW || ',"' || a.CRED_PDF_SW || '"]}' str from (
+		SELECT ISS_CD,
+		ISS_NAME,DECODE(PDF_SW,
+		'Y','true','false')PDF_SW,
+		DECODE(CRED_PDF_SW,'Y','true','false')CRED_PDF_SW
+		FROM GIIS_ISSOURCE ORDER BY 2 ASC) a)
+		)
+		WHERE rn = cnt
+		START WITH rn = 1
+		CONNECT BY rn = PRIOR rn + 1)str FROM DUAL))
+	</select>
+	
+	<update id="updateGiisIssource" parameterMap="branchParameterMap">
+		UPDATE GIIS_ISSOURCE
+			SET PDF_SW = ?,
+   				 CRED_PDF_SW = ?
+		WHERE TRIM(ISS_CD) = TRIM(?)
+	</update>
+	
+</sqlMap>

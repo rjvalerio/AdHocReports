@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RENEW_NIA_SIGNATORY" language="groovy" columnCount="3" pageWidth="468" pageHeight="792" columnWidth="156" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="be29b98d-c3df-4ec3-8100-da978f82679c">
+	<property name="ireport.zoom" value="1.6500000000000012"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_REPORT_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM TABLE (RENEW_NIA_PKG.GET_SIGNATORY_DETAILS('RENEW'))]]>
+	</queryString>
+	<field name="SIGNATORY" class="java.lang.String"/>
+	<field name="DESIGNATION" class="java.lang.String"/>
+	<detail>
+		<band height="32">
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="0" width="159" height="16" isRemoveLineWhenBlank="true" uuid="5abbfe6b-f628-4811-ae91-3f5ab97b0efc"/>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font fontName="Arial" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SIGNATORY}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="16" width="159" height="15" isRemoveLineWhenBlank="true" uuid="8b331452-d238-44f0-a76a-1614ad11a0f3"/>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Arial" size="8" isStrikeThrough="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESIGNATION}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

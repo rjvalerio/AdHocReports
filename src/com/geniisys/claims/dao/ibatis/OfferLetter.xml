@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="OfferLetter">
+
+	<parameterMap class="com.geniisys.claims.entity.ClaimNo"
+		id="claimNoParameterMap">
+		<parameter property="lineCd" />
+		<parameter property="sublineCd" />
+		<parameter property="issCd" />
+		<parameter property="clmYy" />
+		<parameter property="clmSeqNo" />
+	</parameterMap>
+	
+	<resultMap class="com.geniisys.claims.entity.OfferLetter" id="offerLetterResultMap">
+		<result property="claimId" column="CLAIM_ID"/>
+	<result property="claimNo" column="CLAIM_NO"/>
+	<result property="assdNo" column="ASSD_NO"/>
+	<result property="accidentOf" column="ACCIDENT_OF"/>
+	<result property="assdName" column="ASSD_NAME"/>
+	<result property="assdAddress" column="ASSD_ADDRESS"/>
+	<result property="userId" column="USER_ID"/>
+	<result property="motorNo" column="MOTOR_NUMBER"/>
+	<result property="plateNo" column="PLATE_NUMBER"/>
+	<result property="serialNo" column="SERIAL_NUMBER"/>
+	<result property="insuredUnit" column="INSURED_UNIT"/>
+	<result property="lossAmt" column="LOSS_AMT"/>
+	<result property="dedAmt" column="DED_AMT"/>
+	<result property="netTotal" column="NET_TOTAL"/>
+	<result property="checkVoucher" column="CHECK_VOUCHER"/>
+	</resultMap>
+
+	<select id="fetchOfferLetter" resultMap="offerLetterResultMap"
+		parameterMap="claimNoParameterMap">
+		SELECT * FROM TABLE(FCLTOTOFFR_PKG.get_fcltotoffr_main(?,?,?,?,?))
+	</select>
+</sqlMap>

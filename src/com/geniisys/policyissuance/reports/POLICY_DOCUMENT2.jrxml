@@ -1,0 +1,1155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="POLICY_DOCUMENT2" pageWidth="532" pageHeight="842" columnWidth="532" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="83422f80-e947-447b-b484-34d1985a5241">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="340"/>
+	<property name="ireport.y" value="902"/>
+	<style name="DialogInput" fontName="DialogInput" fontSize="12">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("1"))]]></conditionExpression>
+			<style fontName="DialogInput" fontSize="10" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("2"))]]></conditionExpression>
+			<style fontName="DialogInput" fontSize="8" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+	</style>
+	<style name="CourierNew" fontName="Courier New" fontSize="9" pdfFontName="Courier">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("1"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="9" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("2"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="7" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier"/>
+		</conditionalStyle>
+	</style>
+	<style name="CourierNewBold" fontName="Courier New" fontSize="9" pdfFontName="Courier-Bold">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("1"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="9" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier-Bold"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("2"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="7" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier-Bold"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="EXTRACT_ID" class="java.lang.Integer"/>
+	<parameter name="REPORT_ID" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\GENIISYS_JASPER_REPORTS\\Geniisys\\src\\com\\geniisys\\policydocs\\reports\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_FONT_SW" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT * FROM TABLE(POLICY_DOCS_PKG.get_report_details($P{EXTRACT_ID}, $P{REPORT_ID}))]]>
+	</queryString>
+	<field name="RV_PAR_PAR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PAR_POLICY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_ENDT_PAR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_ENDT_POLICY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PAR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_POLICY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PAR_HEADER" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_ENDT_HEADER" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_TAX_BREAKDOWN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DISPLAY_POLICY_TERM" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_MORTGAGEE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_ITEM_TOTAL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_PERIL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_RENEWAL_TOP" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DOC_SUBTITLE1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DOC_SUBTITLE2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DOC_SUBTITLE3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DOC_SUBTITLE4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DEDUCTIBLES" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_ACCESSORIES_ABOVE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_WRRNTIES_FONTBIG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_LAST_ENDTXT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_SUB_INFO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DOC_TAX_BREAKDOWN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_PREMIUM_RATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_MORT_AMT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_SUM_INSURED" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_ONE_ITEM_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_REPORT_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_INTM_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DOC_TOTAL_IN_BOX" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DOC_SUBTITLE1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DOC_SUBTITLE2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DOC_SUBTITLE3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DOC_SUBTITLE4" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_INVOICE_POLICY_CURRENCY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DOC_SUBTITLE4_BEFORE_WC" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_TIME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DEDUCTIBLE_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_UPPER_CASE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_SUM_INSURED_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_ITEM_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PERIL_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_GROUPED_BENEFICIARY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_ALL_WARRANTIES" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DEDUCT_TEXT_AMT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_GROUPED_ITEM_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PERSONNEL_ITEM_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PERSONNEL_SUBTITLE1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PERSONNEL_SUBTITLE2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PERSONNEL_SUBTITLE3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_GROUPED_SUBTITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_ATTESTATION_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_REF_POL_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_CURRENCY_DESC" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_PERIL_NAME_LONG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_SHORT_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_NULL_MORTGAGEE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_LEASED_TO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_CENTS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DED_TEXT_PERIL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DISPLAY_ANN_TSI" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DISPLAY_PROPERTY_TYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DISPLAY_REF_POL_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_CA_DEDUCTIBLE_LEVELS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DOC_SIGNATURE_POL1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_SIGNATORY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DOC_SIGNATURE_POL2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_CASUALTY_CO_INSURANCE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_ZERO_PREMIUM" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_LOWER_DTLS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_POLNO_ENDT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_TSI_LABEL1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_TSI_LABEL2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_INCLUDE_TSI" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_SUM_INSURED_TITLE2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_POLICY_SIGLABEL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_AUTHORIZED_SIGNATORY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DED_TWICE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_ACC_TSI" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_BLOCK_DESCRIPTION" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_CONSTRUCTION_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_CONSTR_REMARKS_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_OCCUPANCY_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_OCCUPANCY_REMARKS_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_BOUNDARY_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_DISTRICT_BLOCK" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_ZONE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_PRINT_TARIFF_ZONE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DOC_ATTESTATION1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RV_DOC_ATTESTATION2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_HEADER" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_REPORT_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_DASH" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ASSURED_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_ASSD_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PAR_POLICY_LABEL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_PREM_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_PREM_TITLE_SHORT_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PREM_LABEL_AMOUNT" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_ACCT_OF_CD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_CURRENCY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_AMOUNT_DUE_TITLE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_AMOUNT_DUE_SHORT_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_TSI_LABEL1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_TSI_AMT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_TSI_LABEL2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_ACC_SUM" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_PREMIUM_AMT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_TAX_AMT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_OTHER_CHARGES" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_TOTAL_TSI" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_CURRENCY_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_BASIC_TSI_SPELL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_TOTAL_IN_WORDS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_ACC_SUM_WORD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="F_RENEWAL" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PAR_SEQ_NO1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EXTRACT_ID1" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PAR_ID" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="POLICY_NUMBER" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PAR_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PAR_ORIG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LINE_LINE_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUBLINE_SUBLINE_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUBLINE_SUBLINE_CD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUBLINE_LINE_CD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_INCEPT_DATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_EXPIRY_DATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_EXPIRY_TAG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_ISSUE_DATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_TSI_AMT" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUBLINE_SUBLINE_TIME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_ACCT_OF_CD" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_MORTG_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_ASSD_NO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADDRESS1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADDRESS2" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADDRESS3" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_ADDR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_POL_FLAG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_LINE_CD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_REF_POL_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_ASSD_NO2" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LABEL_TAG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="LABEL_TAG1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ENDT_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="POL_ENDT_NO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ENDT_EXPIRY_DATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_EFF_DATE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EFF_DATE" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ENDT_EXPIRY_TAG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_INCEPT_TAG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_SUBLINE_CD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_ISS_CD" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_ISSUE_YY" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_POL_SEQ_NO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_RENEW_NO" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_EFF_TIME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_ENDT_EXPIRY_TIME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PAR_PAR_TYPE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PAR_PAR_STATUS" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BASIC_CO_INSURANCE_SW" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="USERNAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SUBLINE_OPEN_POLICY" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CRED_BR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ASSD_NAME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="IN_ACCT_OF" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SHOW_DEDUCTIBLE_TEXT" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SHOW_POLGENIN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SHOW_PERILS" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SHOW_POLGENIN_GEN_INFO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SHOW_ITEM" class="java.lang.String"/>
+	<field name="SHOW_PERILS2" class="java.lang.String"/>
+	<field name="F_SIGNATORY_HEADER" class="java.lang.String"/>
+	<field name="F_SIGNATORY_TEXT1" class="java.lang.String"/>
+	<field name="F_SIGNATORY_TEXT2" class="java.lang.String"/>
+	<field name="F_COMPANY" class="java.lang.String"/>
+	<field name="F_SIGNATORY" class="java.lang.String"/>
+	<field name="F_DESIGNATION" class="java.lang.String"/>
+	<field name="F_USER" class="java.lang.String"/>
+	<field name="F_INTM_NO" class="java.lang.String"/>
+	<field name="F_INTM_NAME" class="java.lang.String"/>
+	<field name="F_REF_INV_NO" class="java.lang.String"/>
+	<field name="F_POLICY_ID" class="java.lang.Integer"/>
+	<field name="F_MOP_MAP_WORDINGS" class="java.lang.String"/>
+	<field name="SHOW_WARR_AND_CLAUSES" class="java.lang.String"/>
+	<field name="RV_SURVEY_TITLE" class="java.lang.String"/>
+	<field name="RV_SURVEY_WORDINGS" class="java.lang.String"/>
+	<field name="RV_PRINT_SURVEY_SETTLING_AGENT" class="java.lang.String"/>
+	<field name="RV_PRINT_MOP_DEDUCTIBLES" class="java.lang.String"/>
+	<field name="RV_PRINT_GEN_INFO_ABOVE" class="java.lang.String"/>
+	<field name="SHOW_INTM_NO" class="java.lang.String"/>
+	<field name="SHOW_INTM_NAME" class="java.lang.String"/>
+	<field name="RV_DOC_SUBTITLE5" class="java.lang.String"/>
+	<field name="RV_PRINT_DOC_SUBTITLE5" class="java.lang.String"/>
+	<field name="RV_PRINT_DED_TEXT_ONLY" class="java.lang.String"/>
+	<field name="SHOW_PAR_NO" class="java.lang.String"/>
+	<field name="SHOW_CRED_BR" class="java.lang.String"/>
+	<field name="SHOW_POLICY_ID" class="java.lang.String"/>
+	<field name="F_SIGNATURE_IMG" class="java.lang.String"/>
+	<field name="RV_SHOW_SIGNATURE" class="java.lang.String"/>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean (("Y".equals($F{SHOW_POLGENIN})) && ("Y".equals($F{RV_PRINT_GEN_INFO_ABOVE})) && (!("N".equals($F{RV_PRINT_DOC_SUBTITLE3}))) && ("MARINE_CARGO".equals($P{REPORT_ID})))]]></printWhenExpression>
+			<subreport>
+				<reportElement x="20" y="11" width="512" height="13" uuid="b497cdd0-f284-4ad8-a8af-8122976e0d07"/>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EXTRACT_ID">
+					<subreportParameterExpression><![CDATA[$P{EXTRACT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOC_SUBTITLE3">
+					<subreportParameterExpression><![CDATA[$F{RV_DOC_SUBTITLE3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "POLGENIN_GEN_INFO.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="25">
+			<printWhenExpression><![CDATA[new Boolean ((("Y".equals($F{RV_PRINT_MOP_DEDUCTIBLES})) && (!("E".equals($F{PAR_PAR_TYPE}))) && ("MARINE_CARGO".equals($P{REPORT_ID})))
+    || (("MARINE_HULL".equals($P{REPORT_ID})) && ("Y".equals($F{RV_PRINT_DED_TEXT_ONLY}))))]]></printWhenExpression>
+			<subreport>
+				<reportElement x="0" y="0" width="532" height="25" uuid="73786515-c6de-4498-91bd-015484730bef"/>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EXTRACT_ID">
+					<subreportParameterExpression><![CDATA[$P{EXTRACT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DEDUCTIBLE_TITLE">
+					<subreportParameterExpression><![CDATA[$F{RV_DEDUCTIBLE_TITLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "DEDUCTIBLE_TEXT.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="12" splitType="Prevent">
+			<printWhenExpression><![CDATA[new Boolean($F{SHOW_PERILS}.equals("Y") ? true : false)]]></printWhenExpression>
+			<subreport>
+				<reportElement mode="Transparent" x="0" y="0" width="532" height="12" isRemoveLineWhenBlank="true" backcolor="#FFFFFF" uuid="dfac57aa-cba8-4fe6-9e79-b95536d4222c"/>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_PERIL_TITLE">
+					<subreportParameterExpression><![CDATA[$F{RV_PERIL_TITLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_REPORT_ID">
+					<subreportParameterExpression><![CDATA[$P{REPORT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_DOC_SUBTITLE4">
+					<subreportParameterExpression><![CDATA[$F{RV_DOC_SUBTITLE4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_DOC_SUBTITLE5">
+					<subreportParameterExpression><![CDATA[$F{RV_DOC_SUBTITLE5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_EXTRACT_ID">
+					<subreportParameterExpression><![CDATA[$P{EXTRACT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PERILS.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="12">
+			<printWhenExpression><![CDATA[new Boolean (("Y".equals($F{RV_PRINT_SURVEY_SETTLING_AGENT})) && ("P".equals($F{PAR_PAR_TYPE})) && ("MARINE_CARGO".equals($P{REPORT_ID})))]]></printWhenExpression>
+			<subreport>
+				<reportElement x="10" y="0" width="522" height="12" uuid="9074e513-c410-49d5-aa05-41291c8ab7de"/>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EXTRACT_ID">
+					<subreportParameterExpression><![CDATA[$P{EXTRACT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="RV_SURVEY_TITLE">
+					<subreportParameterExpression><![CDATA[$F{RV_SURVEY_TITLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="RV_SURVEY_WORDINGS">
+					<subreportParameterExpression><![CDATA[$F{RV_SURVEY_WORDINGS}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "SURVEY.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="52" splitType="Prevent">
+			<printWhenExpression><![CDATA[new Boolean ($F{RV_PRINT_DOC_SUBTITLE2}.equals("N") || $F{SHOW_WARR_AND_CLAUSES}.equals("N") ? false : true)]]></printWhenExpression>
+			<textField>
+				<reportElement style="CourierNewBold" x="10" y="20" width="522" height="12" uuid="028ed934-b9f0-49d1-8d39-3fe1c4d60480"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RV_DOC_SUBTITLE2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" x="0" y="0" width="532" height="12" uuid="edfee0d6-ec11-4b6f-9a34-1b4e48514061"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="20" y="40" width="512" height="12" isRemoveLineWhenBlank="true" uuid="f450f5d3-047e-4644-955f-6da1d709df2d"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PRINT_ALL_WARRANTIES">
+					<subreportParameterExpression><![CDATA[$F{RV_PRINT_ALL_WARRANTIES}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="PRINT_WRRNTIES_FONTBIG">
+					<subreportParameterExpression><![CDATA[$F{RV_PRINT_WRRNTIES_FONTBIG}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EXTRACT_ID">
+					<subreportParameterExpression><![CDATA[$P{EXTRACT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "WARRANTY_AND_CLAUSES.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="10" y="36" width="522" height="1" uuid="100adef5-e521-4e78-8599-5114c73ffdf2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement x="10" y="16" width="522" height="1" uuid="0c54a13a-6fb0-4744-84c7-2da1f1d4502f"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineStyle="Solid"/>
+				</graphicElement>
+			</line>
+		</band>
+		<band height="12">
+			<printWhenExpression><![CDATA[new Boolean ($F{RV_PRINT_DOC_SUBTITLE2}.equals("N") || $F{SHOW_WARR_AND_CLAUSES}.equals("N") ? false : ($F{RV_PRINT_WRRNTIES_FONTBIG}.equals("N") ? true : false))]]></printWhenExpression>
+			<subreport>
+				<reportElement x="10" y="0" width="522" height="12" uuid="ba0536a8-90a8-4a2d-9d93-ca66553e54c1"/>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EXTRACT_ID">
+					<subreportParameterExpression><![CDATA[$P{EXTRACT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "WC_DETAILS1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="12">
+			<printWhenExpression><![CDATA[new Boolean ($F{RV_PRINT_DOC_SUBTITLE2}.equals("N") || $F{SHOW_WARR_AND_CLAUSES}.equals("N") ? false : ($F{RV_PRINT_WRRNTIES_FONTBIG}.equals("Y") ? true : false))]]></printWhenExpression>
+			<subreport>
+				<reportElement x="10" y="0" width="522" height="12" uuid="a71aa51f-c572-4860-8887-4290fa0ce20e"/>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EXTRACT_ID">
+					<subreportParameterExpression><![CDATA[$P{EXTRACT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "WC_DETAILS2.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="24">
+			<printWhenExpression><![CDATA[new Boolean ($F{RV_PRINT_LAST_ENDTXT}.equals("Y") && ($F{PAR_PAR_TYPE}.equals("E") && $F{PAR_PAR_STATUS}.intValue() == 10 && !($F{BASIC_POL_FLAG}.equals("4")) ? true : false))]]></printWhenExpression>
+			<staticText>
+				<reportElement style="CourierNew" x="0" y="12" width="532" height="12" uuid="251ab966-b510-4ff4-b7f8-b7ab5a443263"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[EXCEPT AS HEREIN VARIED, ALL OTHER TERMS AND CONDITIONS REMAIN THE SAME. ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" x="0" y="0" width="532" height="12" uuid="ac7ba5a7-dd15-408a-a29b-b3b00dcff0ec"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+		<band height="24">
+			<printWhenExpression><![CDATA[new Boolean ($F{SHOW_POLGENIN_GEN_INFO}.equals("Y") ? true : false)]]></printWhenExpression>
+			<subreport>
+				<reportElement x="10" y="0" width="522" height="12" uuid="7177e512-0908-4db3-acc1-221fec3a1efb"/>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EXTRACT_ID">
+					<subreportParameterExpression><![CDATA[$P{EXTRACT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DOC_SUBTITLE3">
+					<subreportParameterExpression><![CDATA[$F{RV_DOC_SUBTITLE3}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "POLGENIN_GEN_INFO.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="62">
+			<printWhenExpression><![CDATA[new Boolean ($F{BASIC_CO_INSURANCE_SW}.intValue() == 2 ? true : false)]]></printWhenExpression>
+			<staticText>
+				<reportElement style="CourierNew" x="10" y="0" width="522" height="12" uuid="d1b8ca8a-86ba-4926-8fd6-c76cb35520fc"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement style="CourierNewBold" x="20" y="18" width="512" height="12" uuid="7beab497-4d87-42e3-96cc-820f9b77a7ef"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RV_ATTESTATION_TITLE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" x="20" y="50" width="512" height="12" isRemoveLineWhenBlank="true" uuid="9c229065-9e30-4c97-8d58-d594cfada447"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RV_DOC_ATTESTATION1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="18" y="34" width="512" height="1" isPrintWhenDetailOverflows="true" uuid="0e3e96f2-8333-4aaf-b333-aa1e8df0ac81"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="18" y="13" width="512" height="1" isPrintWhenDetailOverflows="true" uuid="bbdf3273-d4e4-4406-a77a-870ba731d30f"/>
+			</line>
+		</band>
+		<band height="36">
+			<printWhenExpression><![CDATA[new Boolean ($F{BASIC_CO_INSURANCE_SW}.intValue() == 2 ? true : false)]]></printWhenExpression>
+			<staticText>
+				<reportElement style="CourierNew" x="10" y="0" width="522" height="12" uuid="c8e04bb4-be76-4ce3-9e8a-040320e456db"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" x="20" y="12" width="512" height="12" isRemoveLineWhenBlank="true" uuid="53bc156a-1627-413c-a55a-7f4d9850dfa2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RV_DOC_ATTESTATION2}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="20">
+			<printWhenExpression><![CDATA[new Boolean ($F{PAR_PAR_STATUS}.intValue() == 10 && $F{BASIC_CO_INSURANCE_SW}.intValue() == 2 ? true : false)]]></printWhenExpression>
+			<staticText>
+				<reportElement style="CourierNew" x="20" y="0" width="200" height="12" uuid="7729327c-ea7b-4186-ad67-3eaea494e2ba"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[COMPANY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" x="382" y="0" width="150" height="12" uuid="a871ab1d-3378-49e3-a58c-69ea09731da3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[AUTHORIZED SIGNATURE]]></text>
+			</staticText>
+			<line>
+				<reportElement x="21" y="17" width="199" height="1" uuid="df1aeeb4-78fa-4970-8d0b-4bd8a15a0f55"/>
+			</line>
+			<line>
+				<reportElement x="329" y="16" width="199" height="1" uuid="b06543c5-331c-4bfe-8a9f-8fb5fa1aff3f"/>
+			</line>
+		</band>
+		<band height="24">
+			<printWhenExpression><![CDATA[new Boolean ($F{BASIC_CO_INSURANCE_SW}.intValue() == 2 ? true : false)]]></printWhenExpression>
+			<subreport>
+				<reportElement x="20" y="0" width="512" height="12" uuid="5f3e7707-3f81-496e-997c-5c96892a9a50"/>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="EXTRACT_ID">
+					<subreportParameterExpression><![CDATA[$P{EXTRACT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "CO_INSURANCE.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="12" splitType="Prevent">
+			<printWhenExpression><![CDATA[new Boolean ($F{SHOW_PERILS2}.equals("Y") && $F{SHOW_ITEM}.equals("Y") ? true : false)]]></printWhenExpression>
+			<subreport>
+				<reportElement style="CourierNew" x="0" y="0" width="532" height="12" isRemoveLineWhenBlank="true" uuid="f5bf7e7b-e518-4fdd-8484-96ac6076b01a"/>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_PERIL_TITLE">
+					<subreportParameterExpression><![CDATA[$F{RV_PERIL_TITLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_REPORT_ID">
+					<subreportParameterExpression><![CDATA[$P{REPORT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_DOC_SUBTITLE4">
+					<subreportParameterExpression><![CDATA[$F{RV_DOC_SUBTITLE4}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_DOC_SUBTITLE5">
+					<subreportParameterExpression><![CDATA[$F{RV_DOC_SUBTITLE5}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_EXTRACT_ID">
+					<subreportParameterExpression><![CDATA[$P{EXTRACT_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "PERILS.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="24" splitType="Prevent">
+			<printWhenExpression><![CDATA[new Boolean (($F{RV_PRINT_RENEWAL_TOP}.equals("Y") && $F{BASIC_POL_FLAG}.equals("2") && $F{F_RENEWAL} != null) ? true : false)]]></printWhenExpression>
+			<staticText>
+				<reportElement style="CourierNew" x="0" y="0" width="532" height="12" uuid="199b5106-223d-4fce-b95e-4c650aa2b732"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" x="0" y="12" width="194" height="12" forecolor="#000000" uuid="806d5eb6-560f-4867-960a-734315f3c09d"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[This is a renewal for Policy No.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement style="CourierNew" x="194" y="12" width="338" height="12" forecolor="#000000" uuid="a1ccbdb6-45ec-44b0-9571-89c8dc642693"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_RENEWAL}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="40">
+			<printWhenExpression><![CDATA[new Boolean ($F{F_SIGNATORY_HEADER} != null ? true : false)]]></printWhenExpression>
+			<staticText>
+				<reportElement style="CourierNew" x="0" y="0" width="532" height="12" uuid="1dffc859-d927-4021-b6ec-7b6b27bc7b64"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="CourierNew" x="20" y="19" width="512" height="12" isRemoveLineWhenBlank="true" forecolor="#000000" uuid="874aeb37-3416-4dd5-8a3a-eafb9f5ca7da"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_SIGNATORY_HEADER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="19" y="35" width="512" height="1" isPrintWhenDetailOverflows="true" uuid="5b1bcf05-3518-4874-b073-b54c7f6b18b4"/>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="20" y="14" width="512" height="1" isPrintWhenDetailOverflows="true" uuid="3532d762-2876-45aa-8c93-60f8519066b0"/>
+			</line>
+		</band>
+		<band height="40">
+			<printWhenExpression><![CDATA[new Boolean ((!("E".equals($F{PAR_PAR_TYPE}))) && ($F{F_MOP_MAP_WORDINGS} != null) && ("MARINE_CARGO".equals($P{REPORT_ID})))]]></printWhenExpression>
+			<line>
+				<reportElement style="CourierNewBold" x="20" y="5" width="512" height="1" uuid="01bce789-19b0-4d9e-88a9-c5f8d8125f28"/>
+			</line>
+			<staticText>
+				<reportElement style="CourierNewBold" x="20" y="11" width="97" height="12" uuid="b0eee772-0bdf-42c6-9398-54549fa1c99c"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[IMPORTANT NOTICES :]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="CourierNewBold" stretchType="RelativeToBandHeight" x="20" y="26" width="512" height="14" uuid="681267a6-83c3-4553-8159-c7cd2a53136f"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_MOP_MAP_WORDINGS}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="12">
+			<printWhenExpression><![CDATA[new Boolean ((!("E".equals($F{PAR_PAR_TYPE}))) && ($F{F_MOP_MAP_WORDINGS} != null) && ("MARINE_CARGO".equals($P{REPORT_ID})))]]></printWhenExpression>
+			<line>
+				<reportElement positionType="Float" x="20" y="6" width="512" height="1" isPrintWhenDetailOverflows="true" uuid="ed6cc3fa-7cb2-4c74-b804-5503360982c8"/>
+			</line>
+		</band>
+		<band height="37" splitType="Prevent">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="true">
+				<reportElement style="CourierNew" x="20" y="12" width="512" height="12" isRemoveLineWhenBlank="true" forecolor="#000000" uuid="06392215-277e-4776-8beb-f2eee0d35a09"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_SIGNATORY_TEXT1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" x="0" y="24" width="532" height="12" uuid="341b99fc-40de-427d-bd5a-cfaa651f153e"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+		<band height="99" splitType="Stretch">
+			<frame>
+				<reportElement x="9" y="1" width="523" height="98" uuid="1e141e99-d3f3-4b44-8826-bb6bb9a8f3c5"/>
+				<frame>
+					<reportElement positionType="Float" x="0" y="0" width="222" height="96" isRemoveLineWhenBlank="true" uuid="af73620c-3d0a-40f4-8226-d4f28076a70f"/>
+					<frame>
+						<reportElement positionType="Float" x="0" y="0" width="222" height="12" isRemoveLineWhenBlank="true" uuid="53e460e6-4f4c-47a2-8c51-425b70f2df68">
+							<printWhenExpression><![CDATA[new Boolean ($F{PAR_PAR_STATUS} != new Integer(10) ? true : ($F{RV_PRINT_LOWER_DTLS}.equals("Y") ? true : false))]]></printWhenExpression>
+						</reportElement>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="10" y="0" width="212" height="12" isRemoveLineWhenBlank="true" uuid="9f0604de-a1df-4530-8f9b-754d31c82af5"/>
+							<textElement markup="html">
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{F_SIGNATORY_TEXT2}.equals(null) || $F{F_SIGNATORY_TEXT2}.equals("")?$F{F_SIGNATORY_TEXT2} : $F{F_SIGNATORY_TEXT2}+"<br><br>"]]></textFieldExpression>
+						</textField>
+					</frame>
+					<frame>
+						<reportElement positionType="Float" x="0" y="12" width="222" height="12" isRemoveLineWhenBlank="true" uuid="7f6fd51c-b789-4990-a18d-f78438542512">
+							<printWhenExpression><![CDATA[new Boolean ($F{PAR_PAR_STATUS} != new Integer(10) ? ($F{PAR_PAR_STATUS}.intValue() != 10 ? ($F{RV_PRINT_LOWER_DTLS}.equals("Y") ? true : false) : true) : ($F{RV_PRINT_LOWER_DTLS}.equals("Y") ? true : false))]]></printWhenExpression>
+						</reportElement>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="0" y="0" width="222" height="12" uuid="27e3709e-50ef-4e7d-b61c-f8e8616154cf"/>
+							<textElement>
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{F_USER}]]></textFieldExpression>
+						</textField>
+					</frame>
+					<frame>
+						<reportElement positionType="Float" x="0" y="24" width="222" height="12" isRemoveLineWhenBlank="true" uuid="6868720b-9998-425c-bfbc-7136191772cc">
+							<printWhenExpression><![CDATA[new Boolean($F{SHOW_INTM_NO}.equals("Y") ? true : false)]]></printWhenExpression>
+						</reportElement>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="0" y="0" width="222" height="12" uuid="85f81a6d-6d5c-4b2e-814f-50cce0d8778b"/>
+							<textElement>
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{F_INTM_NO}]]></textFieldExpression>
+						</textField>
+					</frame>
+					<frame>
+						<reportElement positionType="Float" x="0" y="48" width="222" height="12" isRemoveLineWhenBlank="true" uuid="70662f8a-8f2b-405f-b2aa-c975a1f07e42">
+							<printWhenExpression><![CDATA[new Boolean ($F{PAR_PAR_STATUS}.intValue() == 10 || $F{PAR_PAR_STATUS}.intValue() == 99 ? ($F{F_REF_INV_NO} != null ? true : false) : false)]]></printWhenExpression>
+						</reportElement>
+						<staticText>
+							<reportElement positionType="Float" x="0" y="0" width="72" height="12" uuid="a90f86ff-4fd1-46b3-af8c-0e52a587b0a4"/>
+							<textElement>
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<text><![CDATA[Ref. Inv. No.]]></text>
+						</staticText>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="72" y="0" width="150" height="12" uuid="037ebe37-1434-44bf-999c-58570d592019"/>
+							<textElement>
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{F_REF_INV_NO}]]></textFieldExpression>
+						</textField>
+					</frame>
+					<frame>
+						<reportElement positionType="Float" x="0" y="36" width="222" height="12" isRemoveLineWhenBlank="true" uuid="337a7fba-7db3-4882-b636-176007ce8d52">
+							<printWhenExpression><![CDATA[new Boolean($F{SHOW_INTM_NAME}.equals("Y") ? true : false)]]></printWhenExpression>
+						</reportElement>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="0" y="0" width="222" height="12" isRemoveLineWhenBlank="true" uuid="a8af4b55-a8bd-4bf2-9cd4-3331d274bf4c">
+								<printWhenExpression><![CDATA[$F{SHOW_INTM_NAME}.equalsIgnoreCase("Y")]]></printWhenExpression>
+							</reportElement>
+							<textElement>
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{F_INTM_NAME}]]></textFieldExpression>
+						</textField>
+					</frame>
+					<frame>
+						<reportElement positionType="Float" x="0" y="60" width="222" height="12" isRemoveLineWhenBlank="true" uuid="58ef283b-7606-4c25-a7c5-46241aa55e6f">
+							<printWhenExpression><![CDATA[new Boolean ($P{REPORT_ID}.equals("OTHER") ? true : $F{SHOW_PAR_NO}.equals("Y") ?  true : false)]]></printWhenExpression>
+						</reportElement>
+						<staticText>
+							<reportElement positionType="Float" x="0" y="0" width="72" height="12" uuid="3ea4030e-d9ed-45a7-a6b0-d31a84bf1e4d"/>
+							<textElement>
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<text><![CDATA[PAR No.]]></text>
+						</staticText>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="72" y="0" width="150" height="12" uuid="f8ae52c4-d7b8-4acb-afa5-7cc84459b6bb"/>
+							<textElement textAlignment="Left">
+								<font fontName="Arial" size="8" isBold="true" pdfFontName="Courier-Bold"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{PAR_ORIG}]]></textFieldExpression>
+						</textField>
+					</frame>
+					<frame>
+						<reportElement positionType="Float" x="0" y="72" width="222" height="12" isRemoveLineWhenBlank="true" uuid="3e541a2f-b506-4e1a-a7e1-b6ea133b5e71">
+							<printWhenExpression><![CDATA[new Boolean ($F{SHOW_CRED_BR}.equals("Y") ? true : false)]]></printWhenExpression>
+						</reportElement>
+						<staticText>
+							<reportElement positionType="Float" x="0" y="0" width="72" height="12" uuid="51f42953-7119-48cd-9cb8-295e8daee645"/>
+							<textElement>
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<text><![CDATA[Cred. Br.   :]]></text>
+						</staticText>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="72" y="0" width="150" height="12" uuid="8734a1b1-4d8e-4786-96f2-c1852c3165d9"/>
+							<textElement>
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{CRED_BR}]]></textFieldExpression>
+						</textField>
+					</frame>
+					<frame>
+						<reportElement positionType="Float" x="0" y="84" width="222" height="12" isRemoveLineWhenBlank="true" uuid="59ef791d-d739-4798-9d7a-6f07bc53c8e7">
+							<printWhenExpression><![CDATA[new Boolean ($F{SHOW_POLICY_ID}.equals("Y") ?  true : false)]]></printWhenExpression>
+						</reportElement>
+						<staticText>
+							<reportElement positionType="Float" x="0" y="0" width="72" height="12" uuid="b473f9b9-bc4a-46bf-83e3-22b1f68d5a55"/>
+							<textElement>
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<text><![CDATA[Policy ID   :]]></text>
+						</staticText>
+						<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+							<reportElement positionType="Float" x="72" y="0" width="150" height="12" uuid="fb186974-685a-4793-98b0-aacadbab9a68"/>
+							<textElement>
+								<font fontName="Arial" size="8" pdfFontName="Courier"/>
+							</textElement>
+							<textFieldExpression><![CDATA[$F{F_POLICY_ID}]]></textFieldExpression>
+						</textField>
+					</frame>
+				</frame>
+				<staticText>
+					<reportElement positionType="Float" x="320" y="73" width="177" height="12" uuid="d4741c81-52be-4d26-8520-1c28238e9d01"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[DIVISION HEAD OF UNDERWRITING]]></text>
+				</staticText>
+				<line>
+					<reportElement positionType="Float" x="320" y="73" width="177" height="1" uuid="126ffa3d-0b01-4526-8e3c-3b04395f57db"/>
+				</line>
+				<staticText>
+					<reportElement positionType="Float" x="292" y="0" width="231" height="12" uuid="b0f341a2-d716-43fd-9dc1-2cf93515b79d"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CHARTER PING AN INSURANCE CORPORATION]]></text>
+				</staticText>
+				<textField>
+					<reportElement positionType="Float" x="320" y="60" width="177" height="12" uuid="e0245ec7-c9b8-44ac-aa19-b36d46d00947"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["EDWIN V. SALVAN"]]></textFieldExpression>
+				</textField>
+				<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle" isUsingCache="true">
+					<reportElement positionType="Float" x="361" y="24" width="97" height="36" uuid="da8f93be-8583-46ce-931c-014121dd4fbe"/>
+					<imageExpression><![CDATA["\\\\10.20.39.145\\c$\\GENIISYS_WEB\\REPORTS\\IMAGES\\test\\0000012_-_signature_edwin.jpg"]]></imageExpression>
+				</image>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

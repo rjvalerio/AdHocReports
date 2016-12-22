@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RENEW_NIA_BODY_SUB" language="groovy" pageWidth="378" pageHeight="792" columnWidth="378" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="a39873fc-c313-467f-b242-a48391320c72">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="13"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Arial 9" isDefault="true" isBlankWhenNull="true" fontName="Arial" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<parameter name="P_POLICY_ID" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_SHORT_NAME" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM TABLE(RENEW_NIA_PKG.get_peril_details($P{P_POLICY_ID}))]]>
+	</queryString>
+	<field name="PERIL_NAME" class="java.lang.String"/>
+	<field name="SUM_INSURED" class="java.math.BigDecimal"/>
+	<field name="PREMIUM" class="java.math.BigDecimal"/>
+	<variable name="V_TOTAL_PREMIUM" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREMIUM}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="V_TOTAL_TAX" class="java.math.BigDecimal" resetType="None">
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="variable1" class="java.math.BigDecimal">
+		<initialValueExpression><![CDATA[new BigDecimal(0.00)]]></initialValueExpression>
+	</variable>
+	<pageHeader>
+		<band height="13">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="13" uuid="2857f504-cd04-4d33-a607-52e659afa46e">
+					<printWhenExpression><![CDATA[!$F{PERIL_NAME}.equals( null )]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERILS]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement isPrintRepeatedValues="false" x="183" y="0" width="111" height="13" uuid="cfddece4-21f0-4a16-918d-37794b6bae1b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SUM INSURED("+$P{P_SHORT_NAME}+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<frame>
+				<reportElement positionType="Float" x="0" y="0" width="378" height="13" uuid="b2c7eccd-53bb-40c3-8218-1d4cd49113a0"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Arial 9" x="0" y="0" width="157" height="13" uuid="eddc83d3-59d9-4bd0-b88f-4873979b1678"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{PERIL_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00">
+					<reportElement style="Arial 9" x="194" y="0" width="100" height="13" uuid="8fe95213-bb2f-4073-a4b5-93fdf2a7910d"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{SUM_INSURED}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

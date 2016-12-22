@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Signatory">
+
+	<resultMap class="com.geniisys.common.entity.Signatory" id="signResultMap">
+		<result property="signatoryId" column="SIGNATORY_ID"/>
+		<result property="signatory" column="SIGNATORY"/>
+		<result property="status" column="STATUS"/>	
+		<result property="designation" column="DESIGNATION"/>	
+		<result property="fileName" column="FILE_NAME"/>
+	</resultMap>
+
+	<select id="getAllActive" resultMap="signResultMap">
+	    SELECT * FROM GIIS_SIGNATORY_NAMES
+			WHERE STATUS = 1
+			ORDER BY 2
+	</select>
+	
+</sqlMap>

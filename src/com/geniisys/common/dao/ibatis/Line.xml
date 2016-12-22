@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Line">
+
+	<typeAlias alias="Line" type="com.geniisys.common.entity.Line"/>
+	
+	<resultMap class="com.geniisys.common.entity.Line" id="lineResultMap">
+		<result property="lineCd" column="LINE_CD"/>
+		<result property="lineName" column="LINE_NAME"/>		
+	</resultMap>
+	
+	<select id="getAllLines" resultMap="lineResultMap">
+		SELECT DISTINCT(LINE_CD) "LINE_CD",line_name FROM GIIS_LINE ORDER BY LINE_CD ASC
+	</select>
+	
+</sqlMap>

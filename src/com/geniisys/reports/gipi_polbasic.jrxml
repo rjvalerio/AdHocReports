@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gipi_polbasic" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4ad8f044-f8c7-4318-927d-cc278386ec54">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_POLICY_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT POLICY_ID,LINE_CD,SUBLINE_CD,ISS_CD FROM GIPI_POLBASIC WHERE POLICY_ID = $P{P_POLICY_ID}]]>
+	</queryString>
+	<field name="POLICY_ID" class="java.math.BigDecimal"/>
+	<field name="LINE_CD" class="java.lang.String"/>
+	<field name="SUBLINE_CD" class="java.lang.String"/>
+	<field name="ISS_CD" class="java.lang.String"/>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b2f93760-358c-47f6-9ea2-3465d65d6dd2" x="0" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[POLICY_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0c7ede85-4a15-48d3-b24e-a0db8ed5aace" x="133" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[LINE_CD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="eb663d2b-942d-44e6-a768-b86423e90fe2" x="279" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[SUBLINE_CD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2d3ec0f6-6456-4403-aeed-116336e10530" x="420" y="41" width="100" height="20"/>
+				<textElement/>
+				<text><![CDATA[ISS_CD]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement uuid="fa9f4afb-93a6-4145-a590-65cd74dee7fa" x="0" y="5" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{POLICY_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="42f29ced-fca6-416d-a85c-cb666f275ace" x="133" y="5" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{LINE_CD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="10b55170-48c1-445f-b40a-d92efa0f48a5" x="279" y="5" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{SUBLINE_CD}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0d1a60ec-e244-4f51-865b-d06683fb0a47" x="420" y="5" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ISS_CD}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+</jasperReport>

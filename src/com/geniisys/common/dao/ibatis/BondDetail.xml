@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BondDetail">
+
+	<select id="getBondDetail" parameterClass="java.lang.Integer"
+		resultClass="java.lang.String">
+		SELECT TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(BOND_DTL,'''',''),'"',''),',',''),CHR(10),''),'\','')) BOND_DTL
+		FROM GIPI_BOND_BASIC
+		WHERE POLICY_ID = #val#
+	</select>
+
+	<update id="updateBondDetail" parameterClass="java.util.HashMap">
+		UPDATE
+		GIPI_BOND_BASIC
+		SET BOND_DTL = #bondDtl#
+		WHERE POLICY_ID = #policyId#
+	</update>
+
+</sqlMap>

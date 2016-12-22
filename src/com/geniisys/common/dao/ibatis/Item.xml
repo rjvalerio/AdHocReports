@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Item">
+
+	<typeAlias alias="Item" type="com.geniisys.common.entity.Item"/>
+	
+	<resultMap class="com.geniisys.common.entity.Item" id="itemResultMap">
+		<result property="extractId" column="EXTRACT_ID"/>
+		<result property="itemNo" column="ITEM_NO"/>
+		<result property="itemTitle" column="ITEM_TITLE"/>
+		<result property="itemDesc" column="ITEM_DESC"/>
+		<result property="tsiAmt" column="TSI_AMT"/>
+	</resultMap>
+	
+	<resultMap class="com.geniisys.common.entity.Item" id="mcItemResultMap">
+		<result property="extractId" column="EXTRACT_ID"/>
+		<result property="itemNo" column="ITEM_NO"/>
+		<result property="itemTitle" column="ITEM_TITLE"/>
+		<result property="itemDesc" column="ITEM_DESC"/>
+		<result property="tsiAmt" column="TSI_AMT"/>
+		<result property="color" column="COLOR"/>
+		<result property="motorNo" column="MOTOR_NO"/>
+		<result property="serialNo" column="SERIAL_NO"/>
+		<result property="plateNo" column="PLATE_NO"/>
+	</resultMap>
+	
+	<resultMap class="com.geniisys.common.entity.Item" id="gipiItemResultMap">
+		<result property="extractId" column="POLICY_ID"/>
+		<result property="itemNo" column="ITEM_NO"/>
+		<result property="itemTitle" column="ITEM_TITLE"/>
+		<result property="itemDesc" column="ITEM_DESC"/>
+		<result property="tsiAmt" column="TSI_AMT"/>
+	</resultMap>
+	
+	<resultMap class="com.geniisys.common.entity.Item" id="gipiMcItemResultMap">
+		<result property="extractId" column="POLICY_ID"/>
+		<result property="itemNo" column="ITEM_NO"/>
+		<result property="itemTitle" column="ITEM_TITLE"/>
+		<result property="itemDesc" column="ITEM_DESC"/>
+		<result property="tsiAmt" column="TSI_AMT"/>
+		<result property="color" column="COLOR"/>
+		<result property="motorNo" column="MOTOR_NO"/>
+		<result property="serialNo" column="SERIAL_NO"/>
+		<result property="plateNo" column="PLATE_NO"/>
+	</resultMap>
+	
+	<select id="getItem" resultMap="itemResultMap" parameterClass="java.lang.Integer">
+		SELECT EXTRACT_ID,ITEM_NO,ITEM_TITLE,ITEM_DESC,TSI_AMT FROM GIXX_ITEM WHERE EXTRACT_ID = #value#
+	</select>
+	
+	<select id="getGixxVehicleItem" resultMap = "mcItemResultMap" parameterClass="java.lang.Integer">
+		SELECT a.EXTRACT_ID,a.ITEM_NO,a.ITEM_TITLE ITEM_TITLE,a.ITEM_DESC,a.TSI_AMT,
+    			b.COLOR,b.MOTOR_NO,b.SERIAL_NO,b.PLATE_NO
+		FROM GIXX_ITEM a, GIXX_VEHICLE b
+		WHERE a.EXTRACT_ID = #value#
+		AND b.EXTRACT_ID = a.EXTRACT_ID
+		AND b.ITEM_NO = a.ITEM_NO
+	</select>
+	
+	<select id="getGipiItem" resultMap="gipiItemResultMap" parameterClass="java.lang.Integer">
+		SELECT POLICY_ID,ITEM_NO,ITEM_TITLE,ITEM_DESC,TSI_AMT FROM GIPI_ITEM WHERE POLICY_ID = #value#
+	</select>
+	
+	<select id="getGipiVehicle" resultMap = "gipiMcItemResultMap" parameterClass="java.lang.Integer">
+		SELECT a.POLICY_ID,a.ITEM_NO,a.ITEM_TITLE ITEM_TITLE,a.ITEM_DESC,a.TSI_AMT,
+    			b.COLOR,b.MOTOR_NO,b.SERIAL_NO,b.PLATE_NO
+		FROM GIPI_ITEM a, GIPI_VEHICLE b
+		WHERE a.POLICY_ID = #value#
+		AND b.POLICY_ID = a.POLICY_ID
+		AND b.ITEM_NO = a.ITEM_NO
+	</select>
+	
+</sqlMap>

@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RENEW_NIA" language="groovy" pageWidth="612" pageHeight="792" columnWidth="546" leftMargin="36" rightMargin="30" topMargin="36" bottomMargin="30" uuid="56123c17-2e7c-4734-a7be-12093e25d75f">
+	<property name="ireport.zoom" value="0.9330147604194695"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Arial 10" isDefault="true" isBlankWhenNull="true" fontName="Arial" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<style name="Arial 9" isBlankWhenNull="true" fontName="Arial" fontSize="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+	<parameter name="P_POLICY_ID" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["\\\\10.20.39.99\\c\$\\GeniisysAdHocReports\\REPORTS\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_REPORT_ID" class="java.lang.String"/>
+	<parameter name="P_CONTACT_DETAILS" class="java.lang.String"/>
+	<parameter name="P_CONTACT_PERSON" class="java.lang.String"/>
+	<parameter name="P_LINE_CD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_SUBLINE_CD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_ISS_CD" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_FROM_DATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_TO_DATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_USER_ID" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM TABLE(RENEW_NIA_PKG_TEST.get_batch_print
+($P{P_LINE_CD},$P{P_SUBLINE_CD},$P{P_ISS_CD},$P{P_FROM_DATE},$P{P_TO_DATE},$P{P_REPORT_ID},$P{P_USER_ID}))]]>
+	</queryString>
+	<field name="POLICY_NO" class="java.lang.String"/>
+	<field name="LINE_CD" class="java.lang.String"/>
+	<field name="LINE_NAME" class="java.lang.String"/>
+	<field name="ASSURED_NAME" class="java.lang.String"/>
+	<field name="ASSURED_ADDRESS1" class="java.lang.String"/>
+	<field name="ASSURED_ADDRESS2" class="java.lang.String"/>
+	<field name="ASSURED_ADDRESS3" class="java.lang.String"/>
+	<field name="EXPIRY_DATE" class="java.sql.Timestamp"/>
+	<field name="SHORT_NAME" class="java.lang.String"/>
+	<field name="POLICY_ID" class="java.lang.Integer"/>
+	<field name="REF_POL_NO" class="java.lang.String"/>
+	<field name="SUBLINE_CD" class="java.lang.String"/>
+	<variable name="AGENT" class="java.lang.String"/>
+	<variable name="PREMIUM" class="java.math.BigDecimal"/>
+	<variable name="CURRENCY" class="java.lang.String"/>
+	<group name="test">
+		<groupExpression><![CDATA[$F{POLICY_NO}]]></groupExpression>
+		<groupHeader>
+			<band height="124">
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Arial 10" positionType="Float" x="2" y="99" width="545" height="12" uuid="9109e1f2-6548-4c43-b101-b8e0a18c4578"/>
+					<textElement textAlignment="Center" markup="html">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>"+$F{LINE_NAME} + " RENEWAL NOTICE"+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Arial 9" positionType="Float" x="3" y="89" width="203" height="10" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="282889bb-3eac-4007-8b8a-549312e1dba8"/>
+					<textElement verticalAlignment="Top" markup="html">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ASSURED_ADDRESS1}.equals(null)?"":"<b>"+$F{ASSURED_ADDRESS1}+"</b>"]]></textFieldExpression>
+				</textField>
+				<frame>
+					<reportElement positionType="Float" x="386" y="80" width="162" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="e2f0d632-cf9a-48f4-a038-07a0b02b3522">
+						<printWhenExpression><![CDATA[!$F{REF_POL_NO}.equals(null)]]></printWhenExpression>
+					</reportElement>
+					<staticText>
+						<reportElement style="Arial 9" positionType="Float" x="56" y="0" width="9" height="12" isRemoveLineWhenBlank="true" uuid="55115d57-f9e7-4eff-86c5-6bf732a2cacf">
+							<printWhenExpression><![CDATA[!$F{REF_POL_NO}.equals(null)]]></printWhenExpression>
+						</reportElement>
+						<textElement verticalAlignment="Top">
+							<font size="8" isBold="false" isStrikeThrough="false"/>
+						</textElement>
+						<text><![CDATA[:]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="0" y="0" width="56" height="12" isRemoveLineWhenBlank="true" uuid="0bc8d5ee-e052-4c61-bae9-3e8c9552eea7">
+							<printWhenExpression><![CDATA[!$F{REF_POL_NO}.equals(null)]]></printWhenExpression>
+						</reportElement>
+						<textElement textAlignment="Right">
+							<font size="8"/>
+						</textElement>
+						<text><![CDATA[Reference No.]]></text>
+					</staticText>
+					<textField isStretchWithOverflow="true">
+						<reportElement positionType="Float" x="65" y="0" width="96" height="12" isRemoveLineWhenBlank="true" uuid="6bc31c9e-a09a-48a8-8ae4-8178a60e264b">
+							<printWhenExpression><![CDATA[!$F{REF_POL_NO}.equals(null)]]></printWhenExpression>
+						</reportElement>
+						<textElement markup="html">
+							<font size="8"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{REF_POL_NO}]]></textFieldExpression>
+					</textField>
+				</frame>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Arial 9" positionType="Float" x="3" y="111" width="545" height="13" uuid="3865c6d0-b808-4b14-8800-86719893ceab"/>
+					<textElement textAlignment="Center" verticalAlignment="Top" markup="html">
+						<font size="10"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>"+"POLICY NO:&nbsp;&nbsp;&nbsp;&nbsp;"+$F{POLICY_NO}+"</b>"]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" pattern="MMMMM dd, yyyy" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="441" y="70" width="92" height="10" uuid="3f296dd5-89d5-43f3-9557-b6df73415387"/>
+					<textElement markup="html">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="404" y="70" width="28" height="10" uuid="5db541a1-5ceb-4b58-b4eb-a98b8fe3bc90"/>
+					<textElement textAlignment="Right">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[DATE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="Arial 9" positionType="Float" x="432" y="70" width="9" height="10" isRemoveLineWhenBlank="true" uuid="0ca9688b-0b53-4bcf-93e8-059933b7c776">
+						<printWhenExpression><![CDATA[!$F{REF_POL_NO}.equals(null)]]></printWhenExpression>
+					</reportElement>
+					<textElement verticalAlignment="Top">
+						<font size="8" isBold="false" isStrikeThrough="false"/>
+					</textElement>
+					<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="Arial 9" positionType="Float" x="3" y="67" width="154" height="10" isPrintWhenDetailOverflows="true" uuid="c1c6ade4-9f0b-41a7-ba23-f3bbc0e02f8c"/>
+					<textElement verticalAlignment="Top" markup="html">
+						<font size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>"+$F{ASSURED_NAME}+"<b>"]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="9"/>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="1" y="0" width="247" height="10" isRemoveLineWhenBlank="true" uuid="81acc524-b1aa-44b2-ae61-a311ef8badda"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_LINE_CD">
+					<subreportParameterExpression><![CDATA[$F{LINE_CD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_POLICY_ID">
+					<subreportParameterExpression><![CDATA[$F{POLICY_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_SUBLINE_CD">
+					<subreportParameterExpression><![CDATA[$F{SUBLINE_CD}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_EXPIRY_DATE">
+					<subreportParameterExpression><![CDATA[$F{EXPIRY_DATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="AGENT" toVariable="AGENT"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RENEW_NIA_SUB.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" x="262" y="0" width="283" height="10" uuid="c76c9ea4-37d6-446f-a0d9-9b0c70145d74"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_POLICY_ID">
+					<subreportParameterExpression><![CDATA[$F{POLICY_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="CURRENCY" toVariable="CURRENCY"/>
+				<returnValue subreportVariable="PREMIUM" toVariable="PREMIUM"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RENEW_NIA_TAX_SUB.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="45">
+			<subreport>
+				<reportElement positionType="Float" x="28" y="24" width="518" height="17" isRemoveLineWhenBlank="true" uuid="12ad91d3-5af6-47c4-9604-2f8e627f5d97">
+					<printWhenExpression><![CDATA[$F{LINE_CD}.equals("MC")]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="P_SHORT_NAME">
+					<subreportParameterExpression><![CDATA[$F{SHORT_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_POLICY_ID">
+					<subreportParameterExpression><![CDATA[$F{POLICY_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RENEW_NIA_BODY_SUB.jasper"]]></subreportExpression>
+			</subreport>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="12" width="548" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="141ef072-2a16-47ae-96ba-ef4d8aab8fbc">
+					<printWhenExpression><![CDATA[$F{LINE_CD}.equals("MC")]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+"Dear Valued Policyholder :"+"</b><br><br>"
++"Your motor car insurance policy will be expiring soon. For your convenience, please check the appropriate box below for your renewal Instructions and return this renewal notice to us on or before the expiration of your insurance policy."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="1" y="0" width="545" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="b2d0e0b9-7aab-411c-9e24-235a01b83d37">
+					<printWhenExpression><![CDATA[!$F{LINE_CD}.equals("MC")]]></printWhenExpression>
+				</reportElement>
+				<textElement markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+"Dear Valued Policyholder :"+"</b><br><br>"
++"Your insurance policy described herein will be expiring soon. For your convenience, please check the appropriate box below for your renewal Instructions (see below) and send this renewal notice to us on or before the expiration of your insurance policy."]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="57">
+			<line>
+				<reportElement positionType="Float" x="-2" y="56" width="546" height="1" uuid="b18abe85-5a9b-459d-a4bc-3cf83ec45d13"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="1" y="0" width="545" height="12" isPrintWhenDetailOverflows="true" uuid="558c6498-c2f6-4296-a058-8a6d71dd5b4f"/>
+				<textElement markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LINE_CD}.equals("FI")?"Should you have any queries or would want to avail of our services, please call us at <b>"+
+$P{P_CONTACT_DETAILS}+
+"</b> and ask for our Sales Assistant <b>"+
+$P{P_CONTACT_PERSON}+
+"</b> and who will be glad to serve you.<br>"+
+"Thank you and we look forward to be of continous service to you. This is a computer-generated form and does not required any signature.<br><br>"+
+"<b>FOR INCLUSION/AMENDMENT <br>REMINDER</b> - In view of cost of construction materials and labor experienced in the market, as well as to avoid situations wherein properties were found in a state of being under-insured, we would like to recommend that you -reassess your property/ies to update its current valuation.<br><br>"+
+"<b>CHARETER PING AN reserves the right to amend the terms and conditions of the renewal policies due to loss/es from date of this Notice until expiration date of the policy.</b><br>"
+:
+"Should you have any queries or would want to avail of our services, please call us at <b>"+
+$P{P_CONTACT_DETAILS}+
+"</b> and ask for our Sales Assistant <b>"+
+$P{P_CONTACT_PERSON}+
+"</b> and who will be glad to serve you.<br>"+
+"Thank you and we look forward to be of continous service to you. This is a computer-generated form and does not required any signature.<br><br>"+
+"<b>CHARETER PING AN reserves the right to amend the terms and conditions of the renewal policies due to loss/es from date of this Notice until expiration date of the policy.</b>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="14" width="545" height="12" isPrintWhenDetailOverflows="true" uuid="d67426a8-e6b5-4bd4-8f95-684a3f7d76e5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+"RENEWAL NOTICE"+"</b>"]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement positionType="Float" x="45" y="26" width="14" height="12" uuid="5e19d528-4d69-4991-9837-66d41e622745"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="Float" x="45" y="38" width="14" height="12" uuid="4e65f41c-f578-42a4-bbfd-9781f61c717c"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement positionType="Float" x="260" y="26" width="14" height="12" uuid="db63a9c7-b284-470e-967a-e8cf6faec582"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</rectangle>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="62" y="26" width="114" height="12" isPrintWhenDetailOverflows="true" uuid="2cde991e-7b9a-49dc-a688-817aa7ed35ee"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Please renew my policy"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="62" y="38" width="192" height="12" isPrintWhenDetailOverflows="true" uuid="26dca841-00d0-4165-99ec-173e52ac53fb"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Enclosed is a check / Postal Money Order No."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="277" y="26" width="192" height="12" isPrintWhenDetailOverflows="true" uuid="df70e4ed-9b1c-46e6-99fa-eef061135afc"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Please do not renew"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="405" y="40" width="141" height="12" isPrintWhenDetailOverflows="true" uuid="38b73169-4e87-4d02-b507-4d293db4af1e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+"Signature of Assured / Date"+"</b>"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="405" y="40" width="142" height="1" uuid="edf5878e-810c-46a4-aff2-7fd0f8e53306"/>
+			</line>
+		</band>
+		<band height="205">
+			<textField>
+				<reportElement positionType="Float" x="1" y="0" width="541" height="12" uuid="62a524f2-6e1d-4207-8d78-cc690588014f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Please present four(4) copies of this portion when paying through METROBANK"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="1" y="12" width="541" height="12" uuid="04c0a784-84cb-4c4d-8ad9-39e6e09353fd"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FOR BANK'S VALIDATION - TELLER COPY"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement positionType="Float" x="15" y="23" width="512" height="1" uuid="aa3e7503-bc66-4779-81cb-4340bddfbd0a"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="17" y="24" width="239" height="14" uuid="df9d790d-fb4d-44c0-8e12-b12a04857773"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[COMPANY WITH COLLECTION ARRANGEMENT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="16" y="38" width="240" height="17" uuid="70a43466-07e4-4585-b3d8-55c9246d06e7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHARTER PING AN INSURANCE CORPORATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="347" y="43" width="165" height="12" uuid="0d3edc46-e7da-46a8-9626-80fe514ac586"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PREMIUM PAYMENT SLIP]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="16" y="55" width="511" height="1" uuid="4dd9e6a3-bd37-4bb9-9748-ec8af28c33ba"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="262" y="166" width="195" height="10" isPrintWhenDetailOverflows="true" uuid="86a31cba-6f2e-4b62-90cd-d87f1b678a05"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[DEPOSITOR'S SIGNATURE OVER PRINTED NAME]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="527" y="24" width="1" height="180" uuid="c6c7f163-6235-43d0-878b-31aa74df89bf"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="16" y="204" width="512" height="1" uuid="7f6b270c-741a-40fb-ba1a-9e32ff273634"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="261" y="192" width="86" height="12" uuid="c78a1151-a5f3-425d-8fec-38263b2469a2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[TOTAL PAYMENT : ]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="15" y="24" width="1" height="181" uuid="44a742c3-9237-418b-82fa-b53fd7745699"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="261" y="87" width="72" height="12" uuid="9c8b7fe7-25f6-4a92-b146-a2f34a8e3e33"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[CHECK : ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="261" y="113" width="196" height="52" uuid="a9d55a52-4364-4915-9a9b-69da8d1ff179"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["This authorized the Bank to debit from my/our"+
+" account the amount applied for including"+
+" charges. I/We declare under the penalties of"+
+" perjury that my co-depositor(s) is/are living."]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="261" y="101" width="180" height="12" uuid="20ede776-340f-4c91-9050-cb7e933d1832"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[DEBIT FROM MY ACCOUNT NUMBER : ]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="261" y="165" width="267" height="1" uuid="0f218b8c-5ff9-4607-ab5f-a9ad654339a7"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="259" y="99" width="269" height="1" uuid="cb49e4be-5ad0-4e9d-b143-6dc4657b530a"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="261" y="73" width="72" height="12" uuid="55cf2b9a-379b-4b4c-a4b9-d3ab29e93bca"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[CASH : ]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="456" y="73" width="1" height="132" uuid="97b463b3-7fee-4f0f-8651-c24bdb77ac86"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="259" y="87" width="269" height="1" uuid="b6a3ef4d-3abf-4dd9-9fff-b93cca2f93ff"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<line>
+				<reportElement positionType="Float" x="16" y="71" width="511" height="1" uuid="6e608743-8d1c-43af-bd58-d55ab11870ff"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="427" y="57" width="94" height="12" uuid="aa1ca32d-6e4d-432a-9d5a-41ca126b27a5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[MODE OF PAYMENT]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="18" y="56" width="194" height="12" isRemoveLineWhenBlank="true" uuid="5371d3ac-b243-49bb-b30e-bfb5ffe69372"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Bank Reference No.: <b>"+$F{POLICY_NO}+"</b>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00">
+				<reportElement positionType="Float" x="457" y="192" width="70" height="12" uuid="51e30a1f-d49c-4ee0-8a3c-32232d381448"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PREMIUM}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="192" width="31" height="12" uuid="5a4c498e-bafc-4d21-8d4b-a128dad43ecc"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{CURRENCY}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="75" width="31" height="12" uuid="cac08739-e96b-4758-abf4-e78cc74f9092"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{CURRENCY}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="Arial 9" positionType="Float" x="87" y="74" width="160" height="10" isPrintWhenDetailOverflows="true" uuid="3449b633-c077-43bc-a2b1-93a34457f4f7"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+$F{ASSURED_NAME}+"<b>"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="17" y="73" width="68" height="12" uuid="47218c89-ef1a-4da3-b8c9-a2bd8c9ecc4d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[ASSURED NAME:]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" stretchType="RelativeToBandHeight" x="258" y="72" width="1" height="132" uuid="3169bfaa-8a59-4694-84d8-98bc92a66eb1"/>
+				<graphicElement>
+					<pen lineWidth="0.25"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="247" y="56" width="120" height="12" uuid="e1d4ce41-32e9-4bee-b8ee-7181ca345d5c"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Agent Code:  <b>"+$V{AGENT}+"</b>"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00">
+				<reportElement positionType="Float" x="457" y="75" width="70" height="12" uuid="de8d1294-28d9-4334-9452-c0c3c23398de"/>
+				<textElement textAlignment="Right">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PREMIUM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

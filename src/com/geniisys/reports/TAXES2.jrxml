@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="TAXES2" pageWidth="274" pageHeight="842" columnWidth="274" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0abc3124-f130-4108-8877-1a837e808274">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="CourierNew" fontName="Courier New" fontSize="9" pdfFontName="Courier">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("1"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("2"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="P_EXTRACT_ID" class="java.lang.Integer"/>
+	<parameter name="P_PREMIUM_AMOUNT" class="java.math.BigDecimal" isForPrompting="false"/>
+	<parameter name="P_TOTAL_AMOUNT_SHORT_NAME" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="P_TOTAL_AMOUNT_DUE_LABEL" class="java.lang.String"/>
+	<parameter name="P_FONT_SW" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT ALL invtax.extract_id EXTRACT_ID,
+		 invtax.tax_cd INVTAX_TAX_CD,
+		 DECODE(invoice.policy_currency,'Y',SUM(invtax.tax_amt),SUM(invtax.tax_amt * invoice.currency_rt)) INVTAX_TAX_AMT,
+		 INITCAP(taxcharg.tax_desc) TAXCHARG_TAX_DESC,
+		 taxcharg.include_tag TAX_CHARGE_INCLUDE_TAG,
+		 taxcharg.sequence TAXCHARG_SEQUENCE
+	FROM gixx_invoice invoice,
+		 gixx_inv_tax invtax,
+		 giis_tax_charges taxcharg,
+		 gixx_polbasic pol,
+		 gixx_parlist par
+   WHERE (invtax.iss_cd, invtax.line_cd, invtax.tax_cd, invtax.tax_id ) =
+		 ((taxcharg.iss_cd, taxcharg.line_cd, taxcharg.tax_cd, taxcharg.tax_id ) )
+	 AND invoice.extract_id = invtax.extract_id
+	 AND invoice.extract_id = $P{P_EXTRACT_ID}
+	 AND invoice.extract_id = pol.extract_id
+	 AND pol.co_insurance_sw in (1,3)
+	 AND par.extract_id = pol.extract_id
+	 AND DECODE(par.par_status,10,invoice.prem_seq_no,1) = DECODE(par.par_status,10,invtax.prem_seq_no,1)
+	 AND invtax.item_grp = invoice.item_grp
+GROUP BY invtax.extract_id, invtax.tax_cd, taxcharg.tax_desc, taxcharg.sequence, taxcharg.include_tag,invoice.policy_currency
+   UNION
+  SELECT ALL invtax.extract_id EXTRACT_ID2,
+		 invtax.tax_cd INVTAX_TAX_CD,
+		 DECODE(invoice.policy_currency,'Y',SUM(invtax.tax_amt),SUM(invtax.tax_amt * invoice.currency_rt)) INVTAX_TAX_AMT,
+		 taxcharg.tax_desc TAXCHARG_TAX_DESC, taxcharg.include_tag TAX_CHARGE_INCLUDE_TAG, taxcharg.sequence TAXCHARG_SEQUENCE
+	FROM gixx_orig_invoice invoice,
+		 gixx_orig_inv_tax invtax,
+		 giis_tax_charges taxcharg,
+		 gixx_polbasic pol
+   WHERE (invtax.iss_cd, invtax.line_cd, invtax.tax_cd, invtax.tax_id) = ((taxcharg.iss_cd, taxcharg.line_cd, taxcharg.tax_cd, taxcharg.tax_id ) )
+	 AND invoice.extract_id = invtax.extract_id
+	 AND invoice.extract_id = $P{P_EXTRACT_ID}
+	 AND invoice.extract_id = pol.extract_id
+	 AND pol.co_insurance_sw = 2
+GROUP BY invtax.extract_id, invtax.tax_cd, taxcharg.tax_desc, taxcharg.sequence, taxcharg.include_tag,invoice.policy_currency, taxcharg.sequence
+ORDER BY INVTAX_TAX_CD]]>
+	</queryString>
+	<field name="EXTRACT_ID" class="java.lang.Integer"/>
+	<field name="INVTAX_TAX_CD" class="java.lang.Integer"/>
+	<field name="INVTAX_TAX_AMT" class="java.math.BigDecimal"/>
+	<field name="TAXCHARG_TAX_DESC" class="java.lang.String"/>
+	<field name="TAX_CHARGE_INCLUDE_TAG" class="java.lang.String"/>
+	<field name="TAXCHARG_SEQUENCE" class="java.lang.Integer"/>
+	<variable name="TOTAL_TAX" class="java.math.BigDecimal" resetType="Page" calculation="Sum">
+		<variableExpression><![CDATA[$F{TAX_CHARGE_INCLUDE_TAG}.equals("N") ? $F{INVTAX_TAX_AMT} : new BigDecimal(0.00)]]></variableExpression>
+		<initialValueExpression><![CDATA[new BigDecimal("0.00")]]></initialValueExpression>
+	</variable>
+	<variable name="CNT" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{TAX_CHARGE_INCLUDE_TAG}.equals("N") ? $F{INVTAX_TAX_CD} : null]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean($V{CNT}.intValue() < 10 && $F{TAX_CHARGE_INCLUDE_TAG}.equals("N") ? true : false)]]></printWhenExpression>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="CourierNew" x="34" y="0" width="106" height="12" uuid="48211ebb-04ae-4a1d-83e1-bc51dc6c3206"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TAXCHARG_TAX_DESC}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" x="140" y="0" width="9" height="12" uuid="2de48cc3-22cc-4356-995a-4b1b5015ce97"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;(#,##0.00)" isBlankWhenNull="false">
+				<reportElement style="CourierNew" x="180" y="0" width="94" height="12" uuid="8e4c3641-a374-43e9-b42c-83ce326f62a2"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INVTAX_TAX_AMT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

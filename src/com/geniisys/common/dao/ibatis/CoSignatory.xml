@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CoSignatory">
+
+	<resultMap class="com.geniisys.common.entity.CoSignatory" id="signResultMap">
+		<result property="prinId"      column="PRIN_ID"/>
+		<result property="signatory"   column="PRIN_SIGNOR"/>
+		<result property="designation" column="DESIGNATION"/>		
+		<result property="issue_place" column="ISSUE_PLACE"/>
+	</resultMap>
+
+	<select id="getCoAllActive" resultMap="signResultMap">
+	    SELECT * FROM
+        (
+        SELECT PRIN_ID ,PRIN_SIGNOR,DESIGNATION,ISSUE_PLACE
+          FROM GIIS_PRIN_SIGNTRY 
+          UNION ALL
+        SELECT  111111 TRIAL_ID,TRIAL_TITLE||' '||TRIAL_NAME TRIAL
+                 ,TRIAL_DESIGNATION,ADDRESS1||' '||ADDRESS2 ADDRESS
+          FROM BONDS_AUTHENTICITY A,BONDS_AUTHENTICITY_ADDRESS B
+         WHERE A.TRIAL_ID = B.TRIAL_ID
+         )ORDER BY PRIN_ID DESC
+         
+	</select>
+	
+</sqlMap>

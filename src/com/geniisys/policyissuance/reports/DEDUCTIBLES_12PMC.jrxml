@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Deductibles_MC" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8ed46b98-6905-4e1a-a7ac-3f6c5e16e996">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_ITEM_NO" class="java.lang.Integer"/>
+	<parameter name="P_PLACE" class="java.lang.String"/>
+	<parameter name="P_DATE" class="java.lang.String"/>
+	<parameter name="P_ISSUE_DATE" class="java.lang.String"/>
+	<parameter name="P_USER" class="java.lang.String"/>
+	<parameter name="P_CURRENCY" class="java.lang.String"/>
+	<parameter name="P_ANNUAL_AMT" class="java.math.BigDecimal"/>
+	<parameter name="P_POLICY_ID" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT deductibles.item_no item_no,
+                   DECODE(deductibles.deductible_amt, null,
+                         deduct_desc.deductible_amt, deductibles.deductible_amt) -- andrew - 2.9.2013 - added SUM function to get the total deductible amount
+                         deductibles_deductible_amt,
+                  peril.peril_sname  peril_name,    -- andrew - 2.9.2013
+                  vehicle.towing,
+                  vehicle.repair_lim,
+                  (SELECT b.MORTG_NAME
+                   FROM gipi_mortgagee a,giis_mortgagee b
+                   WHERE policy_id = vehicle.policy_id
+                   AND a.mortg_cd = b.mortg_cd
+                   AND a.iss_cd = b.iss_cd
+		AND ROWNUM =1) mortgagee_name,
+LOWER(TO_CHAR(TO_DATE($P{P_ISSUE_DATE},'MM/DD/YYYY HH:MI AM'),'FMDDth'))||' Day of '|| TO_CHAR(TO_DATE($P{P_ISSUE_DATE},'MM/DD/YYYY HH:MI AM'),'FMMonth YYYY') curr_date,
+INITCAP(DECODE(vehicle.acquired_from,'ROAD ASSIST',vehicle.acquired_from,NULL)) acquired_from,
+(SELECT GET_TOKEN(INITIAL_INFO01||INITIAL_INFO02||INITIAL_INFO03||INITIAL_INFO04||INITIAL_INFO05||INITIAL_INFO06||INITIAL_INFO07||INITIAL_INFO08||INITIAL_INFO08,1) INITIAL_INFO
+FROM GIPI_POLGENIN
+WHERE POLICY_ID = deductibles.POLICY_ID)INITIAL_INFO,
+(SELECT GET_TOKEN(INITIAL_INFO01||INITIAL_INFO02||INITIAL_INFO03||INITIAL_INFO04||INITIAL_INFO05||INITIAL_INFO06||INITIAL_INFO07||INITIAL_INFO08||INITIAL_INFO08,2) SECONDARY_INFO
+FROM GIPI_POLGENIN
+WHERE POLICY_ID = deductibles.POLICY_ID)SECONDARY_INFO
+              FROM gipi_deductibles deductibles,
+                   giis_deductible_desc deduct_desc,
+                   giis_peril peril,
+                   gipi_vehicle vehicle
+             WHERE deductibles.ded_deductible_cd = deduct_desc.deductible_cd (+)
+               AND deductibles.ded_subline_cd = deduct_desc.subline_cd (+)
+               AND deductibles.ded_line_cd = deduct_desc.line_cd (+)
+               AND vehicle.POLICY_ID = deductibles.POLICY_ID
+               AND vehicle.item_no = deductibles.item_no
+               AND deductibles.ded_line_cd = peril.line_cd (+)
+               AND deductibles.peril_cd = peril.peril_cd (+)
+               AND deductibles.POLICY_ID = $P{P_POLICY_ID}
+               AND deductibles.item_no = $P{P_ITEM_NO}]]>
+	</queryString>
+	<field name="ITEM_NO" class="java.math.BigDecimal"/>
+	<field name="DEDUCTIBLES_DEDUCTIBLE_AMT" class="java.math.BigDecimal"/>
+	<field name="PERIL_NAME" class="java.lang.String"/>
+	<field name="TOWING" class="java.math.BigDecimal"/>
+	<field name="REPAIR_LIM" class="java.math.BigDecimal"/>
+	<field name="MORTGAGEE_NAME" class="java.lang.String"/>
+	<field name="CURR_DATE" class="java.lang.String"/>
+	<field name="ACQUIRED_FROM" class="java.lang.String"/>
+	<field name="INITIAL_INFO" class="java.lang.String"/>
+	<field name="SECONDARY_INFO" class="java.lang.String"/>
+	<columnHeader>
+		<band height="12">
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement positionType="Float" x="250" y="0" width="60" height="12" uuid="68069bef-1273-4eee-9177-c5aef5da3fa5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOWING}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="240" y="0" width="10" height="12" uuid="b3a5a109-8f33-4c87-98df-f870a08b5f33"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="140" y="0" width="100" height="12" uuid="00513cb0-338f-4103-97cd-969f7a1a099b"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Towing]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="8" y="0" width="34" height="12" uuid="42927106-d593-413e-9755-3f75d32f44a0"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PERIL_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="42" y="0" width="10" height="12" uuid="23ad09fa-7ea3-4770-bf31-673e2f9273a2"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement positionType="Float" x="52" y="0" width="57" height="12" isPrintWhenDetailOverflows="true" uuid="61d71a9e-8c1c-4622-9af9-473f69566892"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEDUCTIBLES_DEDUCTIBLE_AMT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<summary>
+		<band height="131">
+			<staticText>
+				<reportElement positionType="Float" x="42" y="0" width="10" height="12" uuid="eea52a1b-8777-482c-b3c7-80da7ecca8ef"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="8" y="0" width="34" height="12" uuid="cf3ec068-ad40-4ccf-af69-517834a699e1"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PERIL_NAME}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement positionType="Float" x="52" y="0" width="57" height="12" isPrintWhenDetailOverflows="true" uuid="6acc6bf5-eb66-4c2b-bb07-1277711ab0c1"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEDUCTIBLES_DEDUCTIBLE_AMT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="12" width="261" height="12" isPrintWhenDetailOverflows="true" uuid="aa6d8090-3836-4184-aa7e-1dc36d032069"/>
+				<textElement>
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Accessories Declared Only Standard Accessories are covered."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="28" width="491" height="12" isPrintWhenDetailOverflows="true" uuid="29baa1d4-2319-41e0-8d16-d3bbe178a737"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="7"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>WARRANTIES AND CLAUSES</b><br>"
++"Auto Passenger and Driver Travel Peronal Accident Coverage, Standard Clauses-Docstamp, War&Terror, Built-In Accessory, Airbag, Date Recog, Non-Casa, Drunken Driver, Acts of GOD Cover Endorsement for Private Car, Charter Ping An Travel Assistance.<br><br>"
++"<b>MORTGAGEE CLAUSE</b><br>"
++"Loss &/Or Damage, if any under this policy is payable to <b>"+$F{MORTGAGEE_NAME}+",</b> as the their interest may appear, subject to the terms and conditions, clauses and warranties of this policy.<br><br>"
++"It Is Hereby Declared and Agreed That, this policy or renewal thereof shall not be cancelled without prior written notification by <b>"+$F{MORTGAGEE_NAME}+".</b><br><br>"
++"<b>BUILT-IN / STANDARD ACCESSORIES CLAUSE</b><br>"
++"It is hereby declared and agreed that not with standing anything contained herein to the contrary the insurance under Section III (Loss or Damage) of this Policy shall include loss or damage to built-in / standard accessories only. Add-on accessories are not covered unless declared and noted in the Policy with individual sums insured applicable to each item.<br><br>"
++"CHARTER PING AN reserves the right to amend the terms and conditions of this renewal policy due to  loss/es incurred, if any during  its policy period.<br><br>"+"In Witness Whereof, the Company has caused this Policy to be signed by its duly authorized officer/representative at "
++$P{P_PLACE}+" at this "+$F{CURR_DATE}+".<br><br>"
++"This policy is subject to standard terms and conditions, clauses and warranties of <b>CHARTER PING AN MOTOR CAR</b> policy.<br><br>"
++$F{INITIAL_INFO}+".<br><br>"
++"The comprehensive cover of this policy shall automatically be renewed unless directed otherwise by either CPAIC (Insurance Company) or the Assured (Policy holder) in writing. However, renewal of CTPL cover shall only be processed upon receipt of request from Assured(policy holder)."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="304" y="105" width="175" height="12" uuid="e192d37c-db60-4cdc-a42b-51a5561fe4e0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["EDWIN V. SALVAN"]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement positionType="Float" x="329" y="73" width="139" height="32" uuid="fe13395e-6bfb-42b8-b8c4-a486524a6aad"/>
+				<imageExpression><![CDATA["\\\\10.20.39.145\\c\$\\GENIISYS_WEB\\REPORTS\\IMAGES\\test\\0000012_-_signature_edwin.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="Float" x="284" y="62" width="231" height="12" uuid="271add88-e2e2-4c98-8b59-eb199ed89572"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHARTER PING AN INSURANCE CORPORATION]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="304" y="118" width="177" height="1" uuid="5df32654-0190-423e-9f3d-28cdc80b51f9"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="304" y="119" width="177" height="12" uuid="7997155b-e83a-402c-b0a6-a9aff91237e0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[DIVISION HEAD OF UNDERWRITING]]></text>
+			</staticText>
+			<textField pattern="#,##0.00;-#,##0.00">
+				<reportElement positionType="Float" x="250" y="0" width="60" height="12" uuid="f8eae205-6862-4d26-97a5-2853a3d74534"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEDUCTIBLES_DEDUCTIBLE_AMT}+$F{TOWING}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="240" y="0" width="10" height="12" uuid="5700273c-3678-4ed1-a0ec-5fbf65e5aa74"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[ : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="140" y="0" width="100" height="12" uuid="49497ad4-c7ef-4b61-9364-7e639fd1bbee"/>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[Authorized Repair Limit]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="327" y="0" width="114" height="12" isPrintWhenDetailOverflows="true" uuid="bb36a10c-6aad-40a5-9d24-d704b2e72d6f">
+					<printWhenExpression><![CDATA[!$F{ACQUIRED_FROM}.equals("")]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["With 24/7 "+$F{ACQUIRED_FROM}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="140" y="93" width="54" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="f491935a-11ed-49f3-9b21-04d688d0b53a"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_ANNUAL_AMT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="109" y="93" width="31" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="ec5c8772-47e6-4819-a180-b1e94dd1d4f6"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_CURRENCY}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="1" y="93" width="98" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="54d3d579-d528-450d-84d5-7864a0abdbe0"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ANNUAL PREMIUM"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="97" y="93" width="12" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="c931365d-8ae2-42e8-8528-dbf3571af621"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" :"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="1" y="78" width="98" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="96ac30b7-7190-4b5d-adf5-bacd17224d2e"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["MONTHLY DEDUCTION"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="109" y="78" width="31" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="610a7076-02ce-47ca-bbef-f92007853192"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_CURRENCY}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="97" y="78" width="12" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="bb8d9e00-3762-4894-ae5e-12bd1be66c9a"/>
+				<textElement>
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" :"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="140" y="78" width="54" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="99edc480-7cf4-45f4-8b35-040e684dbb76"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="7" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_ANNUAL_AMT}/12]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

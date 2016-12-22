@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="POLICY_INFO" pageWidth="612" pageHeight="792" columnWidth="612" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3419e8de-bc28-4407-a251-4875482f3158">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="CourierNew" fontName="Courier New" fontSize="9" pdfFontName="Courier">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("1"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="9" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("2"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="7" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="P_PAR_PAR_TYPE" class="java.lang.String"/>
+	<parameter name="P_POLICY_NUMBER" class="java.lang.String"/>
+	<parameter name="P_PAR_NO" class="java.lang.String"/>
+	<parameter name="P_ENDT_NO" class="java.lang.String"/>
+	<parameter name="P_BASIC_POL_FLAG" class="java.lang.String"/>
+	<parameter name="P_MOP_NO" class="java.lang.String"/>
+	<parameter name="P_ASSD_NAME" class="java.lang.String"/>
+	<parameter name="P_ACCT_OF_CD" class="java.lang.String"/>
+	<parameter name="P_BASIC_ADDR" class="java.lang.String"/>
+	<parameter name="P_PRINT_POLNO_ENDT" class="java.lang.String"/>
+	<parameter name="P_PAR_PAR_STATUS" class="java.lang.Integer"/>
+	<parameter name="P_PAR_POLICY_LABEL" class="java.lang.String"/>
+	<parameter name="P_LABEL_TAG" class="java.lang.String"/>
+	<parameter name="P_REPORT_ID" class="java.lang.String"/>
+	<parameter name="P_BASIC_ACCT_OF_CD" class="java.lang.Integer"/>
+	<parameter name="P_PRINT_MOP_NO_ABOVE" class="java.lang.String"/>
+	<parameter name="P_SUBLINE_CD" class="java.lang.String"/>
+	<parameter name="P_FONT_SW" class="java.lang.String"/>
+	<parameter name="P_LABEL_ASSD" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT 1
+  FROM Dual]]>
+	</queryString>
+	<field name="1" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean ($P{P_PAR_PAR_TYPE}.equals("P") ? true : false)]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="230" height="12" isRemoveLineWhenBlank="true" uuid="0021f4ab-c805-4431-af85-a2bba63f9f04"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_PAR_PAR_TYPE}.equals("P") ? "" :null]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="12">
+			<printWhenExpression><![CDATA[new Boolean ($P{P_PAR_PAR_TYPE}.equals("E") ? (($P{P_PRINT_POLNO_ENDT}.equals("N") || $P{P_PAR_PAR_STATUS}.intValue() == 10) ? false : true) : false)]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="69" y="0" width="161" height="12" isRemoveLineWhenBlank="true" uuid="923e0833-76be-4c6a-8f9e-a818158739c1"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_POLICY_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="60" y="0" width="9" height="12" uuid="5233f623-9202-4912-9109-43171e6b230a"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="60" height="12" uuid="b56cbed9-a22f-43bf-ac4d-b19b0b759711"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Policy No.]]></text>
+			</staticText>
+		</band>
+		<band height="12">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="69" y="0" width="161" height="12" isRemoveLineWhenBlank="true" uuid="8c2b92cf-0a06-4eb9-aa57-516c37c57cbc"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_PAR_NO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="60" y="0" width="9" height="12" uuid="b4110b01-668d-43e6-bf4b-8c59a0700ea7"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement style="CourierNew" x="0" y="0" width="60" height="12" isRemoveLineWhenBlank="true" uuid="5828466a-b8e5-4d4b-b334-922eb52d9e84"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_PAR_POLICY_LABEL}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="12">
+			<printWhenExpression><![CDATA[new Boolean($P{P_PAR_PAR_STATUS}.intValue() != 10 || $P{P_PAR_PAR_TYPE}.equals("P") ? false : true)]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="69" y="0" width="161" height="12" isRemoveLineWhenBlank="true" uuid="23196eba-f328-47d4-bb6b-160ab0356021"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_ENDT_NO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="60" y="0" width="9" height="12" uuid="67d58e5e-476c-4b60-bcd4-4bd51af3c353"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="60" height="12" uuid="c3252047-9c6d-46dc-b84e-924f2ae02213"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Endt. No.]]></text>
+			</staticText>
+		</band>
+		<band height="12">
+			<printWhenExpression><![CDATA[new Boolean ($P{P_BASIC_POL_FLAG}.equals("2") ? true : false)]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="69" y="0" width="161" height="12" isRemoveLineWhenBlank="true" uuid="6cfe2188-b4be-4646-9d77-836a04cb0d57"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_BASIC_POL_FLAG}.equals("2") ? "RENEWAL" : null]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="12">
+			<printWhenExpression><![CDATA[new Boolean (($P{P_REPORT_ID}.equals("MARINE_CARGO") && (!("Y".equals($P{P_PRINT_MOP_NO_ABOVE}))) && (!(($P{P_MOP_NO} == null) || ("MOP".equals($P{P_SUBLINE_CD}))))) ? true : false)]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="69" y="0" width="155" height="12" isRemoveLineWhenBlank="true" uuid="d29f77f5-7da7-4cf4-8751-6ce1f6cb099f"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_MOP_NO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="60" y="0" width="9" height="12" uuid="65a1932d-e615-4bb2-a226-727fec23eacc"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="60" height="12" uuid="ffa70552-d514-4720-9564-cc51eef56da8"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[MOP No.]]></text>
+			</staticText>
+		</band>
+		<band height="12">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="69" y="0" width="161" height="12" isRemoveLineWhenBlank="true" uuid="b492be6a-127d-48ee-90c2-fb741125e936"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_ASSD_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="60" y="0" width="9" height="12" uuid="d72b2e9c-e260-430a-a877-47538708ab33"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="60" height="12" isRemoveLineWhenBlank="true" uuid="fa5bcbaa-861d-4c5f-9449-7382e26d03b6"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Assured"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="12">
+			<printWhenExpression><![CDATA[new Boolean ($P{P_BASIC_ACCT_OF_CD} != null || $P{P_BASIC_ACCT_OF_CD}.intValue() > 0 ? true : false)]]></printWhenExpression>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="69" y="0" width="161" height="12" isRemoveLineWhenBlank="true" uuid="f91511f4-4103-4699-8ab4-2d4a4e4231ae"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_ACCT_OF_CD}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="60" y="0" width="9" height="12" uuid="85d5182f-8118-4e75-9e61-a535f86802b4"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="60" height="12" isRemoveLineWhenBlank="true" uuid="53101312-49f4-4096-b80f-ad6bbaa58f39"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_LABEL_TAG}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="12">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="69" y="0" width="155" height="12" isRemoveLineWhenBlank="true" uuid="68fd5131-c9bb-45fb-abbe-0a12961f4b16"/>
+				<textElement textAlignment="Left">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_BASIC_ADDR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="60" y="0" width="9" height="12" uuid="161d66fe-8afb-4888-8740-654b682efdea"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="60" height="12" uuid="40e42f3d-1feb-42a5-bcce-e16d585790c9"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Address]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

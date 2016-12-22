@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="OnePager">
+
+	<select id="getYearDiff" resultClass="java.lang.Integer"
+		parameterClass="java.lang.Integer">
+	    <!-- SELECT EXTRACT(YEAR FROM expiry_date)-EXTRACT(YEAR FROM incept_date)
+		FROM GIPI_POLBASIC
+		WHERE POLICY_ID = #value# -->
+		SELECT
+		CASE
+ 			 WHEN expiry_date IS NULL THEN 0
+ 			 WHEN incept_date IS NULL THEN 0
+ 			 ELSE EXTRACT(YEAR FROM expiry_date)-EXTRACT(YEAR FROM incept_date)
+		END
+		FROM GIPI_POLBASIC
+		WHERE POLICY_ID = #value#
+	</select>
+	
+</sqlMap>

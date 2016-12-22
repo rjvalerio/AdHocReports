@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DemandLetter">
+
+	<parameterMap class="com.geniisys.claims.entity.ClaimNo"
+		id="claimNoParameterMap">
+		<parameter property="lineCd" />
+		<parameter property="sublineCd" />
+		<parameter property="issCd" />
+		<parameter property="clmYy" />
+		<parameter property="clmSeqNo" />
+	</parameterMap>
+
+	<parameterMap class="com.geniisys.claims.entity.DemandLetterParameter"
+		id="demandLetterParameterMap">
+		<parameter property="claimId" />
+		<parameter property="recoveryId" />
+	</parameterMap>
+	
+	<parameterMap class="com.geniisys.claims.entity.DemandLetterParameter"
+		id="demandLetterParameterMap2">
+		<parameter property="claimId" />
+		<parameter property="recoveryId" />
+		<parameter property="userId" />
+	</parameterMap>
+
+	<parameterMap class="com.geniisys.claims.entity.DemandLetterTbl"
+		id="DBDemandLetterParameterMap">
+		<parameter property="claimId" />
+		<parameter property="policyId" />
+		<parameter property="extra1" />
+		<parameter property="extra2" />
+		<parameter property="extra3" />
+		<parameter property="dateSend" />
+		<parameter property="demands" />
+		<parameter property="ctrlNo" />
+		<parameter property="userId" />
+		<parameter property="lastUpdate" />
+	</parameterMap>
+
+	<parameterMap class="com.geniisys.claims.entity.DemandLetterReprint"
+		id="DBDemandReprintParameterMap">
+		<parameter property="claimId" />
+		<parameter property="assdName" />
+		<parameter property="policyNo" />
+		<parameter property="recoveryNo" />
+		<parameter property="controlNo" />
+		<parameter property="adName" />
+		<parameter property="adAddr" />
+		<parameter property="dateLoss" />
+		<parameter property="lossAddr1" />
+		<parameter property="lossAddr2" />
+		<parameter property="lossAddr3" />
+		<parameter property="car1" />
+		<parameter property="plateNo1" />
+		<parameter property="car2" />
+		<parameter property="plateNo2" />
+		<parameter property="amtWord1" />
+		<parameter property="amtWord2" />
+		<parameter property="amtWord3" />
+		<parameter property="amtFig1" />
+		<parameter property="amtFig2" />
+		<parameter property="amtFig3" />
+		<parameter property="notes" />
+		<parameter property="signtory" />
+		<parameter property="designation" />
+		<parameter property="userId" />
+		<parameter property="lastUpdate" />
+		<parameter property="dateSend" />
+		<parameter property="demandType" />
+		<parameter property="contactNo" />
+		<parameter property="signtory2" />
+		<parameter property="designation2" />
+		<parameter property="adName2" />
+		<parameter property="adAddr2" />
+		<parameter property="your" />
+		<parameter property="claimNo" />
+		<parameter property="branchCd" />
+		<parameter property="userName" />
+		<parameter property="forText" />
+		<parameter property="conAssd" />
+	</parameterMap>
+
+	<resultMap class="com.geniisys.claims.entity.DemandLetter"
+		id="demandLetterResultMap">
+		<result property="claimId" column="CLAIM_ID" />
+		<result property="recoveryId" column="RECOVERY_ID" />
+		<result property="claimNo" column="CLAIM_NO" />
+		<result property="lossDate" column="LOSS_DATE" />
+		<result property="lossLoc1" column="LOSS_LOC1" />
+		<result property="lossLoc2" column="LOSS_LOC2" />
+		<result property="lossLoc3" column="LOSS_LOC3" />
+		<result property="assuredName" column="assd_name" />
+		<result property="modelYear" column="MODEL_YEAR" />
+		<result property="carCompany" column="CAR_COMPANY" />
+		<result property="make" column="MAKE" />
+		<result property="recoverableAmt" column="RECOVERABLE_AMT" />
+	</resultMap>
+	
+	<resultMap class="com.geniisys.claims.entity.DemandLetterInsert"
+		id="demandLetterInsertResultMap">
+	<result property="policyId" column="POLICY_ID" />  
+	<result property="dspLossDate" column="LOSS_DATE" /> 
+	<result property="assdName" column="ASSD_NAME" />    
+	<result property="lossLoc1" column="LOSS_PLACE" />        
+	<result property="policyNumber" column="POLICY_NUMBER" />
+	<result property="recoveryNo" column="RECOV_NO" />      
+	<result property="userId" column="ENCODER" />       
+	<result property="car1" column="ITEM_INSURED" />        
+	<result property="plateNo1" column="INSURED_PLATE_NO" />    
+	<result property="car2" column="THIRD_PARTY_VEHICLE" />        
+	<result property="plateNo2" column="THIRD_PARTY_PLATE_NO" />    
+	<result property="amtWord1" column="INCURRED_DAMAGE_AMT" />    
+	<result property="amtWord2" column="NET_LIABILITY_AMT" />    
+	<result property="amtWord3" column="DEDUCTIBLES_AMT" />    
+	<result property="contactNo" column="ENCODER_CONTACT" />
+	<result property="branchCd" column="ISS_CD" />
+	<result property="claimNo" column="CLAIM_NO" />
+	</resultMap>
+	
+	<resultMap class="com.geniisys.claims.entity.DemandLetterInsert"
+		id="demandLetterInsertResultMap2">
+	<result property="policyId" column="POLICY_ID" />  
+	<result property="dspLossDate" column="DSP_LOSS_DATE" /> 
+	<result property="assdName" column="ASSD_NAME" />    
+	<result property="lossLoc1" column="LOSS_PLACE" />        
+	<result property="policyNumber" column="POLICY_NUMBER" />
+	<result property="recoveryNo" column="RECOV_NO" />      
+	<result property="userId" column="ENCODER" />       
+	<result property="car1" column="ITEM_INSURED" />        
+	<result property="plateNo1" column="PLATE_NO" />    
+	<result property="car2" column="THIRD_PARTY_VEHICLE" />        
+	<result property="plateNo2" column="THIRD_PARTY_PLATE_NO" />    
+	<result property="amtWord1" column="INCURRED_DAMAGE_AMT" />    
+	<result property="amtWord2" column="NET_LIABILITY_AMT" />    
+	<result property="amtWord3" column="DEDUCTIBLES_AMT" />    
+	<result property="contactNo" column="ENCODER_CONTACT" />
+	<result property="branchCd" column="ISS_CD" />
+	<result property="claimNo" column="CLAIM_NO" />    
+	</resultMap>
+
+	<resultMap class="com.geniisys.claims.entity.DemandLetterParameter"
+		id="demandLetterParamsMap">
+		<result property="claimId" column="CLAIM_ID" />
+		<result property="recoveryId" column="RECOVERY_ID" />
+	</resultMap>
+
+	<select id="fetchDemandLetterInfo" resultMap="demandLetterResultMap"
+		parameterMap="demandLetterParameterMap">
+		SELECT DISTINCT b.claim_id,b.recovery_id,
+		get_claim_number(a.claim_id) claim_no,
+		a.dsp_loss_date loss_date,
+		a.plate_no,
+		get_assd_name(a.assd_no) assd_name,
+		b.recoverable_amt,
+		a.loss_loc1,
+		a.loss_loc2,
+		a.loss_loc3,
+		d.model_year,
+		i.car_company,
+		j.make
+		FROM GICL_CLAIMS a,
+		GICL_CLM_RECOVERY b,
+		GICL_CLM_RECOVERY_DTL c,
+		GICL_MOTOR_CAR_DTL d,
+		GIIS_CURRENCY e,
+		GIIS_ASSURED g,
+		giis_mc_car_company i,
+		giis_mc_make j
+		WHERE a.claim_id = b.claim_id
+		AND
+		b.claim_id = c.claim_id
+		AND b.claim_id = d.claim_id
+		AND c.item_no =
+		d.item_no
+		AND b.currency_cd = e.main_currency_cd(+)
+		AND a.claim_id = ?
+		AND b. recovery_id = ?
+		AND A.ASSD_NO = G.ASSD_NO
+		AND d.motcar_comp_cd =
+		i.car_company_cd(+)
+		AND d.motcar_comp_cd = j.car_company_cd(+)
+		AND
+		d.make_cd = j.make_cd(+)
+	</select>
+
+	<select id="fetchDemandLetterParameters" resultMap="demandLetterParamsMap"
+		parameterMap="claimNoParameterMap">
+		SELECT CLAIM_ID,RECOVERY_ID FROM GICL_CLM_RECOVERY
+		WHERE
+		CLAIM_ID IN (SELECT claim_id FROM GICL_CLAIMS
+		WHERE LINE_CD = ?
+		AND
+		SUBLINE_CD = ?
+		AND ISS_CD = ?
+		AND CLM_YY = ?
+		AND CLM_SEQ_NO = ?)
+	</select>
+
+	<select id="checkClaimIdFromDBDemandLetter" resultClass="java.lang.Integer"
+		parameterClass="java.lang.Integer">
+		SELECT COUNT(1) FROM DB_DEMAND_LETTER WHERE CLAIM_ID =
+		#value#
+	</select>
+
+	<select id="checkIfExistsInReprint" resultClass="java.lang.Integer"
+		parameterClass="com.geniisys.claims.entity.DemandLetterReprint">
+		SELECT DISTINCT(CLAIM_ID)
+		FROM DB_DEMAND_REPRINT
+		WHERE
+		CLAIM_ID = #claimId#
+		AND DEMAND_TYPE = #demandType#
+	</select>
+
+	<select id="fetchDemandReprint" resultClass="com.geniisys.claims.entity.DemandLetterReprint"
+		parameterClass="com.geniisys.claims.entity.DemandLetterReprint">
+		SELECT *
+		FROM DB_DEMAND_REPRINT
+		WHERE CLAIM_ID =
+		#claimId#
+		AND DEMAND_TYPE = #demandType#
+	</select>
+	
+	<select id="fetchFirstReportDetails" resultMap="demandLetterInsertResultMap" parameterMap="demandLetterParameterMap2">
+		SELECT * FROM TABLE (giclr025_pci_pkg2.pop_giclr025(?,?,null,null,null,?))
+	</select>
+	
+	<select id="fetchSecondReportDetails" resultMap="demandLetterInsertResultMap2" parameterMap="demandLetterParameterMap2">
+		SELECT * FROM TABLE (giclr025_b_pci_pkg2.pop_giclr025b(?,?,null,null,null,null,?))
+	</select>
+
+	<!-- insert query -->
+	<procedure id="insertIntoDBDemandLetter" parameterMap="DBDemandLetterParameterMap">
+		<!-- { call INSERT_INTO_DB_DEMAND_LETTER( #claimId#,#policyId#,#extra1#,#extra2#,#extra3#,#dateSend#,#demands#,#ctrlNo#,#userId#,#lastUpdate# 
+			) } -->
+		{ call INSERT_INTO_DB_DEMAND_LETTER( ?,?,?,?,?,?,?,?,?,? ) }
+	</procedure>
+
+	<procedure id="insertIntoDbDemandReprint" parameterMap="DBDemandReprintParameterMap">
+		{ call INSERT_INTO_DB_DEMAND_REPRINT( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) }
+	</procedure>
+
+</sqlMap>

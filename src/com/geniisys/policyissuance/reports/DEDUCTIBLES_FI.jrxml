@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Deductibles_MC" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8ed46b98-6905-4e1a-a7ac-3f6c5e16e996">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="19"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="P_POLICY_ID" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_ITEM_NO" class="java.lang.Integer"/>
+	<parameter name="P_PLACE" class="java.lang.String"/>
+	<parameter name="P_DATE" class="java.lang.String"/>
+	<parameter name="P_ISSUE_DATE" class="java.lang.String"/>
+	<parameter name="P_USER" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT LOWER(TO_CHAR(TO_DATE($P{P_ISSUE_DATE},'MM/DD/YYYY HH:MI AM'),'FMDDth'))||' Day of '|| TO_CHAR(TO_DATE($P{P_ISSUE_DATE},'MM/DD/YYYY HH:MI AM'),'FMMonth YYYY') curr_date
+FROM DUAL]]>
+	</queryString>
+	<field name="CURR_DATE" class="java.lang.String"/>
+	<summary>
+		<band height="212">
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="0" width="536" height="12" isPrintWhenDetailOverflows="true" uuid="29baa1d4-2319-41e0-8d16-d3bbe178a737"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>WARRANTIES AND CLAUSES</b><br>"
++"War and Terrorism Exc;usion Endorsement ,Property Damage Clarification Clause, Residential occupancy Warranty,Payment of documentary Stamp Tax Warranty, Typhoon Endorsement, Earthquake Endorsement, Flood Endorsement, Extended Coverage Endorsement(To Include the perils of Explosion, Aircraft, Vehicle & Smoke), Riot Strike & Malicious Damage Endorsement, Broad Water Damage"]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement positionType="Float" x="0" y="15" width="536" height="12" isPrintWhenDetailOverflows="true" uuid="912f92c1-1b69-44b4-a8b3-0d7c2f5e202e"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement positionType="Float" x="0" y="0" width="536" height="12" isPrintWhenDetailOverflows="true" uuid="9f99d75f-ffb2-4cac-9173-9a1fbe6d46d7"/>
+					<textElement markup="html">
+						<font fontName="Arial" size="9"/>
+					</textElement>
+					<textFieldExpression><![CDATA["<b>MORTGAGEE CLAUSE</b><br>"
++"Loss &/Or Damage, if any under this policy is payable to <b>"+"PHILIPPINE SAVINGS BANK"+",</b> as the their interest may appear, subject to the terms and conditions, clauses and warranties of this policy.<br><br>"
++"It Is Hereby Declared and Agreed That, this policy or renewal thereof shall not be cancelled without prior written notification by <b>"+"PHILIPPINE SAVINGS BANK"+".</b>"]]></textFieldExpression>
+				</textField>
+			</frame>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="31" width="536" height="12" isPrintWhenDetailOverflows="true" uuid="5cb6777a-8cc7-4954-a967-f4731f6a2f2e"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["In Witness Whereof, the Company has caused this Confirmation of Insurance Cover to be signed by its duly authorized representative this date of "
++$F{CURR_DATE}+" at "+$P{P_PLACE}+"."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="325" y="187" width="175" height="12" uuid="e192d37c-db60-4cdc-a42b-51a5561fe4e0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["EDWIN V. SALVAN"]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" hAlign="Center" vAlign="Middle">
+				<reportElement positionType="Float" x="350" y="155" width="139" height="32" uuid="fe13395e-6bfb-42b8-b8c4-a486524a6aad"/>
+				<imageExpression><![CDATA["\\\\10.20.39.9\\Geniisys6i\\signature\\0000012_-_signature_edwin.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="Float" x="305" y="144" width="231" height="12" uuid="271add88-e2e2-4c98-8b59-eb199ed89572"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CHARTER PING AN INSURANCE CORPORATION]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="325" y="200" width="177" height="1" uuid="5df32654-0190-423e-9f3d-28cdc80b51f9"/>
+			</line>
+			<staticText>
+				<reportElement positionType="Float" x="325" y="200" width="177" height="12" uuid="7997155b-e83a-402c-b0a6-a9aff91237e0"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="9"/>
+				</textElement>
+				<text><![CDATA[DIVISION HEAD OF UNDERWRITING]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement positionType="Float" x="7" y="174" width="100" height="12" uuid="651f55d1-2b70-43db-8b0e-71efe5beb635"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_USER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="dd-MMM-yyyy h:mm:ss">
+				<reportElement positionType="Float" x="7" y="186" width="100" height="12" isPrintWhenDetailOverflows="true" uuid="b916e5c1-f7fc-4701-8380-87105173165a"/>
+				<textElement>
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Employee">
+
+	<typeAlias alias="Employee" type="com.geniisys.common.entity.Employee" />
+
+	<resultMap class="com.geniisys.common.entity.Employee" id="employeeResultMap">
+		<result property="employeeId" column="EMPLOYEE_ID" />
+		<result property="lastName" column="LAST_NAME" />
+		<result property="firstName" column="FIRST_NAME" />
+		<result property="middleName" column="MIDDLE_NAME" />
+		<result property="sssNo" column="SSS_NO" />
+		<result property="tinNo" column="TIN_NO" />
+		<result property="employeeType" column="EMPLOY_TYPE" />
+		<result property="employeeClass" column="EMPLOY_CLASS" />
+		<result property="position" column="POSITION" />
+		<result property="rcCode" column="RC_CODE" />
+	</resultMap>
+
+	<select id="getEmployee" resultMap="employeeResultMap"
+		parameterClass="java.lang.String">
+		SELECT DISTINCT(EMPLOYEE_ID),
+		LAST_NAME,FIRST_NAME,MIDDLE_NAME,SSS_NO,TIN_NO,EMPLOY_TYPE,EMPLOY_CLASS,POSITION,RC_CODE
+		FROM MBTC_EMP_LIST
+		WHERE EMPLOYEE_ID = #value#
+	</select>
+
+</sqlMap>

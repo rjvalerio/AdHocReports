@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<!-- set to local -->
+	<properties resource="com/geniisys/common/dao/ibatis/jdbc.properties"/>
+	
+	<settings
+		cacheModelsEnabled="true"
+		enhancementEnabled="true"
+		lazyLoadingEnabled="true"
+		maxRequests="32"
+		maxSessions="10"
+		maxTransactions="5"
+		useStatementNamespaces="false"
+	/>
+	
+	<transactionManager type="JDBC">
+		<dataSource type="SIMPLE">
+			<property name="JDBC.Driver" value="${driver}"/>
+			<property name="JDBC.ConnectionURL" value="${url}"/>
+			<property name="JDBC.Username" value="${username}"/>
+			<property name="JDBC.Password" value="${password}"/>
+		</dataSource>
+	</transactionManager>
+	
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Users.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Line.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Subline.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Branch.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Tariff.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Intermediary.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/ExtractId.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/PolicyNo.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Assured.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Item.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Gipi_Invoice.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Gipi_Polbasic.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Gixx_Polbasic.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/signatory.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/Employee.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/AccountingEntry.xml"/>
+	<sqlMap resource="com/geniisys/common/dao/ibatis/CoSignatory.xml"/>
+	
+	<sqlMap resource="com/geniisys/common/dao/ibatis/BondDetail.xml"/>
+	
+	<!-- policy issuance -->
+	<sqlMap resource="com/geniisys/policyissuance/dao/ibatis/onePager.xml"/>
+	
+	<!-- claims -->
+	<sqlMap resource="com/geniisys/claims/dao/ibatis/McSworn.xml"/>
+	<sqlMap resource="com/geniisys/claims/dao/ibatis/DemandLetter.xml"/>
+	<sqlMap resource="com/geniisys/claims/dao/ibatis/OfferLetter.xml"/>
+	
+	<!-- collections -->
+	<sqlMap resource="com/geniisys/collections/dao/ibatis/PaymentRequest.xml"/>
+</sqlMapConfig>

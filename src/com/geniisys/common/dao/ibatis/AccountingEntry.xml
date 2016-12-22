@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AccountingEntry">
+
+	<typeAlias alias="AccountingEntry" type="com.geniisys.common.entity.AccountingEntry"/>
+	
+	<resultMap class="com.geniisys.common.entity.AccountingEntry" id="dateResultMap">
+	    <result property="entryDate" column="ACCT_ENT_DATE"/>	
+	    <result property="rownum" column="NUMB"/>
+	</resultMap>
+	
+	<select id="getAllDate" resultMap="dateResultMap">
+		 SELECT ROWNUM NUMB,ACCT_ENT_DATE
+		 FROM
+		 (
+		 	SELECT DISTINCT TO_CHAR(ACCT_ENT_DATE,'YYYY-MM-DD')ACCT_ENT_DATE
+				  FROM GIPI_POLBASIC
+				 WHERE ACCT_ENT_DATE IS NOT NULL
+				   AND ACCT_ENT_DATE >= '01-JAN-2010'
+				 ORDER BY ACCT_ENT_DATE DESC 
+		  )      
+	</select>
+	
+</sqlMap>

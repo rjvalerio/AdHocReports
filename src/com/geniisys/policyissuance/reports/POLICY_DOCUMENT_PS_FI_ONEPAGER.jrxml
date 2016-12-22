@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="POLICY_DOCUMENT" language="groovy" pageWidth="612" pageHeight="792" columnWidth="576" leftMargin="18" rightMargin="18" topMargin="36" bottomMargin="36" uuid="28a020f7-612e-4fa0-b463-8011c459d5cf">
+	<property name="ireport.zoom" value="1.2078825000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="DialogInput" fontName="DialogInput" fontSize="12">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("1"))]]></conditionExpression>
+			<style fontName="DialogInput" fontSize="10" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("2"))]]></conditionExpression>
+			<style fontName="DialogInput" fontSize="8" isItalic="false" isUnderline="false" isStrikeThrough="false"/>
+		</conditionalStyle>
+	</style>
+	<style name="CourierNew" fontName="Courier New" fontSize="9" pdfFontName="Courier">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("1"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="9" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("2"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="7" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier"/>
+		</conditionalStyle>
+	</style>
+	<style name="CourierNewBold" fontName="Courier New" fontSize="9" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier-Bold">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("1"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="9" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier-Bold"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean ($P{P_FONT_SW}.matches("2"))]]></conditionExpression>
+			<style fontName="Courier New" fontSize="7" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Courier-Bold"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="P_SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["\\\\10.20.39.99\\c\$\\GeniisysAdHocReports\\REPORTS\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_REPORT_ID" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["\\\\10.20.39.99\\c\$\\GeniisysAdHocReports\\REPORTS\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_FONT_SW" class="java.lang.String"/>
+	<parameter name="P_PRINT_FLEET_TAG" class="java.lang.String"/>
+	<parameter name="P_PRINT_PREMIUM" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["Y"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_PLACE" class="java.lang.String"/>
+	<parameter name="P_DATE" class="java.lang.String"/>
+	<parameter name="P_USER" class="java.lang.String"/>
+	<parameter name="P_POLICY_ID" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT * FROM TABLE(policy_docs_1pager_batch_pkg.get_report_details($P{P_POLICY_ID}, $P{P_REPORT_ID}))]]>
+	</queryString>
+	<field name="RV_PAR_PAR" class="java.lang.String"/>
+	<field name="RV_PAR_POLICY" class="java.lang.String"/>
+	<field name="RV_ENDT_PAR" class="java.lang.String"/>
+	<field name="RV_ENDT_POLICY" class="java.lang.String"/>
+	<field name="RV_PAR" class="java.lang.String"/>
+	<field name="RV_POLICY" class="java.lang.String"/>
+	<field name="RV_PAR_HEADER" class="java.lang.String"/>
+	<field name="RV_ENDT_HEADER" class="java.lang.String"/>
+	<field name="RV_ATTESTATION_TITLE" class="java.lang.String"/>
+	<field name="RV_BLOCK_DESCRIPTION" class="java.lang.String"/>
+	<field name="RV_BOUNDARY_TITLE" class="java.lang.String"/>
+	<field name="RV_CA_DEDUCTIBLE_LEVELS" class="java.lang.String"/>
+	<field name="RV_CASUALTY_CO_INSURANCE" class="java.lang.String"/>
+	<field name="RV_CONSTR_REMARKS_TITLE" class="java.lang.String"/>
+	<field name="RV_CONSTRUCTION_TITLE" class="java.lang.String"/>
+	<field name="RV_DEDUCTIBLE_TITLE" class="java.lang.String"/>
+	<field name="RV_DISPLAY_ANN_TSI" class="java.lang.String"/>
+	<field name="RV_DISPLAY_POLICY_TERM" class="java.lang.String"/>
+	<field name="RV_DISPLAY_PROPERTY_TYPE" class="java.lang.String"/>
+	<field name="RV_DISPLAY_REF_POL_NO" class="java.lang.String"/>
+	<field name="RV_DOC_ATTESTATION1" class="java.lang.String"/>
+	<field name="RV_DOC_ATTESTATION2" class="java.lang.String"/>
+	<field name="RV_DOC_SUBTITLE1" class="java.lang.String"/>
+	<field name="RV_DOC_SUBTITLE2" class="java.lang.String"/>
+	<field name="RV_DOC_SUBTITLE3" class="java.lang.String"/>
+	<field name="RV_DOC_SUBTITLE4" class="java.lang.String"/>
+	<field name="RV_DOC_SUBTITLE4_BEFORE_WC" class="java.lang.String"/>
+	<field name="RV_DOC_SUBTITLE5" class="java.lang.String"/>
+	<field name="RV_DOC_SUBTITLE5_BEFORE_WC" class="java.lang.String"/>
+	<field name="RV_DOC_TAX_BREAKDOWN" class="java.lang.String"/>
+	<field name="RV_DOC_TOTAL_IN_BOX" class="java.lang.String"/>
+	<field name="RV_GROUPED_ITEM_TITLE" class="java.lang.String"/>
+	<field name="RV_GROUPED_SUBTITLE" class="java.lang.String"/>
+	<field name="RV_HIDE_LINE" class="java.lang.String"/>
+	<field name="RV_INCLUDE_TSI" class="java.lang.String"/>
+	<field name="RV_INVOICE_POLICY_CURRENCY" class="java.lang.String"/>
+	<field name="RV_ITEM_TITLE" class="java.lang.String"/>
+	<field name="RV_LEASED_TO" class="java.lang.String"/>
+	<field name="RV_OCCUPANCY_REMARKS_TITLE" class="java.lang.String"/>
+	<field name="RV_OCCUPANCY_TITLE" class="java.lang.String"/>
+	<field name="RV_PACK_METHOD" class="java.lang.String"/>
+	<field name="RV_PERIL_TITLE" class="java.lang.String"/>
+	<field name="RV_PERSONNEL_ITEM_TITLE" class="java.lang.String"/>
+	<field name="RV_PERSONNEL_SUBTITLE1" class="java.lang.String"/>
+	<field name="RV_PERSONNEL_SUBTITLE2" class="java.lang.String"/>
+	<field name="RV_PERSONNEL_SUBTITLE3" class="java.lang.String"/>
+	<field name="RV_POLICY_SIGLABEL" class="java.lang.String"/>
+	<field name="RV_PRINT_ACC_TSI" class="java.lang.String"/>
+	<field name="RV_PRINT_ACCESSORIES_ABOVE" class="java.lang.String"/>
+	<field name="RV_PRINT_ALL_WARRANTIES" class="java.lang.String"/>
+	<field name="RV_PRINT_AUTHORIZED_SIGNATORY" class="java.lang.String"/>
+	<field name="RV_PRINT_CARGO_DESC" class="java.lang.String"/>
+	<field name="RV_PRINT_CENTS" class="java.lang.String"/>
+	<field name="RV_PRINT_CURRENCY_DESC" class="java.lang.String"/>
+	<field name="RV_PRINT_DECLARATION_NO" class="java.lang.String"/>
+	<field name="RV_PRINT_DED_TEXT" class="java.lang.String"/>
+	<field name="RV_PRINT_DED_TEXT_ONLY" class="java.lang.String"/>
+	<field name="RV_PRINT_DED_TEXT_PERIL" class="java.lang.String"/>
+	<field name="RV_PRINT_DED_TWICE" class="java.lang.String"/>
+	<field name="RV_PRINT_DEDUCT_TEXT_AMT" class="java.lang.String"/>
+	<field name="RV_PRINT_DEDUCTIBLE_AMT" class="java.lang.String"/>
+	<field name="RV_PRINT_DEDUCTIBLE_RT" class="java.lang.String"/>
+	<field name="RV_PRINT_DEDUCTIBLES" class="java.lang.String"/>
+	<field name="RV_PRINT_DISTRICT_BLOCK" class="java.lang.String"/>
+	<field name="RV_PRINT_DOC_SIGNATURE_POL1" class="java.lang.String"/>
+	<field name="RV_PRINT_DOC_SIGNATURE_POL2" class="java.lang.String"/>
+	<field name="RV_PRINT_DOC_SUBTITLE1" class="java.lang.String"/>
+	<field name="RV_PRINT_DOC_SUBTITLE2" class="java.lang.String"/>
+	<field name="RV_PRINT_DOC_SUBTITLE3" class="java.lang.String"/>
+	<field name="RV_PRINT_DOC_SUBTITLE4" class="java.lang.String"/>
+	<field name="RV_PRINT_DOC_SUBTITLE5" class="java.lang.String"/>
+	<field name="RV_PRINT_DTLS_BELOW_USER" class="java.lang.String"/>
+	<field name="RV_PRINT_GEN_INFO_ABOVE" class="java.lang.String"/>
+	<field name="RV_PRINT_GROUPED_BENEFICIARY" class="java.lang.String"/>
+	<field name="RV_PRINT_INTM_NAME" class="java.lang.String"/>
+	<field name="RV_PRINT_ITEM_TOTAL" class="java.lang.String"/>
+	<field name="RV_PRINT_LAST_ENDTXT" class="java.lang.String"/>
+	<field name="RV_PRINT_LOWER_DTLS" class="java.lang.String"/>
+	<field name="RV_PRINT_MOP_DEDUCTIBLES" class="java.lang.String"/>
+	<field name="RV_PRINT_MOP_NO_ABOVE" class="java.lang.String"/>
+	<field name="RV_PRINT_MOP_WORDINGS" class="java.lang.String"/>
+	<field name="RV_PRINT_MORT_AMT" class="java.lang.String"/>
+	<field name="RV_PRINT_MORTGAGEE" class="java.lang.String"/>
+	<field name="RV_PRINT_MORTGAGEE_NAME" class="java.lang.String"/>
+	<field name="RV_PRINT_NULL_MORTGAGEE" class="java.lang.String"/>
+	<field name="RV_PRINT_ONE_ITEM_TITLE" class="java.lang.String"/>
+	<field name="RV_PRINT_ORIGIN_DEST_ABOVE" class="java.lang.String"/>
+	<field name="RV_PRINT_PERIL" class="java.lang.String"/>
+	<field name="RV_PRINT_PERIL_NAME_LONG" class="java.lang.String"/>
+	<field name="RV_PRINT_POLNO_ENDT" class="java.lang.String"/>
+	<field name="RV_PRINT_PREMIUM_RATE" class="java.lang.String"/>
+	<field name="RV_PRINT_REF_POL_NO" class="java.lang.String"/>
+	<field name="RV_PRINT_RENEWAL_TOP" class="java.lang.String"/>
+	<field name="RV_PRINT_REPORT_TITLE" class="java.lang.String"/>
+	<field name="RV_PRINT_SHORT_NAME" class="java.lang.String"/>
+	<field name="RV_PRINT_SIGNATORY" class="java.lang.String"/>
+	<field name="RV_PRINT_SUB_INFO" class="java.lang.String"/>
+	<field name="RV_PRINT_SUM_INSURED" class="java.lang.String"/>
+	<field name="RV_PRINT_SURVEY_SETTLING_AGENT" class="java.lang.String"/>
+	<field name="RV_PRINT_TABULAR" class="java.lang.String"/>
+	<field name="RV_PRINT_TARIFF_ZONE" class="java.lang.String"/>
+	<field name="RV_PRINT_TIME" class="java.lang.String"/>
+	<field name="RV_PRINT_UPPER_CASE" class="java.lang.String"/>
+	<field name="RV_PRINT_WRRNTIES_FONTBIG" class="java.lang.String"/>
+	<field name="RV_PRINT_ZERO_PREMIUM" class="java.lang.String"/>
+	<field name="RV_PRINT_ZONE" class="java.lang.String"/>
+	<field name="RV_SUM_INSURED_TITLE" class="java.lang.String"/>
+	<field name="RV_SUM_INSURED_TITLE2" class="java.lang.String"/>
+	<field name="RV_SURVEY_TITLE" class="java.lang.String"/>
+	<field name="RV_SURVEY_WORDINGS" class="java.lang.String"/>
+	<field name="RV_TAX_BREAKDOWN" class="java.lang.String"/>
+	<field name="RV_TSI_LABEL1" class="java.lang.String"/>
+	<field name="RV_TSI_LABEL2" class="java.lang.String"/>
+	<field name="RV_WITHOUT_ITEM_NO" class="java.lang.String"/>
+	<field name="RV_BENEFICIARY_ITEM_TITLE" class="java.lang.String"/>
+	<field name="RV_BENEFICIARY_SUBTITLE1" class="java.lang.String"/>
+	<field name="RV_BENEFICIARY_SUBTITLE2" class="java.lang.String"/>
+	<field name="RV_PRINT_DEDUCTIBLE_AMT_TOTAL" class="java.lang.String"/>
+	<field name="RV_ITEM_COUNT" class="java.math.BigDecimal"/>
+	<field name="RV_PRINT_FLEET_TAG" class="java.lang.String"/>
+	<field name="RV_PRINT_DEDUCTIBLE_TYPE" class="java.lang.String"/>
+	<field name="RV_SHOW_SIGNATURE" class="java.lang.String"/>
+	<field name="F_HEADER" class="java.lang.String"/>
+	<field name="F_REPORT_TITLE" class="java.lang.String"/>
+	<field name="F_DASH" class="java.lang.String"/>
+	<field name="ASSURED_NAME" class="java.lang.String"/>
+	<field name="F_ASSD_NAME" class="java.lang.String"/>
+	<field name="PAR_POLICY_LABEL" class="java.lang.String"/>
+	<field name="F_PREM_TITLE" class="java.lang.String"/>
+	<field name="F_PREM_TITLE_SHORT_NAME" class="java.lang.String"/>
+	<field name="PREM_LABEL_AMOUNT" class="java.math.BigDecimal"/>
+	<field name="F_ACCT_OF_CD" class="java.lang.String"/>
+	<field name="F_CURRENCY" class="java.lang.String"/>
+	<field name="F_AMOUNT_DUE_TITLE" class="java.lang.String"/>
+	<field name="F_AMOUNT_DUE" class="java.math.BigDecimal"/>
+	<field name="F_AMOUNT_DUE_SHORT_NAME" class="java.lang.String"/>
+	<field name="F_TSI_LABEL1" class="java.lang.String"/>
+	<field name="F_TSI_AMT" class="java.lang.String"/>
+	<field name="F_TSI_LABEL2" class="java.lang.String"/>
+	<field name="F_ACC_SUM" class="java.math.BigDecimal"/>
+	<field name="F_PREMIUM_AMT" class="java.math.BigDecimal"/>
+	<field name="F_TAX_AMT" class="java.math.BigDecimal"/>
+	<field name="F_OTHER_CHARGES" class="java.math.BigDecimal"/>
+	<field name="F_TOTAL_TSI" class="java.math.BigDecimal"/>
+	<field name="F_CURRENCY_NAME" class="java.lang.String"/>
+	<field name="F_BASIC_TSI_SPELL" class="java.lang.String"/>
+	<field name="F_TOTAL_IN_WORDS" class="java.lang.String"/>
+	<field name="F_ACC_SUM_WORD" class="java.lang.String"/>
+	<field name="F_RENEWAL" class="java.lang.String"/>
+	<field name="F_SIGNATORY_HEADER" class="java.lang.String"/>
+	<field name="F_SIGNATORY_TEXT1" class="java.lang.String"/>
+	<field name="F_SIGNATORY_TEXT2" class="java.lang.String"/>
+	<field name="F_COMPANY" class="java.lang.String"/>
+	<field name="F_SIGNATORY" class="java.lang.String"/>
+	<field name="F_SIGNATURE_IMG" class="java.lang.String"/>
+	<field name="F_DESIGNATION" class="java.lang.String"/>
+	<field name="F_USER" class="java.lang.String"/>
+	<field name="F_INTM_NO" class="java.lang.String"/>
+	<field name="F_INTM_NAME" class="java.lang.String"/>
+	<field name="F_INTM_NICKNAME" class="java.lang.String"/>
+	<field name="F_REF_INV_NO" class="java.lang.String"/>
+	<field name="F_POLICY_ID" class="java.lang.Integer"/>
+	<field name="F_MOP_MAP_WORDINGS" class="java.lang.String"/>
+	<field name="F_MOP_WORDINGS" class="java.lang.String"/>
+	<field name="LABEL_ASSD" class="java.lang.String"/>
+	<field name="PAR_SEQ_NO1" class="java.lang.String"/>
+	<field name="EXTRACT_ID1" class="java.math.BigDecimal"/>
+	<field name="PAR_ID" class="java.math.BigDecimal"/>
+	<field name="POLICY_NUMBER" class="java.lang.String"/>
+	<field name="PAR_NO" class="java.lang.String"/>
+	<field name="PAR_ORIG" class="java.lang.String"/>
+	<field name="LINE_LINE_NAME" class="java.lang.String"/>
+	<field name="SUBLINE_SUBLINE_NAME" class="java.lang.String"/>
+	<field name="SUBLINE_SUBLINE_CD" class="java.lang.String"/>
+	<field name="SUBLINE_LINE_CD" class="java.lang.String"/>
+	<field name="BASIC_INCEPT_DATE" class="java.lang.String"/>
+	<field name="BASIC_EXPIRY_DATE" class="java.lang.String"/>
+	<field name="BASIC_EXPIRY_TAG" class="java.lang.String"/>
+	<field name="BASIC_ISSUE_DATE" class="java.lang.String"/>
+	<field name="BASIC_TSI_AMT" class="java.math.BigDecimal"/>
+	<field name="BASIC_TSI_WORDS" class="java.lang.String"/>
+	<field name="SUBLINE_SUBLINE_TIME" class="java.lang.String"/>
+	<field name="BASIC_ACCT_OF_CD" class="java.math.BigDecimal"/>
+	<field name="BASIC_MORTG_NAME" class="java.lang.String"/>
+	<field name="BASIC_ASSD_NO" class="java.math.BigDecimal"/>
+	<field name="ADDRESS1" class="java.lang.String"/>
+	<field name="ADDRESS2" class="java.lang.String"/>
+	<field name="ADDRESS3" class="java.lang.String"/>
+	<field name="BASIC_ADDR" class="java.lang.String"/>
+	<field name="BASIC_POL_FLAG" class="java.lang.String"/>
+	<field name="BASIC_LINE_CD" class="java.lang.String"/>
+	<field name="BASIC_REF_POL_NO" class="java.lang.String"/>
+	<field name="BASIC_ASSD_NO2" class="java.math.BigDecimal"/>
+	<field name="LABEL_TAG" class="java.lang.String"/>
+	<field name="LABEL_TAG1" class="java.lang.String"/>
+	<field name="ENDT_NO" class="java.lang.String"/>
+	<field name="POL_ENDT_NO" class="java.lang.String"/>
+	<field name="ENDT_EXPIRY_DATE" class="java.lang.String"/>
+	<field name="BASIC_EFF_DATE" class="java.lang.String"/>
+	<field name="EFF_DATE" class="java.sql.Timestamp"/>
+	<field name="ENDT_EXPIRY_TAG" class="java.lang.String"/>
+	<field name="BASIC_INCEPT_TAG" class="java.lang.String"/>
+	<field name="BASIC_SUBLINE_CD" class="java.lang.String"/>
+	<field name="BASIC_ISS_CD" class="java.lang.String"/>
+	<field name="BASIC_ISSUE_YY" class="java.math.BigDecimal"/>
+	<field name="BASIC_POL_SEQ_NO" class="java.math.BigDecimal"/>
+	<field name="BASIC_RENEW_NO" class="java.math.BigDecimal"/>
+	<field name="BASIC_EFF_TIME" class="java.lang.String"/>
+	<field name="BASIC_ENDT_EXPIRY_TIME" class="java.lang.String"/>
+	<field name="EFF_DATE_TIME" class="java.sql.Timestamp"/>
+	<field name="PAR_PAR_TYPE" class="java.lang.String"/>
+	<field name="PAR_PAR_STATUS" class="java.math.BigDecimal"/>
+	<field name="BASIC_CO_INSURANCE_SW" class="java.lang.String"/>
+	<field name="USERNAME" class="java.lang.String"/>
+	<field name="SUBLINE_OPEN_POLICY" class="java.lang.String"/>
+	<field name="CRED_BR" class="java.lang.String"/>
+	<field name="ASSD_NAME" class="java.lang.String"/>
+	<field name="IN_ACCT_OF" class="java.lang.String"/>
+	<field name="MOP_NO" class="java.lang.String"/>
+	<field name="ITEM_CURRENCY_NAME" class="java.lang.String"/>
+	<field name="CURRENCY_TSI_AMOUNT" class="java.math.BigDecimal"/>
+	<field name="ITEM_TITLE_DESC" class="java.lang.String"/>
+	<field name="II_ITEM_TITLE" class="java.lang.String"/>
+	<field name="II_COLOR" class="java.lang.String"/>
+	<field name="II_MOTOR_NO" class="java.lang.String"/>
+	<field name="II_SERIAL_NO" class="java.lang.String"/>
+	<field name="II_PLATE_NO" class="java.lang.String"/>
+	<field name="NO_OF_PASS" class="java.math.BigDecimal"/>
+	<field name="LINE_NUMBER" class="java.math.BigDecimal"/>
+	<field name="RISK_LOCATION" class="java.lang.String"/>
+	<field name="COVERED_PERILS" class="java.lang.String"/>
+	<field name="DECLARATION_POLICY" class="java.lang.String"/>
+	<field name="OLD_POILCY_NO" class="java.lang.String"/>
+	<field name="LOAN_ACCOUNT" class="java.lang.String"/>
+	<field name="BR_ADDRESS" class="java.lang.String"/>
+	<field name="BR_CONTACT" class="java.lang.String"/>
+	<field name="SHOW_MORTGAGEE" class="java.lang.String"/>
+	<field name="SHOW_DEDUCTIBLE_TEXT" class="java.lang.String"/>
+	<field name="SHOW_POLGENIN" class="java.lang.String"/>
+	<field name="SHOW_PERILS" class="java.lang.String"/>
+	<field name="SHOW_POLGENIN_GEN_INFO" class="java.lang.String"/>
+	<field name="SHOW_PERILS2" class="java.lang.String"/>
+	<field name="SHOW_ITEM" class="java.lang.String"/>
+	<field name="SHOW_WARR_AND_CLAUSES" class="java.lang.String"/>
+	<field name="SHOW_INTM_NO" class="java.lang.String"/>
+	<field name="SHOW_INTM_NAME" class="java.lang.String"/>
+	<field name="SHOW_REF_POL_NO" class="java.lang.String"/>
+	<field name="SHOW_DOC_TOTAL_IN_BOX" class="java.lang.String"/>
+	<field name="SHOW_BASIC_TSI_SPELL" class="java.lang.String"/>
+	<field name="SHOW_ACC_SUM_WORD" class="java.lang.String"/>
+	<field name="SHOW_PAR_NO" class="java.lang.String"/>
+	<field name="SHOW_CRED_BR" class="java.lang.String"/>
+	<field name="SHOW_POLICY_ID" class="java.lang.String"/>
+	<field name="SHOW_MN_ITEM_HEADER" class="java.lang.String"/>
+	<variable name="TOTAL_TAX" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{PREM_LABEL_AMOUNT}]]></variableExpression>
+	</variable>
+	<pageHeader>
+		<band height="100">
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="0" y="81" width="576" height="15" uuid="552b7220-e1fd-44e0-9d42-a886c04d1689"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CONFIRMATION OF FIRE INSURANCE]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="CourierNew" positionType="Float" x="365" y="10" width="211" height="60" isPrintWhenDetailOverflows="true" uuid="0cd2eb5d-bcb3-48e0-9ce8-8d264a9a2272"/>
+				<textElement verticalAlignment="Bottom" markup="html">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BR_ADDRESS}+"<br>"+$F{BR_CONTACT}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement style="CourierNew" positionType="Float" x="0" y="10" width="246" height="67" uuid="b0b7da76-fc89-4395-b93f-64cfc76c3418"/>
+				<imageExpression><![CDATA["\\\\10.20.39.99\\c\$\\GeniisysAdHocReports\\IMAGES\\cc2.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="52">
+			<frame>
+				<reportElement style="CourierNew" positionType="Float" x="12" y="21" width="178" height="12" isRemoveLineWhenBlank="true" uuid="9fa802ba-79f7-4952-92e3-191fa098b4d9"/>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="55" height="12" uuid="cecfb934-6c50-4e8c-8b6b-ba76ad83e525"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Master Policy]]></text>
+				</staticText>
+				<textField>
+					<reportElement style="CourierNew" positionType="Float" x="61" y="0" width="116" height="12" uuid="52073205-5ef3-47a5-a6b1-ea524613f8eb"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{POLICY_NUMBER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="56" y="0" width="9" height="12" uuid="c8ffe8c1-809d-4aa3-9f8b-2e5e17c0c835"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[:]]></text>
+				</staticText>
+			</frame>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="389" y="9" width="169" height="12" uuid="9f342a67-4bb2-4dcf-a314-2b3ff274ef6a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Policy Period]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement style="CourierNew" positionType="Float" x="442" y="21" width="115" height="12" uuid="04f16d92-225b-4d1a-9bbf-b4a8de3cc643"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BASIC_INCEPT_DATE}+" 12:00 PM"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="433" y="21" width="9" height="12" uuid="b4a1a6ff-9aba-40d5-a66a-0a659c649dac"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="389" y="21" width="44" height="12" uuid="4abe9841-99b9-49ee-80f8-ad769cafc886"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="12" y="33" width="56" height="12" uuid="77115d69-97f9-47b4-a7bb-c098507e3bee"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Declaration]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="68" y="33" width="7" height="12" uuid="12588363-0953-4801-9398-fd61f1f3ff95"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<line>
+				<reportElement style="CourierNew" positionType="Float" x="10" y="9" width="548" height="1" uuid="8e1ff856-3976-4744-8169-d16d1787b690"/>
+			</line>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="389" y="33" width="44" height="12" uuid="9244d851-cc93-44c3-8777-be7e62aafa21"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="433" y="33" width="9" height="12" uuid="36c2f383-10b3-4af9-b2ff-7fa25ff69398"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="">
+				<reportElement style="CourierNew" positionType="Float" x="442" y="33" width="115" height="12" uuid="d69936e7-08f0-4889-a57c-7790bab41807"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BASIC_EXPIRY_DATE}+" 12:00 PM"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement style="CourierNew" positionType="Float" x="11" y="51" width="548" height="1" uuid="9fe9a6e1-0d57-413a-ac63-90ccd823b01d"/>
+			</line>
+			<line>
+				<reportElement style="CourierNew" positionType="Float" stretchType="RelativeToBandHeight" x="558" y="9" width="1" height="43" uuid="4e4e7484-d232-419f-bd55-53e965add6e9"/>
+			</line>
+			<line>
+				<reportElement style="CourierNew" positionType="Float" stretchType="RelativeToBandHeight" x="385" y="10" width="1" height="41" uuid="d509b898-48f9-4448-af3a-94df242477db"/>
+			</line>
+			<line>
+				<reportElement style="CourierNew" positionType="Float" stretchType="RelativeToBandHeight" x="10" y="9" width="1" height="43" uuid="5df71067-5cb6-4401-a5c7-56d803af2bba"/>
+			</line>
+			<line>
+				<reportElement style="CourierNew" positionType="Float" stretchType="RelativeToBandHeight" x="193" y="10" width="1" height="42" uuid="7b663351-6539-4c2d-acd6-bd7c7cf9704e"/>
+			</line>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="200" y="33" width="54" height="12" uuid="ef7ee594-2d0b-4ce0-8f74-8bc164304fbd"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Loan Acct#.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="200" y="21" width="54" height="12" uuid="76432d7c-c82a-4277-a6af-c87110141c1b"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Old Policy]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="254" y="21" width="9" height="12" uuid="0f0fa43e-b4ab-406b-8416-b618b7938ea9"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="254" y="33" width="9" height="12" uuid="78d3d00c-bb45-4667-94aa-de04f7478a20"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="263" y="21" width="122" height="12" isRemoveLineWhenBlank="true" isPrintInFirstWholeBand="true" isPrintWhenDetailOverflows="true" uuid="986d8bf2-5eed-4d21-8398-861f2d95feeb"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OLD_POILCY_NO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="263" y="33" width="122" height="12" isPrintWhenDetailOverflows="true" uuid="12a2efe3-1588-4ffb-a96e-7a848a10f716"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LOAN_ACCOUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="73" y="33" width="117" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="7bf0bbee-1a5f-4a22-944c-81ee6dabaabc"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DECLARATION_POLICY}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="132">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="360" y="16" width="120" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="dc67caa2-8adc-455b-a387-5ec4d4f48940">
+					<printWhenExpression><![CDATA[!($P{P_PRINT_PREMIUM}.equals("Y"))]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true" pdfFontName="Courier"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PREMIUM AS AGREED"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="CourierNew" positionType="Float" x="75" y="4" width="203" height="12" isPrintWhenDetailOverflows="true" uuid="ad195a32-d47d-4d66-ad9a-18516bb494d8"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{F_ASSD_NAME}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement style="CourierNew" positionType="Float" x="11" y="0" width="549" height="1" uuid="ab803170-89f2-4634-be8e-c0e240de0aee"/>
+			</line>
+			<line>
+				<reportElement style="CourierNew" positionType="Float" x="10" y="131" width="548" height="1" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="83e7dffe-536d-4950-8dbd-feee7cda2ad9"/>
+			</line>
+			<line>
+				<reportElement style="CourierNew" positionType="Float" stretchType="RelativeToBandHeight" x="558" y="1" width="1" height="131" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="f58547e6-9a38-47aa-be2b-79ad526b8b83"/>
+			</line>
+			<line>
+				<reportElement style="CourierNew" positionType="Float" stretchType="RelativeToBandHeight" x="10" y="0" width="1" height="132" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="aa77f7b9-b429-479d-8e28-8c43b40c395c"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="CourierNew" positionType="Float" x="15" y="4" width="53" height="12" isPrintWhenDetailOverflows="true" uuid="a8e01644-a951-4f19-a420-0c66369a4f2c"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ASSURED"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="CourierNew" positionType="Float" x="67" y="4" width="9" height="12" isPrintWhenDetailOverflows="true" uuid="7ec1134d-4d01-446f-9c85-654a986bca9f"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[": "]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement style="CourierNew" positionType="Float" x="67" y="16" width="167" height="12" isRemoveLineWhenBlank="true" uuid="94a14091-fb1b-4c5c-b1eb-8ee680fda47b">
+					<printWhenExpression><![CDATA[!$F{F_ASSD_NAME}.equals($F{IN_ACCT_OF})]]></printWhenExpression>
+				</reportElement>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="59" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="c9651fb0-4aa8-49c7-96b5-45936c60d04c">
+						<printWhenExpression><![CDATA[!$F{F_ASSD_NAME}.equals($F{IN_ACCT_OF})]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[In Account of : ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="CourierNew" positionType="Float" x="58" y="0" width="109" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="189f370a-684c-4a77-8be8-0b9b1d331735">
+						<printWhenExpression><![CDATA[!$F{F_ASSD_NAME}.equals($F{IN_ACCT_OF})]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{IN_ACCT_OF}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<staticText>
+				<reportElement style="CourierNew" positionType="Float" x="298" y="4" width="250" height="12" isRemoveLineWhenBlank="true" uuid="d2f56dd8-222a-46a5-a351-fa63356f8967">
+					<printWhenExpression><![CDATA[!$F{LINE_NUMBER}.equals("")]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PREIMIUM AND CHARGES]]></text>
+			</staticText>
+			<frame>
+				<reportElement positionType="Float" x="15" y="67" width="264" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="838d4c21-9dcb-47cb-874c-602954427435">
+					<printWhenExpression><![CDATA[!$F{RISK_LOCATION}.equals(null)]]></printWhenExpression>
+				</reportElement>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="53" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="1724b752-dc88-4045-ab76-f43e58f32d10">
+						<printWhenExpression><![CDATA[!$F{RISK_LOCATION}.equals(null)]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[LOCATION OF RISK]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="53" y="0" width="9" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="e049592a-5e19-4379-b773-dbe74096e72a">
+						<printWhenExpression><![CDATA[!$F{RISK_LOCATION}.equals(null)]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="CourierNew" positionType="Float" x="62" y="0" width="199" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="0871512d-b4f0-4b3c-9630-db89402ccccd">
+						<printWhenExpression><![CDATA[!$F{RISK_LOCATION}.equals(null)]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{RISK_LOCATION}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<subreport runToBottom="false">
+				<reportElement style="CourierNew" positionType="Float" stretchType="RelativeToBandHeight" x="279" y="16" width="269" height="111" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="3966be97-70fb-4854-8117-00e3e69b7516">
+					<printWhenExpression><![CDATA[$P{P_PRINT_PREMIUM}.equals("Y")]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="P_TOTAL_AMOUNT_DUE">
+					<subreportParameterExpression><![CDATA[$F{F_AMOUNT_DUE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{P_SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_PREM_TITLE_SHORT_NAME">
+					<subreportParameterExpression><![CDATA[$F{F_PREM_TITLE_SHORT_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_CURRENCY">
+					<subreportParameterExpression><![CDATA[$F{F_CURRENCY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_PREM_TITLE">
+					<subreportParameterExpression><![CDATA[$F{F_PREM_TITLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_PREMIUM_AMOUNT">
+					<subreportParameterExpression><![CDATA[$F{PREM_LABEL_AMOUNT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_PREM_LABEL_AMOUNT">
+					<subreportParameterExpression><![CDATA[$F{PREM_LABEL_AMOUNT}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_FONT_SW">
+					<subreportParameterExpression><![CDATA[$P{P_FONT_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_CO_INSURANCE_SW">
+					<subreportParameterExpression><![CDATA[$F{BASIC_CO_INSURANCE_SW}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_POLICY_ID">
+					<subreportParameterExpression><![CDATA[$P{P_POLICY_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_TOTAL_AMOUNT_SHORT_NAME">
+					<subreportParameterExpression><![CDATA[$F{F_AMOUNT_DUE_SHORT_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_TOTAL_AMOUNT_DUE_LABEL">
+					<subreportParameterExpression><![CDATA[$F{F_AMOUNT_DUE_TITLE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_PRINT_SHORT_NAME">
+					<subreportParameterExpression><![CDATA[$F{RV_PRINT_SHORT_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_PRINT_CURRENCY_DESC">
+					<subreportParameterExpression><![CDATA[$F{RV_PRINT_CURRENCY_DESC}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_PRINT_UPPER_CASE">
+					<subreportParameterExpression><![CDATA[$F{RV_PRINT_UPPER_CASE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{P_REPORT_ID}.equals("ENGINEERING") ? $P{SUBREPORT_DIR} + "TAXES_EN.jasper" : $P{SUBREPORT_DIR} + "TAXES.jasper"]]></subreportExpression>
+			</subreport>
+			<frame>
+				<reportElement positionType="Float" x="15" y="44" width="264" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="8285b97b-3814-4b9d-98c9-481a5e3a612b"/>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="53" y="0" width="9" height="20" uuid="e376c4cd-52dd-4548-869f-a60ac8fc0dcb"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="CourierNew" positionType="Float" x="62" y="0" width="202" height="20" isPrintWhenDetailOverflows="true" uuid="f2ba1296-cd7d-4a6b-81d6-467027a5c780"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{BASIC_TSI_WORDS}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="53" height="20" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="3575aa3c-37a8-4174-9762-be30a39d8438"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[AMOUNT OF INSURANCE]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="14" y="29" width="262" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="646e25cf-3a50-4a86-93c9-d176b131f8cb">
+					<printWhenExpression><![CDATA[!$F{RISK_LOCATION}.equals("")]]></printWhenExpression>
+				</reportElement>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="CourierNew" positionType="Float" x="61" y="0" width="201" height="12" isPrintWhenDetailOverflows="true" uuid="53f61ac7-883f-4420-b254-b394b6c83b0e"/>
+					<textElement markup="html">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{BASIC_ADDR}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="1" y="0" width="53" height="12" uuid="12006ec5-2cd9-4581-8dae-c2071c83b535"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ADDRESS]]></text>
+				</staticText>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="53" y="0" width="9" height="12" uuid="07f97399-ecd5-49aa-973f-ea4045e64f4f"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[:]]></text>
+				</staticText>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="15" y="91" width="263" height="24" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="dc1c66c0-f0fa-4ff4-baa1-e20a1e73b7ce"/>
+				<textField isStretchWithOverflow="true" pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+					<reportElement style="CourierNew" positionType="Float" x="83" y="12" width="102" height="12" isPrintWhenDetailOverflows="true" uuid="73b809a2-c259-4ffe-b32c-4c13d6fd712e"/>
+					<textElement textAlignment="Right">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{CURRENCY_TSI_AMOUNT}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="0" y="0" width="98" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="160b9346-81c5-4d8c-8c90-1b04a49f2460"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[PROPERTY INSURED  : ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="CourierNew" positionType="Float" x="32" y="12" width="21" height="12" isPrintWhenDetailOverflows="true" uuid="6fa1560f-7c26-47fe-bf84-c6c33cbacf4d"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{LINE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="11" y="12" width="21" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="2cac5044-e8c8-4112-9a79-8aeb957e0aac">
+						<printWhenExpression><![CDATA[!$F{LINE_NUMBER}.equals("")]]></printWhenExpression>
+					</reportElement>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Item]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="CourierNew" positionType="Float" x="53" y="12" width="30" height="12" isPrintWhenDetailOverflows="true" uuid="78923e73-a349-4d9a-a5d1-21309478f57d"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ITEM_CURRENCY_NAME}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement positionType="Float" x="185" y="12" width="77" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="38a601d1-5c87-4638-b9b6-d1980c1016b8"/>
+					<textElement textAlignment="Center">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{ITEM_TITLE_DESC}]]></textFieldExpression>
+				</textField>
+			</frame>
+			<frame>
+				<reportElement positionType="Float" x="14" y="115" width="263" height="12" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="e71d49f5-9469-49de-8be0-5719b8885417"/>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="1" y="0" width="73" height="12" uuid="744bb6a5-92b8-45a7-a2bd-54558b5f488a"/>
+					<textElement>
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<text><![CDATA[PERILS COVERED]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement style="CourierNew" positionType="Float" x="83" y="0" width="179" height="12" isPrintWhenDetailOverflows="true" uuid="4635bc3c-4f53-491c-93cb-75cc7a23a035"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{COVERED_PERILS}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement style="CourierNew" positionType="Float" x="74" y="0" width="9" height="12" uuid="69878521-198c-4fb0-bf50-1b4e9b37377d"/>
+					<textElement>
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[:]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</detail>
+	<summary>
+		<band height="30">
+			<subreport>
+				<reportElement style="CourierNew" positionType="Float" x="13" y="0" width="535" height="30" uuid="197fb154-3b3c-470f-9183-b7dded3fd5df"/>
+				<subreportParameter name="P_POLICY_ID">
+					<subreportParameterExpression><![CDATA[$P{P_POLICY_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_ISSUE_DATE">
+					<subreportParameterExpression><![CDATA[$F{BASIC_ISSUE_DATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_ITEM_NO">
+					<subreportParameterExpression><![CDATA[$F{LINE_NUMBER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_DATE">
+					<subreportParameterExpression><![CDATA[$P{P_DATE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_USER">
+					<subreportParameterExpression><![CDATA[$P{P_USER}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_PLACE">
+					<subreportParameterExpression><![CDATA[$P{P_PLACE}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR}+"DEDUCTIBLES_FI.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="McSworn">
+
+	<typeAlias alias="McSworn" type="com.geniisys.claims.entity.McSworn" />
+
+	<parameterMap class="com.geniisys.claims.enitity.ClaimNo"
+		id="claimNoParameterMap">
+		<parameter property="lineCd" />
+		<parameter property="sublineCd" />
+		<parameter property="issCd" />
+		<parameter property="clmYy" />
+		<parameter property="clmSeqNo" />
+	</parameterMap>
+
+	<resultMap class="com.geniisys.claims.entity.McSworn" id="mcSwornResultMap">
+		<result property="claimNo" column="CLAIM_NO" />
+		<result property="policyNo" column="POLICY_NO" />
+		<result property="assuredName" column="ASSURED_NAME" />
+		<result property="modelyear" column="MODEL_YEAR" />
+		<result property="motorTypeDesc" column="MOTOR_TYPE_DESC" />
+		<result property="motorNo" column="MOTOR_NO" />
+		<result property="serialNo" column="SERIAL_NO" />
+		<result property="lossDay" column="LOSS_DAY" />
+		<result property="lossTime" column="LOSS_TIME" />
+		<result property="lossMonth" column="LOSS_MONTH" />
+		<result property="inceptDate" column="INCEPT_DATE" />
+		<result property="expiryDate" column="EXPIRY_DATE" />
+		<result property="lossAmt" column="LOSS_AMOUNT" />
+		<result property="deductible" column="DEDUCTIBLE" />
+		<result property="totalAmount" column="TOTAL_AMOUNT" />
+	</resultMap>
+
+	<select id="populateMcSworn" resultMap="mcSwornResultMap"
+		parameterMap="claimNoParameterMap">
+		SELECT A.LINE_CD||'-'||A.SUBLINE_CD||'-'||A.ISS_CD
+		||'-'|| LTRIM(TO_CHAR (A.CLM_YY, '09')) ||'-'|| LTRIM(TO_CHAR
+		(A.CLM_SEQ_NO, '0000009')) CLAIM_NO,
+		B.LINE_CD||'-'||B.SUBLINE_CD||'-'||B.ISS_CD ||'-'||LTRIM(TO_CHAR(
+		B.ISSUE_YY, '09')) ||'-'|| LTRIM(TO_CHAR( B.POL_SEQ_NO,
+		'0000009'))||'-'||LTRIM(TO_CHAR(B.RENEW_NO, '09')) POLICY_NO,
+		A.ASSURED_NAME,
+		D.MODEL_YEAR,
+		F.MOTOR_TYPE_DESC,
+		D.MOTOR_NO,
+		D.SERIAL_NO,
+		D.PLATE_NO,
+		TO_CHAR(A.LOSS_DATE, 'ddth') LOSS_DAY,
+		TO_CHAR(A.LOSS_DATE, 'HH:MI AM') LOSS_TIME,
+		TO_CHAR(A.LOSS_DATE, 'fmMonth YYYY')LOSS_MONTH,
+		E.LOSS_CAT_DES,
+		TO_CHAR (B.INCEPT_DATE,'FMMonth dd, YYYY')INCEPT_DATE,
+		TO_CHAR (B.EXPIRY_DATE,'FMMonth dd, YYYY')EXPIRY_DATE,
+		SUM(NVL(I.LOSS_AMT,0))LOSS_AMOUNT,
+		ABS (SUM(NVL(I.DED_AMT,0))) DEDUCTIBLE,
+		SUM(NVL(I.LOSS_AMT,0)) + SUM (NVL(I.DED_AMT,0)) TOTAL_AMOUNT,
+		K.CAR_COMPANY ,
+		J.MAKE
+		FROM GICL_CLAIMS A,GIPI_POLBASIC B, GIIS_ASSURED C, GICL_MOTOR_CAR_DTL D,
+		GIIS_LOSS_CTGRY E, GIIS_MOTORTYPE F,
+		GIAC_DIRECT_CLAIM_PAYTS G, GICL_ADVICE H, GICL_LOSS_EXP_DED_DTL I,GIIS_MC_MAKE
+		J,GIIS_MC_CAR_COMPANY K
+		WHERE A.LINE_CD =UPPER(?)
+		AND A.SUBLINE_CD =UPPER(?)
+		AND A.ISS_CD =UPPER(?)
+		AND A.CLM_YY =UPPER(?)
+		AND A.CLM_SEQ_NO =UPPER(?)
+		AND A.ASSD_NO=B.ASSD_NO
+		AND A.LOSS_CAT_CD=E.LOSS_CAT_CD
+		AND A.LINE_CD=E.LINE_CD
+		AND A.CLAIM_ID=D.CLAIM_ID
+		AND A.SUBLINE_CD=F.SUBLINE_CD
+		AND B.LINE_CD = A.LINE_CD
+		AND B.SUBLINE_CD = A.SUBLINE_CD
+		AND B.ISS_CD = A.POL_ISS_CD
+		AND B.POL_SEQ_NO = A.POL_SEQ_NO
+		AND B.RENEW_NO = A.RENEW_NO
+		AND B.ASSD_NO=C.ASSD_NO
+		AND F.TYPE_CD=D.MOT_TYPE
+		AND A.CLAIM_ID = H.CLAIM_ID
+		AND G.CLAIM_ID = H.CLAIM_ID
+		AND G.ADVICE_ID = H.ADVICE_ID
+		AND H.ADVICE_FLAG = 'Y'
+		AND H.APPRVD_TAG = 'Y'
+		AND H.CLAIM_ID = I.CLAIM_ID
+		AND D.MAKE_CD = J.MAKE_CD
+		AND D.MOTCAR_COMP_CD = K.CAR_COMPANY_CD
+		AND J.CAR_COMPANY_CD = K.CAR_COMPANY_CD
+		GROUP BY
+		A.LINE_CD||'-'||A.SUBLINE_CD||'-'||A.ISS_CD ||'-'|| LTRIM(TO_CHAR (A.CLM_YY, '09')) ||'-'|| LTRIM(TO_CHAR
+		(A.CLM_SEQ_NO, '0000009')),
+		B.LINE_CD||'-'||B.SUBLINE_CD||'-'||B.ISS_CD ||'-'||LTRIM(TO_CHAR(
+		B.ISSUE_YY, '09')) ||'-'|| LTRIM(TO_CHAR( B.POL_SEQ_NO,
+		'0000009'))||'-'||LTRIM(TO_CHAR(B.RENEW_NO, '09')),
+		A.LOSS_DATE,A.ASSURED_NAME, B.INCEPT_DATE, B.EXPIRY_DATE,
+		D.MODEL_YEAR, F.MOTOR_TYPE_DESC, D.MOTOR_NO, D.SERIAL_NO, D.PLATE_NO,
+		E.LOSS_CAT_DES,
+		K.CAR_COMPANY , J.MAKE
+	</select>
+
+</sqlMap>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Assured">
+
+	<typeAlias alias="Assured" type="com.geniisys.common.entity.Assured" />
+
+	<resultMap class="com.geniisys.common.entity.Assured" id="assuredResultMap">
+		<result property="assdNo" column="ASSD_NO" />
+		<result property="assdName" column="ASSD_NAME" />
+		<result property="tranDate" column="TRAN_DATE" />
+		<result property="mailAddr1" column="MAIL_ADDR1" />
+		<result property="mailAddr2" column="MAIL_ADDR2" />
+		<result property="mailAddr3" column="MAIL_ADDR3" />
+	</resultMap>
+
+	<resultMap class="com.geniisys.common.entity.Assured" id="assdResultMap">
+		<result property="assdNo" column="ASSD_NO" />
+		<result property="assdName" column="ASSD_NAME" />
+	</resultMap>
+
+	<select id="fetchAssdNo" resultClass="java.lang.Integer"
+		parameterClass="java.lang.Integer">
+		SELECT assd_no FROM gixx_polbasic WHERE POLICY_ID =
+		#value# AND ROWNUM = 1
+	</select>
+
+	<select id="fetchAssdNoGipiPolbasic" resultClass="java.lang.Integer"
+		parameterClass="java.lang.Integer">
+		SELECT assd_no FROM gipi_polbasic WHERE POLICY_ID =
+		#value#
+	</select>
+
+	<select id="getAssured" resultMap="assuredResultMap"
+		parameterClass="java.lang.Integer">
+		SELECT ASSD_NO,ASSD_NAME,TO_CHAR(TRAN_DATE)
+		TRAN_DATE,MAIL_ADDR1,MAIL_ADDR2,MAIL_ADDR3 FROM GIIS_ASSURED WHERE
+		ASSD_NO = #value#
+	</select>
+
+	<select id="getAllActiveAssured" resultMap="assdResultMap">
+		<!-- <![CDATA[ SELECT ASSD_NO,TRIM(ASSD_NAME) ASSD_NAME FROM GIIS_ASSURED 
+			WHERE 100000 > ROWNUM ORDER BY 2 ]]> -->
+		<!-- <![CDATA[ select * from ( select a.*, rownum rnum from ( SELECT ASSD_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ASSD_NAME,'''',''),'"',''),',',''),CHR(10),''),'\',''),']','')) 
+			ASSD_NAME FROM GIIS_ASSURED ORDER BY 2 ) a where rownum <= (SELECT COUNT(ASSD_NO)/2 
+			FROM GIIS_ASSURED)) where rnum >= 0 UNION ALL select * from ( select a.*, 
+			rownum rnum from ( SELECT ASSD_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ASSD_NAME,'''',''),'"',''),',',''),CHR(10),''),'\',''),']','')) 
+			ASSD_NAME FROM GIIS_ASSURED ORDER BY 2 ) a where rownum <= (SELECT COUNT(ASSD_NO) 
+			FROM GIIS_ASSURED)) where rnum >= (SELECT COUNT(ASSD_NO)/2 FROM GIIS_ASSURED) 
+			]]> -->
+		<!-- SELECT ASSD_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ASSD_NAME,'''',''),'"',''),',',''),CHR(10),''),'\',''),']',''),'[','')) 
+			ASSD_NAME FROM GIIS_ASSURED where (SELECT COUNT(ASSD_NO)/2 FROM GIIS_ASSURED) 
+			>= ROWNUM ORDER BY 2 -->
+
+		<!-- SELECT ASSD_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ASSD_NAME,'''',''),'"',''),',',''),CHR(10),''),'\','')) 
+			ASSD_NAME FROM GIIS_ASSURED ORDER BY 2 WHERE 200000 > ROWNUM -->
+
+		SELECT
+		ASSD_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ASSD_NAME,'''',''),'"',''),',',''),CHR(10),''),'\',''))
+		ASSD_NAME
+		FROM GIIS_ASSURED
+		ORDER BY 2
+	</select>
+
+	<select id="searchAssured" resultMap="assdResultMap"
+		parameterClass="java.util.HashMap">
+		<!-- SELECT ASSD_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ASSD_NAME,'''',''),'"',''),',',''),CHR(10),''),'\','')) 
+			ASSD_NAME FROM giis_assured WHERE UPPER(assd_name) like '%' || NVL(UPPER(#assdName#),UPPER(assd_name)) 
+			|| '%' AND ASSD_NO = NVL(#assdNo#,ASSD_NO) ORDER BY 2 -->
+		SELECT
+		ASSD_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ASSD_NAME,'''',''),'"',''),',',''),CHR(10),''),'\','')) ASSD_NAME
+		FROM giis_assured
+		WHERE UPPER(assd_name) like '%' || NVL(UPPER(#parameter#),UPPER(assd_name)) || '%'
+		UNION ALL
+		SELECT
+		ASSD_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ASSD_NAME,'''',''),'"',''),',',''),CHR(10),''),'\','')) ASSD_NAME
+		FROM giis_assured
+		WHERE TO_CHAR(ASSD_NO) = NVL(#parameter#,ASSD_NO)
+		ORDER BY 2
+	</select>
+
+</sqlMap>

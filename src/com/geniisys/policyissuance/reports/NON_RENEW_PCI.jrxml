@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="NON_RENEW_NIA" language="groovy" pageWidth="612" pageHeight="792" columnWidth="468" leftMargin="72" rightMargin="72" topMargin="144" bottomMargin="72" uuid="1a7b8a67-e95d-49ba-a95e-dc3e6c3b700b">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="49"/>
+	<parameter name="P_POLICY_ID" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["D:\\Jeff_Workspace\\AUII Configurable Reports\\Underwriting\\Renewal\\NON_RENEW\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="P_REASON1" class="java.lang.String"/>
+	<parameter name="P_REASON2" class="java.lang.String"/>
+	<parameter name="P_REASON3" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+	</parameter>
+	<parameter name="P_USER_ID" class="java.lang.String"/>
+	<parameter name="P_NOTED_BY" class="java.lang.String"/>
+	<parameter name="P_NOTED_BY_DESIGNATION" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[-- Created by Joyce Anne G. Camino
+-- for Non Renewal Notice of NIA
+-- Dec. 28, 2015
+
+SELECT *
+FROM TABLE(NON_RENEW_PCI_PKG.GET_NON_RENEW_DETAILS($P{P_POLICY_ID}))]]>
+	</queryString>
+	<field name="ASSD_NAME" class="java.lang.String"/>
+	<field name="ADDRESS" class="java.lang.String"/>
+	<field name="LINE_NAME" class="java.lang.String"/>
+	<field name="POLICY_NO" class="java.lang.String"/>
+	<field name="EXPIRY_DATE" class="java.lang.String"/>
+	<field name="REASON" class="java.lang.String"/>
+	<field name="LINE_CD" class="java.lang.String"/>
+	<field name="ISS_CD" class="java.lang.String"/>
+	<field name="REF_INTM_CD" class="java.lang.String"/>
+	<field name="PRINT_DATE" class="java.lang.String"/>
+	<field name="ITEM_INSURED" class="java.lang.String"/>
+	<field name="DETAIL" class="java.lang.String"/>
+	<field name="LOCATION_RISK" class="java.lang.String"/>
+	<field name="PLATE_NO" class="java.lang.String"/>
+	<field name="INTERMEDIARY" class="java.lang.String"/>
+	<detail>
+		<band height="149" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="50" width="468" height="14" forecolor="#000000" uuid="0ecd18a3-9257-4029-98d6-7ce1b2d0a495"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRINT_DATE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="26" width="468" height="24" uuid="62f83382-e6e3-4115-b2eb-9ebf4096e5b6"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="78" width="356" height="14" forecolor="#000000" uuid="ea9c2804-6341-4daa-a8c1-b96fe8e57153"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ASSD_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="100" width="356" height="14" forecolor="#000000" uuid="075aacfe-1e8a-4b6d-bf49-bd44efc38d9c"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="9" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ADDRESS}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="64" width="468" height="12" uuid="e32d6770-a875-4595-9b22-77c1d63c3b8b"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="124" width="112" height="13" uuid="765bbff7-18c5-4d90-a930-3a836b73e2b4"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Dear Sir/Madam:]]></text>
+			</staticText>
+		</band>
+		<band height="15">
+			<staticText>
+				<reportElement positionType="Float" x="0" y="0" width="60" height="13" uuid="2875a4d6-df92-4b17-9e2d-510b90787302"/>
+				<textElement>
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Subject:]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="Float" x="60" y="14" width="395" height="1" uuid="59cfa46b-4488-49c0-94cb-1c517d1a4c5f"/>
+				<graphicElement>
+					<pen lineWidth="1.5"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="60" y="0" width="395" height="12" forecolor="#000000" uuid="d01b9d5d-09af-428d-b884-9e240104905d"/>
+				<textElement verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<b>"+
+"FIRE POLICY NO : "+$F{POLICY_NO}+"<br>"+
+"Expiry Date : "+$F{EXPIRY_DATE}+"<br>"+
+"LOCATION OF RISK : "+$F{LOCATION_RISK}+"<br>"+
+"</b>"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="38">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="10" width="468" height="13" forecolor="#000000" uuid="601cac81-89a5-4893-a4cf-0d27687c882c"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA["As your insurance provider, we would like to express our gratitue for giving us the opportunity to be of service to you<br><br>"
++"We, however, regret to inform you that we can no longer renew your insurance policy due to our underwriting restriction, which in your case falls under:<br><br>"
++"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+(!$P{P_REASON1}.equals("")?"( X )":"(&nbsp;&nbsp;&nbsp;)  ")+ " Unfavorable Loss Experience"+"<br><br>"
++"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+(!$P{P_REASON2}.equals("")?"( X )":"(&nbsp;&nbsp;&nbsp;)  ")+ " Risk insured is categorized as a Prohibited Risk"+"<br><br>"
++"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+(!$P{P_REASON3}.equals("")?"( X ) "+"Others : "+$P{P_REASON3}:"(&nbsp;&nbsp;&nbsp;)  "+" Others : ")+"<br><br>"
++"We hope you understand our position on the matter and again we thank you for your patronage"]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="12">
+			<subreport>
+				<reportElement x="0" y="0" width="468" height="12" uuid="33f795a2-d92f-4246-a5cd-bbee93ee8b0f"/>
+				<subreportParameter name="P_NOTED_BY_DESIGNATION">
+					<subreportParameterExpression><![CDATA[$P{P_NOTED_BY_DESIGNATION}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_POLICY_ID">
+					<subreportParameterExpression><![CDATA[$P{P_POLICY_ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="P_NOTED_BY">
+					<subreportParameterExpression><![CDATA[$P{P_NOTED_BY}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "NON_RENEW_NIA_SIGNATORY.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="93">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="9" width="73" height="12" isPrintWhenDetailOverflows="true" uuid="58cae1d4-3d1e-46e3-85a0-55064528b31a"/>
+				<textElement markup="html">
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA["cc: Sales<br>"+
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Underwriting"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement positionType="Float" x="0" y="44" width="83" height="12" uuid="d9d4f141-8577-4777-a3cc-096e26f37335"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{P_USER_ID}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement positionType="Float" x="0" y="69" width="83" height="12" uuid="a1aa3b68-bca5-4875-9ea3-504357de603f"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="0" y="81" width="83" height="12" isPrintWhenDetailOverflows="true" uuid="da2f7ab3-8676-41eb-8e51-f3a4a3da0b56"/>
+				<textElement>
+					<font fontName="Arial" size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INTERMEDIARY}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

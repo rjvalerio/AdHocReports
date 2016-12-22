@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Users">
+	
+	<resultMap class="com.geniisys.common.entity.User" id="userResultMap">
+		 <result property="userId" column="USER_ID"/>	
+		<result property="userName" column="USER_NAME"/>
+		<result property="userGrp" column="GRP_ISS_CD"/>	
+	</resultMap>
+
+	<resultMap class="com.geniisys.common.entity.UserAccess" id="userAccessResultMap">
+		<result property="tranCd" column="TRAN_CD" />
+		<result property="lineCd" column="LINE_CD" />
+		<result property="issCd" column="ISS_CD" />
+	</resultMap>
+
+	<resultMap class="java.lang.Integer" id="userTranCdResultMap">
+		<result property="tranCd" column="TRAN_CD" />
+	</resultMap>
+
+	<resultMap class="java.lang.String" id="userLineCdResultMap">
+		<result property="lineCd" column="LINE_CD" />
+	</resultMap>
+	
+	<resultMap class="java.lang.String" id="userIssCdResultMap">
+		<result property="issCd" column="ISS_CD" />
+	</resultMap>
+	
+	<resultMap class="java.lang.String" id="userModuleResultMap">
+		<result property="moduleId" column="MODULE_ID" />
+	</resultMap>
+	
+	<select id="getAllUsers" resultMap="userResultMap">
+		SELECT USER_ID,USER_NAME,GRP_ISS_CD
+		 FROM
+			(
+			SELECT A.USER_ID,USER_NAME,ROWNUM GRP_ISS_CD 
+			  FROM GIIS_USERS A,GIIS_USER_GRP_HDR B
+			WHERE A.USER_GRP = B.USER_GRP
+			  AND B.USER_GRP_DESC LIKE '%ISSUA%'
+			  ORDER BY A.USER_ID
+			)
+	</select>
+	
+	<select id="fetchUserName" resultClass="java.lang.String"
+		parameterClass="java.lang.String">
+		SELECT USER_NAME
+		FROM GIIS_USERS
+		WHERE USER_ID = #value#
+	</select>
+
+	<select id="fetchUserLoc" resultClass="java.lang.String"
+		parameterClass="java.lang.Integer">
+		SELECT assd_no FROM gipi_polbasic WHERE POLICY_ID =
+		#value#
+	</select>
+
+	<select id="fetchDBName" resultClass="java.lang.String">
+		SELECT
+		sys_context('USERENV','DB_NAME') AS Instance
+		FROM dual
+	</select>
+
+	<select id="fetchUserAccess" resultMap="userAccessResultMap"
+		parameterClass="java.lang.String">
+		SELECT distinct a.tran_cd,a.line_cd,a.iss_cd FROM
+		giis_user_grp_line a, giis_users b,giis_user_grp_dtl c
+		WHERE a.user_grp
+		= b.user_grp
+		AND a.user_grp = c.user_grp
+		AND a.tran_cd = c.tran_cd
+		AND
+		b.user_id = #value#
+		UNION
+		SELECT distinct a.tran_cd,a.line_cd,a.iss_cd
+		FROM giis_user_line a,giis_user_iss_cd b
+		WHERE a.USERID = #value#
+		AND
+		b.USERID = a.USERID
+		AND b.ISS_CD = a.ISS_CD
+		AND b.TRAN_CD = a.TRAN_CD
+		ORDER BY 1
+	</select>
+
+	<select id="fetchUserTranCd" resultMap="userTranCdResultMap"
+		parameterClass="java.lang.String">
+		SELECT distinct a.tran_cd FROM giis_user_grp_line a,
+		giis_users b,giis_user_grp_dtl c
+		WHERE a.user_grp = b.user_grp
+		AND
+		a.user_grp = c.user_grp
+		AND a.tran_cd = c.tran_cd
+		AND b.user_id =
+		#value#
+		UNION
+		SELECT distinct a.tran_cd
+		FROM giis_user_line
+		a,giis_user_iss_cd b
+		WHERE a.USERID = #value#
+		AND b.USERID = a.USERID
+		AND b.ISS_CD = a.ISS_CD
+		AND b.TRAN_CD = a.TRAN_CD
+		ORDER BY 1
+	</select>
+
+	<select id="fetchUserLineCdByTranCd" resultMap="userLineCdResultMap"
+		parameterClass="java.util.Map">
+		SELECT distinct a.line_cd line_cd FROM giis_user_grp_line a,
+		giis_users b,giis_user_grp_dtl c
+		WHERE a.user_grp = b.user_grp
+		AND a.user_grp = c.user_grp
+		AND a.tran_cd = c.tran_cd
+		AND b.user_id = #userId#
+		AND a.tran_cd = #tranCd#
+		UNION
+		SELECT distinct a.line_cd line_cd
+		FROM giis_user_line a,giis_user_iss_cd b
+		WHERE a.USERID = #userId#
+		AND b.USERID = a.USERID
+		AND b.ISS_CD = a.ISS_CD
+		AND b.TRAN_CD = a.TRAN_CD
+		AND a.tran_cd = #tranCd#
+		ORDER BY 1
+	</select>
+	
+	<select id="fetchUserIssCdByTranCd" resultMap="userIssCdResultMap"
+		parameterClass="java.util.Map">
+		SELECT distinct a.iss_cd iss_cd FROM giis_user_grp_line a,
+		giis_users b,giis_user_grp_dtl c
+		WHERE a.user_grp = b.user_grp
+		AND a.user_grp = c.user_grp
+		AND a.tran_cd = c.tran_cd
+		AND b.user_id = #userId#
+		AND a.tran_cd = #tranCd#
+		UNION
+		SELECT distinct a.iss_cd iss_cd
+		FROM giis_user_line a,giis_user_iss_cd b
+		WHERE a.USERID = #userId#
+		AND b.USERID = a.USERID
+		AND b.ISS_CD = a.ISS_CD
+		AND b.TRAN_CD = a.TRAN_CD
+		AND a.tran_cd = #tranCd#
+		ORDER BY 1
+	</select>
+	
+	<select id="fetchUserModules" resultMap="userModuleResultMap"
+		parameterClass="java.lang.String">
+		SELECT module_id
+		FROM GIIS_USER_MODULES
+		WHERE USER_ID = #userId#
+		AND ACCESS_TAG = '1'
+		UNION
+		SELECT module_id
+		FROM GIIS_USER_GRP_MODULES
+		WHERE USER_GRP
+			IN(SELECT USER_GRP FROM GIIS_USERS WHERE USER_ID = #userId#)
+		AND ACCESS_TAG = '1'
+	</select>
+
+</sqlMap>

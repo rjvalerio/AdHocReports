@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Gipi_Polbasic">
+
+	<typeAlias alias="Gipi_Polbasic" type="com.geniisys.common.entity.Gipi_Polbasic"/>
+	
+	<resultMap class="com.geniisys.common.entity.Gipi_Polbasic" id="Gipi_PolbasicResultMap">
+		<result property="assdNo" column="ASSD_NO"/>
+		<result property="refPolNo" column="REF_POL_NO"/>
+		<result property="refNo" column="REF_NO"/>	
+		<result property="endtNo" column="ENDT_SEQ_NO"/>
+		<result property="inceptDate" column="INCEPT_DATE"/>
+		<result property="expiryDate" column="EXPIRY_DATE"/>
+		<result property="issueDate" column="ISSUE_DATE"/>
+		<result property="address1" column="ADDRESS1"/>
+		<result property="address2" column="ADDRESS2"/>
+		<result property="address3" column="ADDRESS3"/>
+		<result property="tsiAmt" column="TSI_AMT"/>
+		<result property="wordsAmt" column="WORDS"/>
+		<result property="premAmt" column="PREM_AMT"/>
+		<result property="obligee"    column="OBLIGEE_NAME"/>
+	</resultMap>
+	
+	<parameterMap class="com.geniisys.common.entity.PolicyNo"
+		id="policyNoParamMap">
+		<parameter property="lineCd" />
+		<parameter property="sublineCd" />
+		<parameter property="issCd" />
+		<parameter property="issueYY" />
+		<parameter property="polSeqNo" />
+		<parameter property="renewNo" />
+	</parameterMap>
+	
+	
+	<select id="onePagerFetchPolicyId" resultClass="java.lang.Integer" parameterMap="policyNoParamMap">
+		SELECT policy_id FROM GIPI_POLBASIC
+		WHERE LINE_CD =NVL(?,LINE_CD)
+		AND SUBLINE_CD = NVL(?,SUBLINE_CD)
+		AND ISS_CD = NVL(?,ISS_CD)
+		AND ISSUE_YY = NVL(?,ISSUE_YY)
+		AND POL_SEQ_NO = NVL(?,POL_SEQ_NO)
+		AND RENEW_NO =
+		NVL(?,RENEW_NO)
+		AND ENDT_YY = 0
+		AND ENDT_SEQ_NO = 0
+	</select>
+	
+	
+	<!-- <select id="fetchRefPolNo" resultMap="Gipi_PolbasicResultMap" parameterClass="java.lang.Integer">
+	    SELECT RTRIM(GET_TOKEN(REF_POL_NO,1))REF_NO,REF_POL_NO,ASSD_NO, ENDT_SEQ_NO, 
+	    	to_char(INCEPT_DATE, 'mm-dd-yyyy')INCEPT_DATE, to_char(EXPIRY_DATE, 'mm-dd-yyyy')EXPIRY_DATE, 
+	    	to_char(ISSUE_DATE, 'mm-dd-yyyy')ISSUE_DATE, ADDRESS1, ADDRESS2, ADDRESS3, TSI_AMT, DH_UTIL.SPELL(TSI_AMT)WORDS, PREM_AMT
+	    	FROM gipi_polbasic WHERE POLICY_ID = #value#
+	</select> -->
+	<select id="fetchRefPolNo" resultMap="Gipi_PolbasicResultMap" parameterClass="java.lang.Integer">
+	     SELECT A.POLICY_ID,RTRIM(GET_TOKEN(REF_POL_NO,1))REF_NO,REF_POL_NO,ASSD_NO,ENDT_SEQ_NO , 
+	    	to_char(INCEPT_DATE, 'mm-dd-yyyy')INCEPT_DATE, to_char(EXPIRY_DATE, 'mm-dd-yyyy')EXPIRY_DATE, 
+	    	to_char(ISSUE_DATE, 'mm-dd-yyyy')ISSUE_DATE, ADDRESS1, ADDRESS2, ADDRESS3, TSI_AMT, DH_UTIL.SPELL(TSI_AMT)WORDS, PREM_AMT,
+            OBLIGEE_NAME
+	    	FROM GIPI_POLBASIC A,(SELECT A.POLICY_ID,OBLIGEE_NAME
+                                    FROM GIPI_BOND_BASIC A, GIIS_OBLIGEE B
+                                   WHERE A.OBLIGEE_NO = B.OBLIGEE_NO)B 
+                                   WHERE A.POLICY_ID = B.POLICY_ID(+)
+                                     AND A.POLICY_ID = #value#
+	</select>
+	
+	
+	<select id="getBondDtl" resultClass="java.lang.String" parameterClass="java.lang.Integer">
+		SELECT BOND_DTL FROM GIPI_BOND_BASIC WHERE POLICY_ID = #value#
+	</select>
+	
+	
+</sqlMap>

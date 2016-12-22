@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Tariff">
+
+	<typeAlias alias="Tariff" type="com.geniisys.common.entity.Tariff" />
+	
+	<parameterMap class="com.geniisys.common.entity.Tariff" id="tariffParameterMap">
+		<parameter property="pdfSw" />
+		<parameter property="tarfCd" />
+	</parameterMap>
+
+	<resultMap class="com.geniisys.common.entity.Tariff" id="tariffResultMap">
+		<result property="tarfCd" column="TARF_CD" />
+		<result property="tarfDesc" column="TARF_DESC" />
+		<result property="pdfSw" column="PDF_SW" />
+	</resultMap>
+
+	<select id="getAllTariffForDataGrid" resultClass="java.lang.String">
+		SELECT str ||
+		']}' from(SELECT '{ rows: [' || replace(str,'^',',')str
+		FROM(
+		SELECT (SELECT SUBSTR(SYS_CONNECT_BY_PATH(str, '^'),2)csv FROM(
+		SELECT str,row_number() over (order by rownum) rn, count (*) over () cnt
+		from
+		(SELECT '{id:' || rownum || ', data: ["' || a.TARF_CD
+		||
+		'", "' || REPLACE(a.TARF_DESC,'''','`') || '", "' || a.PDF_SW || '"]}'
+		str from (
+		SELECT TARF_CD,TARF_DESC,
+		DECODE(PDF_SW,
+		'Y','true','false')PDF_SW
+		FROM GIIS_TARIFF ORDER BY 1 ASC) a)
+		)
+		WHERE rn = cnt
+		START WITH rn = 1
+		CONNECT BY rn = PRIOR rn + 1)str FROM DUAL))
+	</select>
+
+	<select id="getAllTariff" resultMap="tariffResultMap">
+		SELECT
+		TARF_CD,REPLACE(TARF_DESC,'''','`')TARF_DESC,DECODE(PDF_SW,
+		'Y','true','false')PDF_SW
+		FROM GIIS_TARIFF
+	</select>
+
+	<update id="updateGiisTariff" parameterMap="tariffParameterMap">
+		UPDATE GIIS_TARIFF
+		SET PDF_SW = ?
+		WHERE TRIM(TARF_CD) = TRIM(?)
+	</update>
+
+
+</sqlMap>

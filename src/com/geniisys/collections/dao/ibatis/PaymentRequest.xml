@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="PaymentRequest">
+
+<typeAlias alias="PaymentRequest" type="com.geniisys.common.entity.PaymentRequest" />
+
+	<resultMap class="com.geniisys.common.entity.PaymentRequest" id="paymentReqMap">
+		<result property="documentCd"   column= "DOCUMENT_CD"/>
+		<result property="branchCd"     column= "BRANCH_CD"/>
+		<result property="docYear"      column= "DOC_YEAR"/>
+		<result property="docMm"        column= "DOC_MM"/>
+		<result property="docSeqNo"     column= "DOC_SEQ_NO" />
+		<result property="tranId"        column= "TRAN_ID"/>
+		<result property="payeeClassCd" column= "PAYEE_CLASS_CD"/>
+		<result property="payeeCd"      column= "PAYEE_CD"/>
+		<result property="payee"        column= "PAYEE"/>
+		<result property="particulars"        column= "PARTICULARS"/>
+	</resultMap>
+	
+	<resultMap class="com.geniisys.common.entity.CheckReqIntermediary" id="checkReqIntermediaryMap">
+		<result property="intmNo"    column= "INTM_NO"/>
+		<result property="intmName"  column= "INTM_NAME"/>
+		<result property="intmType"  column= "INTM_TYPE"/>
+		<result property="remarks"   column= "REMARKS"/>
+		<result property="issCd"     column= "ISS_CD" />
+		<result property="premSeqNo" column= "PREM_SEQ_NO"/>
+	</resultMap>
+	
+	<select id="getPaymentRequest" parameterClass = "java.util.HashMap" resultMap ="paymentReqMap">
+		SELECT a.document_cd,a.branch_cd,a.doc_year,a.doc_mm,a.doc_seq_no,
+        	   b.payee_class_cd, b.payee_cd,b.payee,b.particulars,b.tran_id
+		  FROM giac_payt_requests a, giac_payt_requests_dtl b
+		 WHERE document_cd = #documentCd#
+		   AND branch_cd = #branchCd#
+		   AND doc_year = #docYear#
+		   AND doc_mm = #docMm#
+		   AND doc_seq_no = #docSeqNo#
+		   AND b.gprq_ref_id = a.ref_id 
+	</select>
+	
+	<select id="getCheckReqIntm" parameterClass = "java.lang.Integer" resultMap ="checkReqIntermediaryMap">
+		SELECT a.iss_cd, a.prem_seq_no,
+       	       b.intm_no, b.intm_type, b.intm_name,DECODE(c.remarks, NULL, ' ',replace(c.remarks,'''',' ')) remarks
+		  FROM giac_comm_payts a, giis_intermediary b, gipi_invoice c
+		 WHERE a.gacc_tran_id = #tranId#
+           AND a. intm_no = b.intm_no
+           AND a.iss_cd = c.iss_cd
+           AND a.prem_seq_no = c.prem_seq_no
+	</select>
+	
+	<update id="updateRemarks" parameterClass = "java.util.HashMap" >
+		UPDATE gipi_invoice
+		   SET remarks = #remarks#
+		 WHERE prem_seq_no = #premSeqNo#
+		   AND iss_cd = #issCd# 
+	</update>
+	
+</sqlMap>
