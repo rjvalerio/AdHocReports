@@ -23,6 +23,7 @@
 	</context-param>
 	
 	<!-- when applying to live, uncomment adhoc user in welcomeUser.jsp and menu.jsp -->
+	<!-- test -->
 
 	<filter>
 		<filter-name>ServletFilter</filter-name>
