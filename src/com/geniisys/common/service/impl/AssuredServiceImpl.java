@@ -75,6 +75,7 @@ public class AssuredServiceImpl implements AssuredService {
 	@Override
 	public String searchAssured(HttpServletRequest request) throws SQLException {
 		String parameter = request.getParameter("parameter");
+		System.out.println("parameter: " + parameter);
 		Map<String, Object> params = new HashMap<String,Object>();
 		params.put("parameter", parameter);
 		List<Assured> assuredList = this.assuredDAO.searchAssured(params);
@@ -82,7 +83,7 @@ public class AssuredServiceImpl implements AssuredService {
 		Integer count = 1;
 		if(!assuredList.isEmpty()){
 		for (Assured assured : assuredList) {
-			System.out.print(assured.getAssdNo() + ",");
+			//System.out.print(assured.getAssdNo() + ",");
 			assuredString = assuredString + "{id:" + count + ", data: [\"" + assured.getAssdNo() + "\",\""+ assured.getAssdName() + "\"]},";
 			//tariffString = tariffString + "{id:" + count + ", data: [\"" + tariff.getTarfCd() + "\",\"" + tariff.getTarfDesc() + "\"," + tariff.getPdfSw() + "]},";
 			count++;

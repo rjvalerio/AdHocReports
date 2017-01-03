@@ -241,19 +241,27 @@
 	$("searchForAssured").observe("click",function() {
 		var parameter = $F("txtAssuredSearch");
 		assdNo = '';
-		new Ajax.Request(contextPath +'/SOAperAssdIntmController',
-				{
-					method : "POST",
-					parameters : {
-						action : "searchAssured",
-						parameter : parameter
-					},
-					onCreate : showNotice("Fetching Assured Details. Please wait..."),
-					onComplete : function(response) {
-						hideNotice("");
-						$("assuredResultDiv").update(response.responseText);
-					}
-				});
+		
+		if(!parameter == ''){
+			new Ajax.Request(contextPath +'/SOAperAssdIntmController',
+					{
+						method : "POST",
+						parameters : {
+							action : "searchAssured",
+							parameter : parameter
+						},
+						onCreate : showNotice("Fetching Assured Details. Please wait..."),
+						onComplete : function(response) {
+							hideNotice("");
+							$("assuredResultDiv").update(response.responseText);
+						}
+					});
+		}else{
+			assdNo = '';
+			$("txtAssuredNo").value = "";
+			emptyAssuredGrid();
+		}
+		
 	});
 	
 	$("rdoPremProd").checked = true;
@@ -262,6 +270,8 @@
 		radio.observe("click", function() {
 			toggleReportType(radio.value);
 			$('txtAssuredSearch').value= '';
+			assdNo = '';
+			$("txtAssuredNo").value = "";
 			emptyAssuredGrid();
 		});
 	});
@@ -283,7 +293,7 @@
 		//$("selAssd").value = "";
 		//$("txtAssdNo").writeAttribute("value",'');
 		//$("txtAssuredName").writeAttribute("value",'');
-		
+		$("txtAssuredNo").value = "";
 		$("selIntm").value = "";
 		$("txtIntmNo").writeAttribute("value",'');
 		$("txtIntmType").writeAttribute("value",'');
