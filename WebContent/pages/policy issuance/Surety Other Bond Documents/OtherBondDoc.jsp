@@ -258,8 +258,11 @@
 </div>
 <script type="text/javascript">
 	makeAllInputFieldsUpperCase();
+	
 	$("txtSublineCd").focus();
 	$("btnPrintReport").disable();
+	var isSignatoryRequired = false;
+	
 	$("searchForPolicy").observe("click", function(){
 		if (isPolicyNoFieldsOk()){
 			new Ajax.Updater('infoOtherBondDoc', contextPath
@@ -319,20 +322,24 @@
 	
 	var dataType   = 'rdOther';
 	function toogleDataOption(option){
+		isSignatoryRequired = false;
 		if(option == 'rdOther'){
 			dataType = 'rdOther';
 		}else if (option == 'rdAck1'){
 			dataType = 'rdAck1';
 		}else if (option == 'rdAck2'){
 			dataType = 'rdAck2';
+			isSignatoryRequired = true;
 		}else if (option == 'rdIndm'){
 			dataType = 'rdIndm';
 		/* }else if (option == 'rdCert'){
 			dataType = 'rdCert'; */
 		}else if (option == 'rdRep1'){
 			dataType = 'rdRep1';
+			isSignatoryRequired = true;
 		}else if (option == 'rdRep2'){
 			dataType = 'rdRep2';
+			isSignatoryRequired = true;
 		}else if (option == 'rdRep3'){
 			dataType = 'rdRep3';
 		}else if (option == 'rdRep4'){
@@ -481,6 +488,20 @@
 					});
 		}
 	});
+	
+	//to add
+	//check required fields...
+	function checkOtherInfo(){
+		if(isSignatoryRequired){
+			var sign = $F("sign");
+			if(checkBlankNull($F("sign"))){
+				showMessageBox("Signatory is required", "I");
+				return false;
+			}else
+				return true;
+		}else
+			return true;
+	}
 		
 	
 	goToPage("otherBondExit","/pages/main.jsp","Please wait.....", "Home");

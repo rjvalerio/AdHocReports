@@ -175,7 +175,7 @@ public class BondsReportController extends HttpServlet{
 			}else if (rdButton.equals("rdRep5")){
 				reportName = "REP_AUT_REPLEVIN";
 			}else if (rdButton.equals("rdCert")){
-				reportName = "REP_MAIN_CERT";
+				reportName = "REP_MAIN_CERT"; //WALA DAW TO
 			}else if (rdButton.equals("rdRep4")){
 				reportName = "REP_JUSTIFICATION";
 			}
