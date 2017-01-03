@@ -39,7 +39,7 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd
 			SELECT A.USER_ID,USER_NAME,ROWNUM GRP_ISS_CD 
 			  FROM GIIS_USERS A,GIIS_USER_GRP_HDR B
 			WHERE A.USER_GRP = B.USER_GRP
-			  AND B.USER_GRP_DESC LIKE '%ISSUA%'
+			  AND (B.USER_GRP_DESC LIKE '%ISSUA%' OR MIS_SW ='Y')
 			  ORDER BY A.USER_ID
 			)
 	</select>

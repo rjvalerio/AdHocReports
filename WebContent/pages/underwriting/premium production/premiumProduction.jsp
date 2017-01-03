@@ -30,9 +30,9 @@
 <!-- hidden fields -->
 <input type="hidden" id="page" name="page" value="${page}">
 <input type="hidden" id="lineCd" name="lineCd" value="${lineCd}">
-<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
+<%-- <input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}"> --%>
 <input type="hidden" id="userId" name="userId" value="${adhocUser}">
-<input type="hidden" id="reportTitle" name="reportTitle"
+<%-- <input type="hidden" id="reportTitle" name="reportTitle"
 	value="${reportTitle}">
 <input type="hidden" id="reportName" name="reportName"
 	value="${reportName}">
@@ -43,7 +43,22 @@
 <input type="hidden" id="outputType" name="outputType"
 	value="${outputType}">
 <input type="hidden" id="selDestination" name="selDestination"
-	value="screen">
+	value="screen"> --%>
+	
+<div id="hiddenDiv">
+<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
+<input type="hidden" id="reportTitle" name="reportTitle"
+	value="${reportTitle}">
+<input type="hidden" id="reportName" name="reportName"
+	value="${reportName}">
+<input type="hidden" id="reportUrl" name="reportUrl"
+	value="${reportUrl}">
+<input type="hidden" id="reportXls" name="reportXls"
+	value="${reportXls}">
+<input type="hidden" id="outputType" name="outputType"
+	value="${outputType}">
+</div>
+
 <%-- <input type="text" id="letterType" name= "letterType" value = "${letterType}"> --%>
 <!-- end hidden fields -->
 
@@ -69,27 +84,33 @@
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Branch</td>
 							<td class="leftAligned"><select name="selBranch"
-								id="selBranch" style="width: 30%;">
+								id="selBranch" style="width: 100%;">
 									<option value=""></option>
 									<c:forEach var="branch" items="${ branchList }">
-										<option>${branch.issCd}</option>
+										<option>${branch.issName}</option>
 									</c:forEach>
-							</select> <input id="txtBranch" name="capsField" class="leftAligned"
+							</select> <!-- <input id="txtBranch" name="capsField" class="leftAligned"
 								type="text" style="width: 65%;" value="" title="Branch Name"
-								disabled /></td>
+								disabled /> -->
+								<input id="txtBranchCd" name="capsField" class="leftAligned"
+								type="hidden"/>
+								</td>
 						</tr>
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Line</td>
 							<td class="leftAligned">
 							<select name="selLine" id="selLine"
-								style="width: 30%;">
+								style="width: 100%;">
 									<option value=""></option>
 									<c:forEach var="line" items="${ lineList }">
-										<option>${line.lineCd}</option>
+										<option>${line.lineName}</option>
 									</c:forEach>
-							</select> <input id="txtLineName" name="capsField" class="leftAligned"
+							</select><!--  <input id="txtLineName" name="capsField" class="leftAligned"
 								type="text" style="width: 65%;" value="" title="Line Name"
-								disabled /></td>
+								disabled /> -->
+								<input id="txtLineCd" name="capsField" class="leftAligned"
+								type="hidden"/>
+								</td>
 						</tr>
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Intermediary</td>
@@ -371,6 +392,9 @@
 	var assuredNo = "";
 	var outputType = 2;  //1 = pdf  2 = xls
 	var isIntmRequired = false;
+	var branchCode = "";
+	
+	$("hiddenDiv").hide();
 	
 	$("txtOrixIntm").hide();
 	$("rdoAcct").checked = true;
@@ -549,7 +573,8 @@
 							showMessageBox("User has no access.", "E");
 						}else{ */
 							 new Ajax.Updater(
-									"mainContents",
+									//"mainContents",
+									"hiddenDiv",
 									contextPath + "/PremProductionController",
 									{
 										evalScripts : true,
@@ -559,8 +584,10 @@
 											outputType : outputType,
 											//reportName : reportName,
 											reportName :$("rdoComparative").checked ? 'PROD_REPORT_PER_INTM_VS': reportName,
-											lineCd : $F("selLine"),
-											branchCd : $F("selBranch"),
+											//lineCd : $F("selLine"),
+											lineCd : $F("txtLineCd"),
+											//branchCd : $F("selBranch"),
+											branchCd :  $F("txtBranchCd"),
 											fromDate : $F("txtFromDate"),
 											toDate : $F("txtToDate"),
 											getVsDate : $("rdoComparative").checked ? true : false,
@@ -568,7 +595,6 @@
 											toDate2 : $("rdoComparative").checked ? $F("txtToDate2") : '',
 											bookingMonth : $("rdoBooking").checked ? $F("selMonth") : '',
 											bookingYear : $("rdoBooking").checked ? $F("txtBookingYear") : 0,
-											branchCd : $F("selBranch"),
 											intmNo : intmNo
 										},
 										onCreate : showNotice("Generating report. Please wait..."),
@@ -698,14 +724,18 @@
 		                   <c:if test="${!loop.last}">,</c:if>
 		                 </c:forEach>
 		               ];
-		var bName = ''; 
-		for (var i = 0; i < branchCd.length; i++) {
-		if (selected == branchCd[i]) {
-			bName = branchName[i];
-			
+		//var bName = ''; 
+		var bCd = '';
+		//for (var i = 0; i < branchCd.length; i++) {
+		for (var i = 0; i < branchName.length; i++) {
+		//if (selected == branchCd[i]) {
+		if (selected == branchName[i]) {	
+			//bName = branchName[i];
+			bCd = branchCd[i];
 		}
 		}
-		$(txtBranchName).writeAttribute("value",bName);
+		//$(txtBranchName).writeAttribute("value",bName);
+		$('txtBranchCd').writeAttribute("value",bCd);
 		}
 	
 	//line
@@ -727,14 +757,18 @@
 		                   <c:if test="${!loop.last}">,</c:if>
 		                 </c:forEach>
 		               ];
-		var lName = ''; 
-		for (var i = 0; i < lineCd.length; i++) {
-		if (selected == lineCd[i]) {
-			lName = lineName[i];
-			
+		//var lName = '';
+		var lCd = '';
+		//for (var i = 0; i < lineCd.length; i++) {
+		for (var i = 0; i < lineName.length; i++) {	
+		//if (selected == lineCd[i]) {
+		if (selected == lineName[i]) {
+			//lName = lineName[i];
+			lCd = lineCd[i]
 		}
 		}
-		$(txtLineName).writeAttribute("value",lName);
+		//$(txtLineName).writeAttribute("value",lName);
+		$("txtLineCd").writeAttribute("value",lCd);
 		}
 	
 	//intermediary
