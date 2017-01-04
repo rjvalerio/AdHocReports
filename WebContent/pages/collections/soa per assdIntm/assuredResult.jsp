@@ -15,7 +15,7 @@ var assuredList = $F("assuredList")
 
 gridAssured = new dhtmlXGridObject('gridAssuredResult');
 gridAssured.setImagePath(contextPath + '/css/codebase/imgs/');
-gridAssured.setHeader("No., Assured Name");
+gridAssured.setHeader("Assured No., Assured Name");
 gridAssured.setInitWidths("60,*");
 gridAssured.setColAlign("left,left");
 gridAssured.setColTypes("ro,ro");

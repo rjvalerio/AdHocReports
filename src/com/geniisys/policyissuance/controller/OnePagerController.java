@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,67 +61,86 @@ public class OnePagerController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getParameter("action");
-		String renewalNoticePage = "/pages/policy issuance/one pager/onePager.jsp";
+		String onePagerPage = "/pages/policy issuance/one pager/onePager.jsp";
 		
 		// menu redirect page
 		if (action.equals("toMC")) {
 			setRequestPerPage("MC", request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
 		if (action.equals("to12PMC")) {
 			setRequestPerPage("12pMC", request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
 		if (action.equals("toPSFI")) {
 			setRequestPerPage("psFI", request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
 		if (action.equals("toCLGFI")) {
 			setRequestPerPage("clgFI", request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
 		if (action.equals("to12PFI")) {
 			setRequestPerPage("12pFI", request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
 		if (action.equals("toREGFI")) {
 			setRequestPerPage("regFI", request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
 		if (action.equals("toOC")) {
 			setRequestPerPage("OC", request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
 		if (action.equals("toOtherOC")) {
 			setRequestPerPage("otherOC", request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
 		if (action.equals("to3yOC")) {
 			setRequestPerPage("3yOC", request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
 		if (action.equals("to12pPA")) {
 			setRequestPerPage("12pPA", request);
 
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
+			dispatcher.forward(request, response);
+		}
+		
+		if(action.equals("toClgOnePager")){
+			setRequestPerPage("ClgOnePager", request);
+
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
+			dispatcher.forward(request, response);
+		}
+		if(action.equals("toPSBankOnePager")){
+			setRequestPerPage("PsBankOnePager", request);
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
+			dispatcher.forward(request, response);
+		}
+		if(action.equals("to12PlanOnePager")){
+			setRequestPerPage("12PlanOnePager", request);
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
 
@@ -266,7 +286,7 @@ public class OnePagerController extends HttpServlet {
 				setRequestPerPage(page, request);
 
 				// redirect to right line
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 				dispatcher.forward(request, response);
 			}
 		}
@@ -344,7 +364,7 @@ public class OnePagerController extends HttpServlet {
 				setRequestPerPage(page, request);
 
 				// redirect to right line
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 				dispatcher.forward(request, response);
 			}
 		}
@@ -423,6 +443,34 @@ public class OnePagerController extends HttpServlet {
 			request.setAttribute("pageTitle", "12P Personal Accident Policy One Pager");
 			request.setAttribute("reportName", "POLICY_DOCUMENT_PA_TP_ONEPAGER");
 			request.setAttribute("reportBatch", "POLICY_DOCUMENT_PA_TP_ONEPAGER_BATCH");
+		}
+		if (lineCd.equals("ClgOnePager")){
+			List<String> lineCdArray = new ArrayList<>();
+			lineCdArray.add("FI");
+			lineCdArray.add("MC");
+			
+			request.setAttribute("lineCdArray",lineCdArray);
+			request.setAttribute("page", "ClgOnePager");
+			request.setAttribute("pageTitle", "CLG One Pager");
+		}
+		if (lineCd.equals("PsBankOnePager")){
+			List<String> lineCdArray = new ArrayList<>();
+			lineCdArray.add("FI");
+			lineCdArray.add("MC");
+			
+			request.setAttribute("lineCdArray",lineCdArray);
+			request.setAttribute("page", "PsBankOnePager");
+			request.setAttribute("pageTitle", "PS BANK One Pager");
+		}
+		if (lineCd.equals("12PlanOnePager")){
+			List<String> lineCdArray = new ArrayList<>();
+			lineCdArray.add("FI");
+			lineCdArray.add("MC");
+			lineCdArray.add("PA");
+			
+			request.setAttribute("lineCdArray",lineCdArray);
+			request.setAttribute("page", "12PlanOnePager");
+			request.setAttribute("pageTitle", "12 Plan One Pager");
 		}
 	}
 }

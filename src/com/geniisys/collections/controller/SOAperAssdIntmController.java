@@ -110,6 +110,20 @@ public class SOAperAssdIntmController extends HttpServlet {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/collections/soa per assdIntm/assuredResult.jsp");
 			dispatcher.forward(request, response);
 		}
+		
+		if(action.equals("searchIntermediary")){
+			System.out.println("fetching intm list......");
+			IntermediaryService intmService = new IntermediaryServiceImpl();
+			String intmList = "";
+			try{
+				intmList = (String) intmService.searchIntermediary(request);
+			}catch (SQLException e) {
+				errorMsg = e.getMessage();
+			}
+			request.setAttribute("intmList", intmList);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/collections/soa per assdIntm/intmResult.jsp");
+			dispatcher.forward(request, response);
+		}
 
 		if (action.equals("printReport")) {
 			String reportName = request.getParameter("reportName");

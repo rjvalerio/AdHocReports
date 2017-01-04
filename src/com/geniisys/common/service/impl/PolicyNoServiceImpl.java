@@ -48,7 +48,7 @@ public class PolicyNoServiceImpl implements PolicyNoService{
 				Integer issueYY = Integer.parseInt(request.getParameter("issueYY"));
 				Integer polSeqNo = Integer.parseInt(request.getParameter("polSeqNo"));
 				Integer renewNo = Integer.parseInt(request.getParameter("renewNo"));
-				String userId = request.getParameter("userId");
+				String userId = request.getParameter("userId").toUpperCase();
 				Map<String, Object> params = new HashMap<>();
 				params.put("lineCd", lineCd);
 				params.put("sublineCd", sublineCd);
