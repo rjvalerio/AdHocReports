@@ -212,6 +212,7 @@
 <script type="text/javascript">
 	initializeMenu();
 	var divToUpdate = "mainContents";
+	var userId = $F("adhocUser");
 	//end homepage
 
 	/* CLAIMS MENU */
@@ -316,10 +317,10 @@
 				"/pages/collections/dollar/receiptedDollarAcct.jsp",
 				"Receipted Dollar Account");
 		checkUserAccess2('SOA_FINAL', moduleIdObjLength, userModuleObj,
-				"soaPerAssdIntm", "/SOAperAssdIntmController?action=toSOAPage",
+				"soaPerAssdIntm", "/SOAperAssdIntmController?action=toSOAPage&tranCd=94&userId="+userId,
 				"SOA per Assured/Intermediary");
 		checkUserAccess2('FSOAORIX', moduleIdObjLength, userModuleObj,
-				"orixSoaExt", "/SoaOrixExtController?action=OrixSoaExt",
+				"orixSoaExt", "/SoaOrixExtController?action=OrixSoaExt&tranCd=94&userId="+userId,
 				"Please wait.....", "Statement of Account ORIX");
 		checkUserAccess2('FACINTRADE', moduleIdObjLength, userModuleObj,
 				"updateRefName",
@@ -476,7 +477,7 @@
 
 		checkUserAccess2('FPRODREP', moduleIdObjLength, userModuleObj,
 				"confirmedPolicy",
-				"/ConfirmedPolicyController?action=toConfirmedPolicyPage",
+				"/ConfirmedPolicyController?action=toConfirmedPolicyPage&tranCd=96&userId="+userId,
 				"Please wait.....", "Confirmed Policy");
 
 		//batch gen
@@ -528,7 +529,7 @@
 		var premProductionAccess = 'FPRMPRODRP DP_FRM FSOADLRS GPRC001 PROD800 ';
 		checkUserAccess3(premProductionAccess, moduleIdObjLength,
 				userModuleObj, "premProduction",
-				"/PremProductionController?action=toPremProductionPage",
+				"/PremProductionController?action=toPremProductionPage&tranCd=98&userId="+userId,
 				"Premium Production Report");
 		checkUserAccess2('FTYTADLRS', moduleIdObjLength, userModuleObj,
 				"toyotaDealers",

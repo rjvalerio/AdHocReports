@@ -2,6 +2,7 @@ package com.geniisys.common.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.geniisys.common.dao.LineDAO;
 import com.geniisys.common.entity.Line;
@@ -9,13 +10,12 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.geniisys.util.MyAppSqlConfig;
 
 public class LineDAOImpl implements LineDAO{
-	private SqlMapClient sqlMap;
+	private SqlMapClient sqlMap = MyAppSqlConfig.getSqlMapInstance();
 	
 	@SuppressWarnings("unchecked")
 	public List<Line> getAllLines() {
 		List<Line> lines = null;
-		sqlMap = MyAppSqlConfig.getSqlMapInstance();
-
+		
 		try {
 			lines =  sqlMap.queryForList("getAllLines");
 
@@ -24,6 +24,13 @@ public class LineDAOImpl implements LineDAO{
 			e.printStackTrace();
 		}
 		return lines;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Line> getLinesByUserAndTranCd(Map<String, Object> params) throws SQLException {
+		List<Line> lineList = sqlMap.queryForList("getLinesByUserAndTranCd",params);
+		return lineList;
 	}
 	
 }

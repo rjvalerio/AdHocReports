@@ -4,15 +4,38 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd
 
 <sqlMap namespace="Line">
 
-	<typeAlias alias="Line" type="com.geniisys.common.entity.Line"/>
-	
+	<typeAlias alias="Line" type="com.geniisys.common.entity.Line" />
+
 	<resultMap class="com.geniisys.common.entity.Line" id="lineResultMap">
-		<result property="lineCd" column="LINE_CD"/>
-		<result property="lineName" column="LINE_NAME"/>		
+		<result property="lineCd" column="LINE_CD" />
+		<result property="lineName" column="LINE_NAME" />
 	</resultMap>
-	
+
 	<select id="getAllLines" resultMap="lineResultMap">
-		SELECT DISTINCT(LINE_CD) "LINE_CD",line_name FROM GIIS_LINE ORDER BY LINE_CD ASC
+		SELECT DISTINCT(LINE_CD)
+		"LINE_CD",line_name FROM GIIS_LINE ORDER BY LINE_CD ASC
 	</select>
-	
+
+	<select id="getLinesByUserAndTranCd" resultMap="lineResultMap"
+		parameterClass="java.util.HashMap">
+		SELECT LINE_CD,LINE_NAME
+		FROM GIIS_LINE
+		WHERE LINE_CD IN(SELECT distinct a.line_cd
+						FROM giis_user_grp_line a, giis_users b,giis_user_grp_dtl c
+						WHERE a.user_grp = b.user_grp
+								AND a.user_grp = c.user_grp
+								AND a.tran_cd = c.tran_cd
+								AND b.user_id = #userId#
+								AND a.tran_cd = #tranCd#
+						UNION
+						SELECT distinct a.line_cd
+						FROM giis_user_line a,giis_user_iss_cd b
+						WHERE a.USERID = #userId#
+								AND b.USERID = a.USERID
+								AND b.ISS_CD = a.ISS_CD
+								AND b.TRAN_CD = a.TRAN_CD
+								AND a.tran_cd = #tranCd#)
+		ORDER BY 1
+	</select>
+
 </sqlMap>

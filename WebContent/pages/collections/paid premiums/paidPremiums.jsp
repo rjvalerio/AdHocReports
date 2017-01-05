@@ -36,7 +36,6 @@ width:340px;
 	value="${reportXls}">
 <input type="hidden" id="selDestination" name="selDestination"
 	value="screen">
-<%-- <input type="text" id="letterType" name= "letterType" value = "${letterType}"> --%>
 <!-- end hidden fields -->
 
 <br />
@@ -81,22 +80,14 @@ width:340px;
 					style="width: 30%; height: 75px; margin-left: 2%; margin-top: 9px; float: left;border-color: white;">
 					<table style="margin-top: 10px; width: 100%;">
 						<tr>
-							<td><!-- <input type="radio" id="rdoClosed"
-								name="tranFlagType" value="1"
-								style="margin-left: 15px; float: left; margin-left: 50px;"
-								checked="" /> <label for="rdoClosed"
-								style="margin-top: 3px;">Closed Transaction</label> -->
+							<td>
 								<input type="checkbox" id="chkBox1"
 							name="chkBox1"> Closed Transaction
 								</td>
 						</tr>
 						<tr>
 
-							<td><!-- <input type="radio"
-								id="rdoOpen" name="tranFlagType" value="2"
-								style="margin-left: 15px; float: left; margin-left: 50px;"
-								checked="" /> <label for="rdoOpen"
-								style="margin-top: 3px;">Open Transaction</label> -->
+							<td>
 								<input type="checkbox" id="chkBox2"
 							name="chkBox2"> Open Transaction
 								</td>
@@ -183,14 +174,14 @@ width:340px;
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Branch</td>
 							<td class="leftAligned"><select name="selBranch"
-								id="selBranch" style="width: 30%;">
+								id="selBranch" style="width: 100%;">
 									<option value=""></option>
 									<c:forEach var="branch" items="${ branchList }">
-										<option>${branch.issCd}</option>
+										<option value="${branch.issCd}">${branch.issName}</option>
 									</c:forEach>
-							</select> <input id="txtBranch" name="capsField" class="leftAligned"
+							</select> <!-- <input id="txtBranch" name="capsField" class="leftAligned"
 								type="text" style="width: 65%;" value="" title="Branch Name"
-								disabled /></td>
+								disabled /> --></td>
 						</tr>
 					</table>
 				</div>
@@ -353,6 +344,7 @@ width:340px;
 					tranFlag = 'P';
 				}
 					if (validateInput(fromDate,toDate)){
+						branchCd = $F("selBranch");
 							 new Ajax.Updater(
 									"mainContents",
 									contextPath + "/PaidPremiumsController",
@@ -396,37 +388,6 @@ width:340px;
 		}else
 			return true;
 	}
-	
-	//branch
-	$("selBranch").observe("change", function(){
-		var selected = $("selBranch").getValue();
-		branchCd = '';
-		getBranchName(selected,"txtBranch");
-	});
-	
-	function getBranchName(selected,txtBranchName){
-		var branchCd2 = [
-		                 <c:forEach var="branch" items="${branchList}" varStatus="loop">
-		                   "${branch.issCd}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		var branchName = [
-		                 <c:forEach var="branch" items="${branchList}" varStatus="loop">
-		                   "${branch.issName}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		var bName = '';
-		for (var i = 0; i < branchCd2.length; i++) {
-		if (selected == branchCd2[i]) {
-			branchCd = branchCd2[i];
-			bName = branchName[i];
-			
-		}
-		}
-		$(txtBranchName).writeAttribute("value",bName);
-		}
 	
 	//intmType
 	$("selIntmType").observe("change", function(){

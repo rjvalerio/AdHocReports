@@ -144,15 +144,15 @@
 					<tr>
 						<td class="rightAligned" style="width: 25%;">Cred. Branch</td>
 						<td class="leftAligned"><select name="selBranch" id="selBranch"
-							style="width: 13%;">
+							style="width: 50%;">
 								<option value=""></option>
 								<c:forEach var="branch" items="${ branchList }">
-									<option>${branch.issCd}</option>
+									<option value="${branch.issCd}">${branch.issName}</option>
 								</c:forEach>
-						</select>&nbsp;
-						<input id="txtBranchName"
+						</select><!--&nbsp;
+						 <input id="txtBranchName"
 							name="capsField" class="leftAligned" type="text"
-							style="width: 30%;" value="" title="Branch Name" disabled/>
+							style="width: 30%;" value="" title="Branch Name" disabled/> -->
 						</td>
 					</tr>
 				</table>
@@ -352,10 +352,10 @@
 		$(txtDesig).writeAttribute("value",desig);
 		}
 	
-	$("selBranch").observe("change", function(){
+	/* $("selBranch").observe("change", function(){
 		var selected = $("selBranch").getValue();
 		getBranchName(selected,"txtBranchName");
-	});
+	}); */
 	
 	function getBranchName(selected,txtBranch){
 		var issCdArray = [
@@ -513,6 +513,7 @@
 		var desig = $F("txtDesignation");
 		var fromDate = $F("txtFromDate");
 		var toDate = $F("txtToDate");
+		branchCd = $F("selBranch");
 		new Ajax.Updater(
 				"mainContents",
 				contextPath + "/ThankYouLetterController",

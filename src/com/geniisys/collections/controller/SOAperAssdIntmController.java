@@ -68,26 +68,20 @@ public class SOAperAssdIntmController extends HttpServlet {
 		if (action.equals("toSOAPage")) {
 			BranchService branchService = new BranchServiceImpl();
 			IntermediaryService intmService = new IntermediaryServiceImpl();
-			//AssuredService assuredService = new AssuredServiceImpl();
 
-			List<Branch> branchList = (List<Branch>) branchService.getAllBranches();
+			//List<Branch> branchList = (List<Branch>) branchService.getAllBranches();
 			List<Intermediary> intmList = (List<Intermediary>) intmService.getAllActiveIntermediary();
-			//List<Assured> assdList = (List<Assured>) assuredService.getAllActiveAssured();
+			List<Branch> branchList = null;
 			
-			/*System.out.println("fetching assdList");
-			String assdList = (String) assuredService.getAllActiveAssured3();
-			System.out.println(assdList);*/
-			//String assuredList2 = (String) assuredService.getAllActiveAssured2();
-			//request.setAttribute("assuredList2", assuredList2);
+			try{
+				branchList = (List<Branch>) branchService.getAllBranchesByUserAndTranCd(request);
+			}catch(SQLException e){
+				errorMsg = e.getMessage();
+			}
+			
 			
 			request.setAttribute("branchList", branchList);
 			request.setAttribute("intmList", intmList);
-			//request.setAttribute("assdList", assdList);
-			
-			/*for (Assured assured : assdList) {
-				System.out.println(assured.getAssdName());
-			}*/
-
 			request.setAttribute("pageTitle", "SOA per Assured/Intermediary");
 			System.out.println("to SOA page");
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);

@@ -20,13 +20,17 @@
 <!-- hidden fields -->
 <input type="hidden" id="page" name="page" value="${page}">
 <input type="hidden" id="lineCd" name="lineCd" value="${lineCd}">
+<input type="hidden" id="selDestination" name="selDestination" value="screen">
+<input type="hidden" id="BranchName" value=""> 	
+
+<div id="hiddenDiv">
 <input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
 <input type="hidden" id="reportTitle" name="reportTitle" value="${reportTitle}">
 <input type="hidden" id="reportName" name="reportName" value="${reportName}">
 <input type="hidden" id="reportUrl" name="reportUrl" value="${reportUrl}">
 <input type="hidden" id="reportXls" name="reportXls" value="${reportXls}">
-<input type="hidden" id="selDestination" name="selDestination" value="screen">
-<input type="hidden" id="BranchName" value=""> 	
+</div>
+
 
 <br />
 <br />
@@ -36,7 +40,7 @@
 	</div>
 </div>
 <div class="sectionDiv" style="margin-bottom: 10px;">
-<div class="sectionDiv" style="margin: 10px; margin-left: 60px; display: block; margin-top: 15px; float: left; width: 450px;">
+<div class="sectionDiv" style="margin: 10px; margin-left: 250px; display: block; margin-top: 15px; float: left; width: 450px;">
 <br>
 <label>&nbsp;&nbsp;&nbsp;Data Parameter</label>	
 			<table style="margin-top: 10px; width: 100%;">
@@ -46,22 +50,19 @@
 					</td>
 					<td class="leftAligned">
 							<select name="selBranch"
-								id="selBranch" style="width: 100px;">
+								id="selBranch" style="width: 80%;">
 									<option value=""></option>
 									<c:forEach var="branch" items="${branches}">
-										<option>${branch.issCd}</option>
+										<option value="${branch.issCd}">${branch.issName}</option>
 									</c:forEach>
-							</select>
-							
-						<input id="BranchDesc" class="leftAligned" type="text" name="BranchDesc" 
-						style="width: 200px; height: 12px;" title="Branch Description" disabled/>			
+							</select>			
 					</td>
 				</tr>
 			</table>
 			<br>
 	</div>	
 
-	<div class="sectionDiv" style="margin: 10px; margin-left: 60px; display: block; margin-top: 2px; float: left; width: 450px;">	
+	<div class="sectionDiv" style="margin: 10px; margin-left: 250px; display: block; margin-top: 2px; float: left; width: 450px;">	
 	<br>
 			<label>&nbsp;&nbsp;&nbsp;Based on Accounting Entry</label>	
 			<table style="margin-top: 10px; width: 100%;">
@@ -134,6 +135,7 @@
 <script type="text/javascript">
 	$("rdPOrix1").checked = true;
 	$("selDate").disable();
+	$("hiddenDiv").hide();
 	var reportType = 1;
 	
 	var fromCalendar = new dhtmlXCalendarObject({
@@ -198,8 +200,8 @@
 					"click",
 					function() {
 						if (validateInput()) {
-							new Ajax.Updater(
-									"mainContents",
+							new Ajax.Request(
+									//"mainContents",
 									contextPath + "/SoaOrixExtController",
 									{
 										evalScripts : true,
@@ -210,11 +212,12 @@
 											fromDate : $F("txtFromDate"),
 											toDate : $F("txtToDate"),
 											asofDate : $F("selDate"),
-											branch : $F("BranchName")
+											branch : $F("selBranch")
 										},
 										onCreate : showNotice("Generating report. Please wait..."),
 										onComplete : function(response) {
-											printOutputPdf();
+											//printOutputPdf();
+											$("hiddenDiv").update(response.responseText);
 										}
 									});
 						}
@@ -225,7 +228,6 @@
 		if (reportType == 1){
 			 if (checkBlankNull($F("txtFromDate"))
 						|| checkBlankNull($F("txtToDate"))) {
-					//showMessageBox("Please input required fields", "I");
 					showMessageBox("Please input From and To Date fields", "I");
 					isOk = false;
 			 }else if (compareDate($F("txtFromDate"), $F("txtToDate"))) {
@@ -242,16 +244,6 @@
 			}else
 				isOk = true;
 		}
-		/* if (checkBlankNull($F("txtFromDate"))
-				|| checkBlankNull($F("txtToDate"))) {
-			showMessageBox("Please input required fields", "I");
-			isOk = false;
-		} else if (compareDate($F("txtFromDate"), $F("txtToDate"))) {
-			showMessageBox("\"From Date\" must be earlier from \"To Date\".",
-					"E");
-			isOk = false;
-		}else
-			isOk = true;*/
 		return isOk; 
 	}
 
@@ -305,39 +297,4 @@
 		}else
 			return false;
 	}
-
-	$("selBranch").observe("change", function(){
-		var selected = $("selBranch").getValue();
-		getBranch(selected,"BranchName","BranchDesc");
-	});
-	
-	function getBranch(selected,txtBranchName,txtBranchDesc){
-		var issCd = [
-	                 <c:forEach var="branch" items="${branches}" varStatus="loop">
-	                   "${branch.issCd}"
-	                   <c:if test="${!loop.last}">,</c:if>
-	                 </c:forEach>
-	               ];
-		
-		var issName = [
-		             <c:forEach var="branch" items="${branches}" varStatus="loop">
-		               "${branch.issName}"
-		               <c:if test="${!loop.last}">,</c:if>
-		             </c:forEach>
-		           ];
-		
-		var branchName = '';
-		var branchDesc = '';
-		
-			for (var i = 0; i < issCd.length; i++) {
-				if (selected == issCd[i]) {
-					branchName = issCd[i];
-					branchDesc = issName[i];
-				}
-			}
-			
-		$(txtBranchName).writeAttribute("value",branchName);
-		$(txtBranchDesc).writeAttribute("value",branchDesc);
-		}
-	
 </script>

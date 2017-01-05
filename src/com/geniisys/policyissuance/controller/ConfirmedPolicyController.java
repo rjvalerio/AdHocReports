@@ -69,8 +69,16 @@ public class ConfirmedPolicyController extends HttpServlet {
 			BranchService branchService = new BranchServiceImpl();
 			IntermediaryService intmService = new IntermediaryServiceImpl();
 
-			List<Line> lineList = (List<Line>) lineService.getAllLines();
-			List<Branch> branchList = (List<Branch>) branchService.getAllBranches();
+			//List<Line> lineList = (List<Line>) lineService.getAllLines();
+			//List<Branch> branchList = (List<Branch>) branchService.getAllBranches();
+			List<Line> lineList = null;
+			List<Branch> branchList = null;
+			try {
+				lineList = (List<Line>) lineService.getLinesByUserAndTranCd(request);
+				branchList = (List<Branch>) branchService.getAllBranchesByUserAndTranCd(request);
+			} catch (SQLException e) {
+				errorMsg = e.getMessage();
+			}
 			List<Intermediary> intmList = (List<Intermediary>) intmService.getAllDealersIntm();
 			request.setAttribute("branchList", branchList);
 			request.setAttribute("lineList", lineList);
@@ -150,7 +158,7 @@ public class ConfirmedPolicyController extends HttpServlet {
 				request.setAttribute("reportTitle", reportName);
 
 				// redirect to right line
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page2);
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/policy issuance/confirmed policy/hiddenDiv.jsp");
 				dispatcher.forward(request, response);
 			}
 		}

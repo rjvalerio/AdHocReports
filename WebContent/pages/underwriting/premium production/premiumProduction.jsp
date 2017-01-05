@@ -32,20 +32,7 @@ var filterGridBy = "";
 <!-- hidden fields -->
 <input type="hidden" id="page" name="page" value="${page}">
 <input type="hidden" id="lineCd" name="lineCd" value="${lineCd}">
-<%-- <input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}"> --%>
 <input type="hidden" id="userId" name="userId" value="${adhocUser}">
-<%-- <input type="hidden" id="reportTitle" name="reportTitle"
-	value="${reportTitle}">
-<input type="hidden" id="reportName" name="reportName"
-	value="${reportName}">
-<input type="hidden" id="reportUrl" name="reportUrl"
-	value="${reportUrl}">
-<input type="hidden" id="reportXls" name="reportXls"
-	value="${reportXls}">
-<input type="hidden" id="outputType" name="outputType"
-	value="${outputType}">
-<input type="hidden" id="selDestination" name="selDestination"
-	value="screen"> --%>
 
 <div id="hiddenDiv">
 	<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
@@ -57,9 +44,6 @@ var filterGridBy = "";
 	<input type="hidden" id="outputType" name="outputType"
 		value="${outputType}">
 </div>
-
-<%-- <input type="text" id="letterType" name= "letterType" value = "${letterType}"> --%>
-<!-- end hidden fields -->
 
 <br />
 <br />
@@ -88,9 +72,7 @@ var filterGridBy = "";
 									<c:forEach var="branch" items="${ branchList }">
 										<option>${branch.issName}</option>
 									</c:forEach>
-							</select> <!-- <input id="txtBranch" name="capsField" class="leftAligned"
-								type="text" style="width: 65%;" value="" title="Branch Name"
-								disabled /> --> <input id="txtBranchCd" name="capsField"
+							</select> <input id="txtBranchCd" name="capsField"
 								class="leftAligned" type="hidden" /></td>
 						</tr>
 						<tr>
@@ -102,22 +84,14 @@ var filterGridBy = "";
 										<option>${line.lineName}</option>
 									</c:forEach>
 							</select>
-							<!--  <input id="txtLineName" name="capsField" class="leftAligned"
-								type="text" style="width: 65%;" value="" title="Line Name"
-								disabled /> --> <input id="txtLineCd" name="capsField"
+							<input id="txtLineCd" name="capsField"
 								class="leftAligned" type="hidden" /></td>
 						</tr>
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Intermediary</td>
 							<td class="leftAligned"><input type="text" id="txtOrixIntm"
 								value="OMLF INSURANCE AGENCY INC." style="width: 95%;" disabled>
-								<%-- <select name="selIntm" id="selIntm"
-								style="width: 100%;">
-									<option value=""></option>
-									<c:forEach var="intm" items="${ intmList }">
-										<option value="${intm.intmNo}">${intm.intmName}</option>
-									</c:forEach>
-							</select> --%> <input id="txtIntmSearch" name="capsField"
+								 <input id="txtIntmSearch" name="capsField"
 								class="leftAligned" type="text" style="width: 85%;" value=""
 								title="Search Intermediary"
 								placeholder="TYPE INTERMEDIARY HERE.." /> <span> <img
@@ -129,8 +103,6 @@ var filterGridBy = "";
 					</table>
 					<table style="margin-top: 10px; width: 100%;">
 						<tr>
-							<!-- <td class="rightAligned" style="width: 12%;"></td>
-							<td class="leftAligned"> -->
 							<td>
 								<div class="sectionDiv" id="intermediaryResultDiv"
 									style="width: 500px; float: left; border-color: white;">
@@ -397,8 +369,6 @@ var filterGridBy = "";
 		filterGridBy = "";
 		gridIntm = new dhtmlXGridObject('gridIntermediaryResult');
 		gridIntm.setImagePath(contextPath + '/css/codebase/imgs/');
-		//gridIntm.setHeader("Intm No., Intm Type, Intermediary Name");
-		//gridIntm.setHeader("&nbsp;,&nbsp;,&nbsp;");
 		gridIntm.setHeader("Intm No.,#combo_filter, Intermediary Name");
 		gridIntm.setInitWidths("60,60,*");
 		gridIntm.setColAlign("left,left,left");
@@ -490,11 +460,6 @@ var filterGridBy = "";
 	
 	function toggleReportType(option){
 		$("rdoComparative").disable();
-		//$("selIntm").enable();
-		//$("selIntm").value="";
-		//$("txtIntmNo").writeAttribute("value","");
-		//$("txtIntmType").writeAttribute("value","");
-		//$("selIntm").show();
 		$("txtOrixIntm").hide();
 		$("txtIntmSearch").show();
 		$("searchForIntm").show();
@@ -502,7 +467,6 @@ var filterGridBy = "";
 		emptyIntmGrid();
 		if(option == 1){
 			reportName = 'PREMIUM_PROD_REP';
-			/* $("rdoBooking").disable(); */
 			toggleDateType(1);
 			$("rdoAcct").checked = true;
 			$("rdoAcct").enable();
@@ -515,11 +479,6 @@ var filterGridBy = "";
 			$("rdoBooking").checked = true;
 			$("rdoBooking").enable();
 			$("rdoAcct").disable();
-			/* $("rdoBooking").enable();
-			$("rdoBooking").click();
-			$("rdoBooking").checked = true;
-			$("rdoAcct").disable();
-			$("rdoBooking").click(); */
 			outputType = 1;
 		}
 		if(option == 3){
@@ -540,14 +499,8 @@ var filterGridBy = "";
 		if(option == 5){	
 			resetToggleReportType();
 			reportName = 'PROD_REPORT_ORIX';
-			//$("selIntm").value = 'OMLF INSURANCE AGENCY INC.';
-			//$("selIntm").writeAttribute("value","OMLF INSURANCE AGENCY INC.");
-			//$("txtIntmNo").writeAttribute("value","800");
-			//$("txtIntmType").writeAttribute("value","OA");
 			$("txtOrixIntm").show();
-			//$("selIntm").hide();
 			intmNo = 800;
-			//$("selIntm").disable();
 			outputType = 1;
 			$("txtIntmSearch").hide();
 			$("searchForIntm").hide();
@@ -573,15 +526,12 @@ var filterGridBy = "";
 			$("rdoAcct").checked = true;
 			$("rdoAcct").disable();
 			$("rdoBooking").disable();
-			//reportName = 'PROD_REPORT_PER_INTM_VS';
 			dateType = 1;
 		}else if (option == 1){
 			$("comparativeDiv").hide();
 			reportOption = 1;
 			$("rdoAcct").disable();
 			$("rdoBooking").disable();
-		 	/* $("rdoAcct").enable();
-			$("rdoBooking").enable(); */
 		}
 	}
 	
@@ -609,25 +559,17 @@ var filterGridBy = "";
 		}
 	}
 	
-	
-	
 	//print function
 	$("btnPrint")
 	.observe(
 			"click",
 			function() {
 					if (validateInput()){
-						 //var userInput = "98 " +$F("selLine") + " " + $F("selBranch");
-						/* if(!checkUserAccess(userInput,userAccessObj, userAccessObjLength)){
-							showMessageBox("User has no access.", "E");
-						}else{ */
 							intmNo = $F("txtIntermediaryNo");
 						if(reportName == 'PROD_REPORT_ORIX'){
 							intmNo = 800;
 						}
 							 new Ajax.Request(
-									//"mainContents",
-									//"hiddenDiv",
 									contextPath + "/PremProductionController",
 									{
 										evalScripts : true,
@@ -635,11 +577,8 @@ var filterGridBy = "";
 										parameters : {
 											action : "printReport",
 											outputType : outputType,
-											//reportName : reportName,
 											reportName :$("rdoComparative").checked ? 'PROD_REPORT_PER_INTM_VS': reportName,
-											//lineCd : $F("selLine"),
 											lineCd : $F("txtLineCd"),
-											//branchCd : $F("selBranch"),
 											branchCd :  $F("txtBranchCd"),
 											fromDate : $F("txtFromDate"),
 											toDate : $F("txtToDate"),
@@ -652,11 +591,9 @@ var filterGridBy = "";
 										},
 										onCreate : showNotice("Generating report. Please wait..."),
 										onComplete : function(response) {
-											//printOutputPdf();
 											$("hiddenDiv").update(response.responseText);
 										}
-									}); 
-						/* } */
+									});
 					}
 			});
 	
@@ -667,82 +604,53 @@ var filterGridBy = "";
 			if (checkBlankNull($F("txtFromDate"))
 					|| checkBlankNull($F("txtToDate"))) {
 				showMessageBox("Please input required fields", "I");
-				//return false;
 				isOk = false;
 			}else{
 				if (compareDate($F("txtFromDate"), $F("txtToDate"))) {
 					showMessageBox("\"From Date\" must be earlier from \"To Date\".","E");
-					//return false;
 					isOk = false;
-				}/*  else {
-					//return true;
-					isOk = true;
-				}	 */
+				}
 			}
 		}else if(reportOption == 2){
 			if (checkBlankNull($F("txtFromDate"))
-					|| checkBlankNull($F("txtToDate"))/* 
-					|| checkBlankNull($F("txtFromDate2"))
-					|| checkBlankNull($F("txtToDate2") )*/) {
+					|| checkBlankNull($F("txtToDate"))) {
 				showMessageBox("Please input required fields", "I");
-				//return false;
 				isOk = false;
 			}else
 				if (compareDate($F("txtFromDate"), $F("txtToDate"))) {
 					showMessageBox("\"From Date\" must be earlier from \"To Date\".","E");
-					//return false;
 					isOk = false;
 				} else {
 					if (compareDate($F("txtFromDate2"), $F("txtToDate2"))) {
 						showMessageBox("\"From Date\" must be earlier from \"To Date\".","E");
-						//return false;
 						isOk = false;
-					}/*  else {
-						//return true;
-						isOk = true;
-					}	 */
+					}
 				}	
 		}
 		if(isIntmRequired){
 			intmNo = $F("txtIntermediaryNo");
 			if(checkBlankNull(intmNo)){
 				showMessageBox("Intermediary is required", "I");
-				//return false;
 				isOk = false;
-			}/* else{
-				//return true;
-				isOk = true;
-			} */
+			}
 		}
 		}else if(dateType == 2){
 			if(checkBlankNull($F("txtBookingYear"))){
 				showMessageBox("Please input required fields", "I");
-				//return false;
 				isOk = false;
 			}else if(!/^\d+$/.test($F("txtBookingYear").trim())){
 				showMessageBox("Invalid Input. Year must be number", "E");
-				//return false;
 				isOk = false;
-			}/* else{
-				//return true;
-				isOk = true;
-			} */
+			}
 			if(isIntmRequired){
 				intmNo = $F("txtIntermediaryNo");
 				if(checkBlankNull(intmNo)){
 					showMessageBox("Intermediary is required", "I");
-					//return false;
 					isOk = false;
-				}/* else{
-					//return true;
-					isOk = true;
-				} */
+				}
 			}
 		}
 		
-		/* alert(isIntmRequired);
-		alert(isOk);
-		alert(intmNo); */
 		return isOk;
 	}
 	
@@ -780,17 +688,12 @@ var filterGridBy = "";
 		                   <c:if test="${!loop.last}">,</c:if>
 		                 </c:forEach>
 		               ];
-		//var bName = ''; 
 		var bCd = '';
-		//for (var i = 0; i < branchCd.length; i++) {
 		for (var i = 0; i < branchName.length; i++) {
-		//if (selected == branchCd[i]) {
-		if (selected == branchName[i]) {	
-			//bName = branchName[i];
+		if (selected == branchName[i]) {
 			bCd = branchCd[i];
 		}
 		}
-		//$(txtBranchName).writeAttribute("value",bName);
 		$('txtBranchCd').writeAttribute("value",bCd);
 		}
 	
@@ -813,87 +716,14 @@ var filterGridBy = "";
 		                   <c:if test="${!loop.last}">,</c:if>
 		                 </c:forEach>
 		               ];
-		//var lName = '';
 		var lCd = '';
-		//for (var i = 0; i < lineCd.length; i++) {
 		for (var i = 0; i < lineName.length; i++) {	
-		//if (selected == lineCd[i]) {
 		if (selected == lineName[i]) {
-			//lName = lineName[i];
 			lCd = lineCd[i]
 		}
 		}
-		//$(txtLineName).writeAttribute("value",lName);
 		$("txtLineCd").writeAttribute("value",lCd);
 		}
-	
-	//intermediary
-	/* $("selIntm").observe("change", function(){
-		var selected = $("selIntm").getValue();
-		getIntmType(selected,"txtIntmType");
-	}); */
-	
-	function getIntmType(selected,txtIntmType){
-		var intmNo2 = [
-		                 <c:forEach var="intm" items="${intmList}" varStatus="loop">
-		                   "${intm.intmNo}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		
-		var intmName = [
-		                 <c:forEach var="intm" items="${intmList}" varStatus="loop">
-		                   "${intm.intmName}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		var intmType = [
-		                 <c:forEach var="intm" items="${intmList}" varStatus="loop">
-		                   "${intm.intmType}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		var iType = '';
-		var iNo = '';
-		for (var i = 0; i < intmNo2.length; i++) {
-		if (selected == intmNo2[i]) {
-			iType = intmType[i];
-			iNo = intmNo2[i];
-		}
-		}
-		intmNo = iNo;
-		$(txtIntmNo).writeAttribute("value",iNo);
-		$(txtIntmType).writeAttribute("value",iType);
-		}
-	
-	//assured
-	/* $("selAssd").observe("change", function(){
-		var selected = $("selAssd").getValue();
-		getAssdNo(selected);
-	});
-	
-	function getAssdNo(selected){
-		var assdNo2 = [
-		                 <c:forEach var='assd' items='${assdList}' varStatus='loop'>
-		                   '${assd.assdNo}'
-		                   <c:if test='${!loop.last}'>,</c:if>
-		                 </c:forEach>
-		               ];
-		
-		var assdName = [
-		                 <c:forEach var='assd' items='${assdList}' varStatus='loop'>
-		                   '${assd.assdName}'
-		                   <c:if test='${!loop.last}'>,</c:if>
-		                 </c:forEach>
-		               ];
-		var aNo = '';
-		for (var i = 0; i < assdName.length; i++) {
-		if (selected == assdName[i]) {
-			aNo = assdNo2[i];
-		}
-		}
-		assdNo = aNo;
-		} */
 
 	function printOutputPdf() {
 		var reportUrl = $F("reportUrl");
