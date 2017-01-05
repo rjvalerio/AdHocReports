@@ -342,7 +342,6 @@
 			$("txtIntermediaryNo").value = "";
 			emptyIntmGrid();
 		}
-		
 	});
 	
 	$("rdoPremProd").checked = true;

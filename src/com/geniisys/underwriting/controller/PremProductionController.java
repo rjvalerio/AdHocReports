@@ -88,6 +88,20 @@ public class PremProductionController extends HttpServlet {
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
 			dispatcher.forward(request, response);
 		}
+		
+		if(action.equals("searchIntermediary")){
+			System.out.println("fetching intm list......");
+			IntermediaryService intmService = new IntermediaryServiceImpl();
+			String intmList = "";
+			try{
+				intmList = (String) intmService.searchIntermediary(request);
+			}catch (SQLException e) {
+				errorMsg = e.getMessage();
+			}
+			request.setAttribute("intmList", intmList);
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/underwriting/premium production/intmResult.jsp");
+			dispatcher.forward(request, response);
+		}
 
 		if (action.equals("printReport")) {
 			String reportName = request.getParameter("reportName");
@@ -211,9 +225,9 @@ public class PremProductionController extends HttpServlet {
 				request.setAttribute("reportXls", outputXls);
 				request.setAttribute("outputType", outputType);
 
-				// redirect to right line
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page2);
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/underwriting/premium production/hiddenDiv.jsp");
 				dispatcher.forward(request, response);
+				
 			}
 		}
 	}
