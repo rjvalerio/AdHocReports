@@ -580,6 +580,7 @@
 								//alert("Please input required fields");
 								showMessageBox("Please input required fields", "I");
 							} else {
+								$("errorMsg").value = "";
 								new Ajax.Updater(
 										"mainContents",
 										contextPath
