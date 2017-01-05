@@ -1,10 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style>
-#selIntm option {
+/* #selIntm option {
 	width: 400px;
-}
-
+} */
 #selAssd option {
 	width: 340px;
 }
@@ -13,6 +12,9 @@
 	width: 100%;
 }
 </style>
+<script>
+var filterGridBy = "";
+</script>
 
 
 
@@ -44,19 +46,16 @@
 	value="${outputType}">
 <input type="hidden" id="selDestination" name="selDestination"
 	value="screen"> --%>
-	
+
 <div id="hiddenDiv">
-<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
-<input type="hidden" id="reportTitle" name="reportTitle"
-	value="${reportTitle}">
-<input type="hidden" id="reportName" name="reportName"
-	value="${reportName}">
-<input type="hidden" id="reportUrl" name="reportUrl"
-	value="${reportUrl}">
-<input type="hidden" id="reportXls" name="reportXls"
-	value="${reportXls}">
-<input type="hidden" id="outputType" name="outputType"
-	value="${outputType}">
+	<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
+	<input type="hidden" id="reportTitle" name="reportTitle"
+		value="${reportTitle}"> <input type="hidden" id="reportName"
+		name="reportName" value="${reportName}"> <input type="hidden"
+		id="reportUrl" name="reportUrl" value="${reportUrl}"> <input
+		type="hidden" id="reportXls" name="reportXls" value="${reportXls}">
+	<input type="hidden" id="outputType" name="outputType"
+		value="${outputType}">
 </div>
 
 <%-- <input type="text" id="letterType" name= "letterType" value = "${letterType}"> --%>
@@ -73,13 +72,13 @@
 	<div id="premiumProductionSectionDiv" class="sectionDiv"
 		style="margin-bottom: 10px;">
 		<div class="sectionDiv" id="premiumProductionMainDiv"
-			style="width: 90%; height: 550px; margin-top: 40px; margin-left: 45px; margin-bottom: 10px;">
+			style="width: 90%; height: 600px; margin-top: 40px; margin-left: 45px; margin-bottom: 10px;">
 			<div id="parametersDiv"
 				style="width: 97%; margin-left: 8px; margin-top: 9px; float: left;">
 
 				<!-- branch div -->
 				<div class="sectionDiv" id="branchDiv"
-					style="width: 50%; margin-left: 5%; margin-top: 9px; float: left; border-color: white;">
+					style="width: 55%; margin-top: 9px; float: left; border-color: white;">
 					<table style="margin-top: 10px; width: 100%;">
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Branch</td>
@@ -91,67 +90,58 @@
 									</c:forEach>
 							</select> <!-- <input id="txtBranch" name="capsField" class="leftAligned"
 								type="text" style="width: 65%;" value="" title="Branch Name"
-								disabled /> -->
-								<input id="txtBranchCd" name="capsField" class="leftAligned"
-								type="hidden"/>
-								</td>
+								disabled /> --> <input id="txtBranchCd" name="capsField"
+								class="leftAligned" type="hidden" /></td>
 						</tr>
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Line</td>
-							<td class="leftAligned">
-							<select name="selLine" id="selLine"
+							<td class="leftAligned"><select name="selLine" id="selLine"
 								style="width: 100%;">
 									<option value=""></option>
 									<c:forEach var="line" items="${ lineList }">
 										<option>${line.lineName}</option>
 									</c:forEach>
-							</select><!--  <input id="txtLineName" name="capsField" class="leftAligned"
+							</select>
+							<!--  <input id="txtLineName" name="capsField" class="leftAligned"
 								type="text" style="width: 65%;" value="" title="Line Name"
-								disabled /> -->
-								<input id="txtLineCd" name="capsField" class="leftAligned"
-								type="hidden"/>
-								</td>
+								disabled /> --> <input id="txtLineCd" name="capsField"
+								class="leftAligned" type="hidden" /></td>
 						</tr>
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Intermediary</td>
-							<td class="leftAligned">
-							<input type="text" id="txtOrixIntm" value="OMLF INSURANCE AGENCY INC." 
-								style="width:95%;" disabled>
-							<select name="selIntm" id="selIntm"
+							<td class="leftAligned"><input type="text" id="txtOrixIntm"
+								value="OMLF INSURANCE AGENCY INC." style="width: 95%;" disabled>
+								<%-- <select name="selIntm" id="selIntm"
 								style="width: 100%;">
 									<option value=""></option>
 									<c:forEach var="intm" items="${ intmList }">
 										<option value="${intm.intmNo}">${intm.intmName}</option>
 									</c:forEach>
-							</select></td>
+							</select> --%> <input id="txtIntmSearch" name="capsField"
+								class="leftAligned" type="text" style="width: 85%;" value=""
+								title="Search Intermediary"
+								placeholder="TYPE INTERMEDIARY HERE.." /> <span> <img
+									src="${pageContext.request.contextPath}/images/misc/searchIcon.png"
+									id="searchForIntm" name="searchForIntm" alt="Go"
+									style="margin-top: 2px;" title="Search Intermediary" />
+							</span></td>
 						</tr>
-						<!-- <tr>
-							<td class="rightAligned" style="width: 25%;">Type</td>
-							<td class="leftAligned"><input id="txtIntmType"
-								name="capsField" class="leftAligned" type="text"
-								style="width: 30%;" value="" title="Intermediary Type" disabled />
-							</td>
-						</tr> -->
+					</table>
+					<table style="margin-top: 10px; width: 100%;">
 						<tr>
-							<td class="rightAligned" style="width: 25%;">Intm No.</td>
-							<td class="leftAligned"><input id="txtIntmNo"
-								name="capsField" class="leftAligned" type="text"
-								style="width: 30%;" value="" title="Intermediary Type" disabled />
-								&nbsp;&nbsp;&nbsp; Intm Type <input id="txtIntmType"
-								name="capsField" class="leftAligned" type="text"
-								style="width: 30%;" value="" title="Intermediary Type" disabled />
+							<!-- <td class="rightAligned" style="width: 12%;"></td>
+							<td class="leftAligned"> -->
+							<td>
+								<div class="sectionDiv" id="intermediaryResultDiv"
+									style="width: 500px; float: left; border-color: white;">
+									<div id="gridIntermediaryResult"
+										style="width: 500px; height: 200px; overflow: hidden"></div>
+									<input type="hidden" id="txtIntermediaryNo">
+								</div>
 							</td>
 						</tr>
-						<%-- <tr>
-							<td class="rightAligned" style="width: 25%;">Assured</td>
-							<td class="leftAligned"><select name="selAssd" id="selAssd"
-								style="width: 90%;">
-									<option value=""></option>
-									<c:forEach var="assd" items="${ assdList }">
-										<option>${assd.assdName}</option>
-									</c:forEach>
-							</select></td>
-						</tr> --%>
+					</table>
+					<table style="margin-top: 10px; width: 100%;">
 					</table>
 				</div>
 
@@ -382,6 +372,7 @@
 </div>
 
 <script type="text/javascript">
+	makeAllInputFieldsUpperCase();
 	var page = $F("page");
 	reportName = 'PREMIUM_PROD_REP';
 	var reportOption = 1;
@@ -393,6 +384,57 @@
 	var outputType = 2;  //1 = pdf  2 = xls
 	var isIntmRequired = false;
 	var branchCode = "";
+	
+	/*INTERMEDIARY*/
+	var intermediaryNo = "";
+	var gridIntm;
+	var intmList = "";
+	var data={ rows: []};
+	emptyIntmGrid();
+	
+	function emptyIntmGrid(){
+		$("txtIntmSearch").value = '';
+		filterGridBy = "";
+		gridIntm = new dhtmlXGridObject('gridIntermediaryResult');
+		gridIntm.setImagePath(contextPath + '/css/codebase/imgs/');
+		//gridIntm.setHeader("Intm No., Intm Type, Intermediary Name");
+		//gridIntm.setHeader("&nbsp;,&nbsp;,&nbsp;");
+		gridIntm.setHeader("Intm No.,#combo_filter, Intermediary Name");
+		gridIntm.setInitWidths("60,60,*");
+		gridIntm.setColAlign("left,left,left");
+		gridIntm.setColTypes("ro,ro,ro");
+		gridIntm.setColSorting("str,str,str");
+		gridIntm.init();
+		gridIntm.parse(data,"json");
+		$("gridIntermediaryResult").hide();
+	}
+	
+	$("searchForIntm").observe("click",function() {
+		var parameter = $F("txtIntmSearch");
+		intermediaryNo = '';
+		
+		if(!parameter == ''){
+			new Ajax.Request(contextPath +'/PremProductionController',
+					{
+						method : "POST",
+						parameters : {
+							action : "searchIntermediary",
+							parameter : parameter
+						},
+						onCreate : showNotice("Fetching Intermediary Details. Please wait..."),
+						onComplete : function(response) {
+							hideNotice("");
+							$("intermediaryResultDiv").update(response.responseText);
+						}
+					});
+		}else{
+			intermediaryNo = '';
+			$("txtIntermediaryNo").value = "";
+			emptyIntmGrid();
+		}
+	});
+	/*END INTERMEDIARY*/
+	
 	
 	$("hiddenDiv").hide();
 	
@@ -448,13 +490,16 @@
 	
 	function toggleReportType(option){
 		$("rdoComparative").disable();
-		$("selIntm").enable();
-		$("selIntm").value="";
-		$("txtIntmNo").writeAttribute("value","");
-		$("txtIntmType").writeAttribute("value","");
-		$("selIntm").show();
+		//$("selIntm").enable();
+		//$("selIntm").value="";
+		//$("txtIntmNo").writeAttribute("value","");
+		//$("txtIntmType").writeAttribute("value","");
+		//$("selIntm").show();
 		$("txtOrixIntm").hide();
+		$("txtIntmSearch").show();
+		$("searchForIntm").show();
 		intmNo = '';
+		emptyIntmGrid();
 		if(option == 1){
 			reportName = 'PREMIUM_PROD_REP';
 			/* $("rdoBooking").disable(); */
@@ -482,6 +527,8 @@
 			reportName = 'DEALERS_PROD_REP';
 			outputType = 2;
 			isIntmRequired = true;
+			gridIntm.filterBy(1,"DL");
+			filterGridBy = "DL";
 		}
 		if(option == 4){
 			resetToggleReportType();
@@ -495,13 +542,15 @@
 			reportName = 'PROD_REPORT_ORIX';
 			//$("selIntm").value = 'OMLF INSURANCE AGENCY INC.';
 			//$("selIntm").writeAttribute("value","OMLF INSURANCE AGENCY INC.");
-			$("txtIntmNo").writeAttribute("value","800");
-			$("txtIntmType").writeAttribute("value","OA");
+			//$("txtIntmNo").writeAttribute("value","800");
+			//$("txtIntmType").writeAttribute("value","OA");
 			$("txtOrixIntm").show();
-			$("selIntm").hide();
+			//$("selIntm").hide();
 			intmNo = 800;
-			$("selIntm").disable();
+			//$("selIntm").disable();
 			outputType = 1;
+			$("txtIntmSearch").hide();
+			$("searchForIntm").hide();
 		}
 	}
 	
@@ -568,13 +617,17 @@
 			"click",
 			function() {
 					if (validateInput()){
-						 var userInput = "98 " +$F("selLine") + " " + $F("selBranch");
+						 //var userInput = "98 " +$F("selLine") + " " + $F("selBranch");
 						/* if(!checkUserAccess(userInput,userAccessObj, userAccessObjLength)){
 							showMessageBox("User has no access.", "E");
 						}else{ */
-							 new Ajax.Updater(
+							intmNo = $F("txtIntermediaryNo");
+						if(reportName == 'PROD_REPORT_ORIX'){
+							intmNo = 800;
+						}
+							 new Ajax.Request(
 									//"mainContents",
-									"hiddenDiv",
+									//"hiddenDiv",
 									contextPath + "/PremProductionController",
 									{
 										evalScripts : true,
@@ -599,7 +652,8 @@
 										},
 										onCreate : showNotice("Generating report. Please wait..."),
 										onComplete : function(response) {
-											printOutputPdf();
+											//printOutputPdf();
+											$("hiddenDiv").update(response.responseText);
 										}
 									}); 
 						/* } */
@@ -607,7 +661,7 @@
 			});
 	
 	function validateInput(){
-		var isOk = false;
+		var isOk = true;
 		if (dateType == 1){
 		if(reportOption == 1){
 			if (checkBlankNull($F("txtFromDate"))
@@ -620,10 +674,10 @@
 					showMessageBox("\"From Date\" must be earlier from \"To Date\".","E");
 					//return false;
 					isOk = false;
-				} else {
+				}/*  else {
 					//return true;
 					isOk = true;
-				}	
+				}	 */
 			}
 		}else if(reportOption == 2){
 			if (checkBlankNull($F("txtFromDate"))
@@ -643,21 +697,22 @@
 						showMessageBox("\"From Date\" must be earlier from \"To Date\".","E");
 						//return false;
 						isOk = false;
-					} else {
+					}/*  else {
 						//return true;
 						isOk = true;
-					}	
+					}	 */
 				}	
 		}
 		if(isIntmRequired){
+			intmNo = $F("txtIntermediaryNo");
 			if(checkBlankNull(intmNo)){
 				showMessageBox("Intermediary is required", "I");
 				//return false;
 				isOk = false;
-			}else{
+			}/* else{
 				//return true;
 				isOk = true;
-			}
+			} */
 		}
 		}else if(dateType == 2){
 			if(checkBlankNull($F("txtBookingYear"))){
@@ -668,19 +723,20 @@
 				showMessageBox("Invalid Input. Year must be number", "E");
 				//return false;
 				isOk = false;
-			}else{
+			}/* else{
 				//return true;
 				isOk = true;
-			}
+			} */
 			if(isIntmRequired){
+				intmNo = $F("txtIntermediaryNo");
 				if(checkBlankNull(intmNo)){
 					showMessageBox("Intermediary is required", "I");
 					//return false;
 					isOk = false;
-				}else{
+				}/* else{
 					//return true;
 					isOk = true;
-				}
+				} */
 			}
 		}
 		
@@ -772,10 +828,10 @@
 		}
 	
 	//intermediary
-	$("selIntm").observe("change", function(){
+	/* $("selIntm").observe("change", function(){
 		var selected = $("selIntm").getValue();
 		getIntmType(selected,"txtIntmType");
-	});
+	}); */
 	
 	function getIntmType(selected,txtIntmType){
 		var intmNo2 = [

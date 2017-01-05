@@ -59,120 +59,152 @@
 					</tr>
 					<tr>
 						<td class="rightAligned" style="width: 25%;">Policy No.</td>
-						<td class="leftAligned"><input id="txtLineCd"
-							class="leftAligned required" type="text" name="capsField"
-							style="width: 8%;" value="${lineCd}" title="Line Code" disabled />
+						<c:choose>
+							<c:when test='${page eq "ClgOnePager"}'>
+								<td class="leftAligned"><select name='selLineCd'
+									id='selLineCd'>
+										<c:forEach var="lineCd" items="${lineCdArray}">
+											<option>${lineCd}</option>
+										</c:forEach>
+								</select> <input id="txtSublineCd" class="leftAligned" type="text"
+									name="capsField" style="width: 15%;" value="CLG"
+									title="Subline Code" maxlength="7" /> <input id="txtIssCd"
+									class="leftAligned" type="text" name="capsField"
+									style="width: 8%;" value="" title="Issue Source Code"
+									maxlength="2" /> <input id="txtIssueYy"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 8%;" value=""
+									title="Year" maxlength="2" /> <input id="txtPolSeqNo"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 15%;" value=""
+									title="Policy Sequence Number" maxlength="7" /> <input
+									id="txtRenewNo"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 8%;" value=""
+									title="Renew Number" maxlength="2" /> <span> <img
+										src="${pageContext.request.contextPath}/images/misc/searchIcon.png"
+										id="searchForPolicy" name="searchForPolicy" alt="Go"
+										style="margin-top: 2px;" title="Search Policy" />
+								</span></td>
 
-							<!-- <input id="txtSublineCd" class="leftAligned" type="text"
+							</c:when>
+							<c:when test='${page eq "PsBankOnePager"}'>
+								<td class="leftAligned"><select name='selLineCd'
+									id='selLineCd'>
+										<c:forEach var="lineCd" items="${lineCdArray}">
+											<option>${lineCd}</option>
+										</c:forEach>
+								</select> <input id="txtSublineCd" class="leftAligned" type="text"
+									name="capsField" style="width: 15%;" value=""
+									title="Subline Code" maxlength="7" /> <input id="txtIssCd"
+									class="leftAligned" type="text" name="capsField"
+									style="width: 8%;" value="PS" title="Issue Source Code"
+									maxlength="2" /> <input id="txtIssueYy"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 8%;" value=""
+									title="Year" maxlength="2" /> <input id="txtPolSeqNo"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 15%;" value=""
+									title="Policy Sequence Number" maxlength="7" /> <input
+									id="txtRenewNo"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 8%;" value=""
+									title="Renew Number" maxlength="2" /> <span> <img
+										src="${pageContext.request.contextPath}/images/misc/searchIcon.png"
+										id="searchForPolicy" name="searchForPolicy" alt="Go"
+										style="margin-top: 2px;" title="Search Policy" />
+								</span></td>
+
+							</c:when>
+							<c:when test='${page eq "12PlanOnePager"}'>
+								<td class="leftAligned"><select name='selLineCd'
+									id='selLineCd'>
+										<c:forEach var="lineCd" items="${lineCdArray}">
+											<option>${lineCd}</option>
+										</c:forEach>
+								</select> <input id="txtSublineCd" class="leftAligned" type="text"
+									name="capsField" style="width: 15%;" value=""
+									title="Subline Code" maxlength="7" /> <input id="txtIssCd"
+									class="leftAligned" type="text" name="capsField"
+									style="width: 8%;" value="TP" title="Issue Source Code"
+									maxlength="2" disabled /> <input id="txtIssueYy"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 8%;" value=""
+									title="Year" maxlength="2" /> <input id="txtPolSeqNo"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 15%;" value=""
+									title="Policy Sequence Number" maxlength="7" /> <input
+									id="txtRenewNo"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 8%;" value=""
+									title="Renew Number" maxlength="2" /> <span> <img
+										src="${pageContext.request.contextPath}/images/misc/searchIcon.png"
+										id="searchForPolicy" name="searchForPolicy" alt="Go"
+										style="margin-top: 2px;" title="Search Policy" />
+								</span></td>
+
+							</c:when>
+							<c:otherwise>
+								<td class="leftAligned"><input id="txtLineCd"
+									class="leftAligned required" type="text" name="capsField"
+									style="width: 8%;" value="${lineCd}" title="Line Code" disabled />
+
+									<!-- <input id="txtSublineCd" class="leftAligned" type="text"
 							name="capsField" style="width: 15%;" value=""
 							title="Subline Code" maxlength="7" /> --> <c:choose>
-								<c:when test='${page ==  "regFI"}'>
-									<input id="txtSublineCd" class="leftAligned" type="text"
-										name="capsField" style="width: 15%;" value="REG"
-										title="Subline Code" maxlength="7" />
-								</c:when>
-								<c:otherwise>
-									<input id="txtSublineCd" class="leftAligned" type="text"
-										name="capsField" style="width: 15%;" value=""
-										title="Subline Code" maxlength="7" />
-								</c:otherwise>
-							</c:choose> <c:choose>
-								<c:when
-									test='${page == "12pMC" || page == "12pFI" || page == "12pPA"}'>
-									<input id="txtIssCd" class="leftAligned" type="text"
-										name="capsField" style="width: 8%;" value="TP"
-										title="Issue Source Code" maxlength="2" disabled="disabled" />
-								</c:when>
-								<c:when test='${page == "clgFI"}'>
-									<input id="txtIssCd" class="leftAligned" type="text"
-										name="capsField" style="width: 8%;" value="FM"
-										title="Issue Source Code" maxlength="2" disabled="disabled" />
-								</c:when>
-								<c:when test='${page == "psFI"}'>
-									<input id="txtIssCd" class="leftAligned" type="text"
-										name="capsField" style="width: 8%;" value="PS"
-										title="Issue Source Code" maxlength="2" disabled="disabled" />
-								</c:when>
-								<c:otherwise>
-									<input id="txtIssCd" class="leftAligned" type="text"
-										name="capsField" style="width: 8%;" value=""
-										title="Issue Source Code" maxlength="2" />
-								</c:otherwise>
-							</c:choose> <input id="txtIssueYy"
-							class="leftAligned integerNoNegativeUnformattedNoComma"
-							type="text" name="intField" style="width: 8%;" value=""
-							title="Year" maxlength="2" /> <input id="txtPolSeqNo"
-							class="leftAligned integerNoNegativeUnformattedNoComma"
-							type="text" name="intField" style="width: 15%;" value=""
-							title="Policy Sequence Number" maxlength="7" /> <input
-							id="txtRenewNo"
-							class="leftAligned integerNoNegativeUnformattedNoComma"
-							type="text" name="intField" style="width: 8%;" value=""
-							title="Renew Number" maxlength="2" /> <span> <img
-								src="${pageContext.request.contextPath}/images/misc/searchIcon.png"
-								id="searchForPolicy" name="searchForPolicy" alt="Go"
-								style="margin-top: 2px;" title="Search Policy" />
-						</span></td>
+										<c:when test='${page ==  "regFI"}'>
+											<input id="txtSublineCd" class="leftAligned" type="text"
+												name="capsField" style="width: 15%;" value="REG"
+												title="Subline Code" maxlength="7" />
+										</c:when>
+										<c:otherwise>
+											<input id="txtSublineCd" class="leftAligned" type="text"
+												name="capsField" style="width: 15%;" value=""
+												title="Subline Code" maxlength="7" />
+										</c:otherwise>
+									</c:choose> <c:choose>
+										<c:when
+											test='${page == "12pMC" || page == "12pFI" || page == "12pPA"}'>
+											<input id="txtIssCd" class="leftAligned" type="text"
+												name="capsField" style="width: 8%;" value="TP"
+												title="Issue Source Code" maxlength="2" disabled="disabled" />
+										</c:when>
+										<c:when test='${page == "clgFI"}'>
+											<input id="txtIssCd" class="leftAligned" type="text"
+												name="capsField" style="width: 8%;" value="FM"
+												title="Issue Source Code" maxlength="2" disabled="disabled" />
+										</c:when>
+										<c:when test='${page == "psFI"}'>
+											<input id="txtIssCd" class="leftAligned" type="text"
+												name="capsField" style="width: 8%;" value="PS"
+												title="Issue Source Code" maxlength="2" disabled="disabled" />
+										</c:when>
+										<c:otherwise>
+											<input id="txtIssCd" class="leftAligned" type="text"
+												name="capsField" style="width: 8%;" value=""
+												title="Issue Source Code" maxlength="2" />
+										</c:otherwise>
+									</c:choose> <input id="txtIssueYy"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 8%;" value=""
+									title="Year" maxlength="2" /> <input id="txtPolSeqNo"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 15%;" value=""
+									title="Policy Sequence Number" maxlength="7" /> <input
+									id="txtRenewNo"
+									class="leftAligned integerNoNegativeUnformattedNoComma"
+									type="text" name="intField" style="width: 8%;" value=""
+									title="Renew Number" maxlength="2" /> <span> <img
+										src="${pageContext.request.contextPath}/images/misc/searchIcon.png"
+										id="searchForPolicy" name="searchForPolicy" alt="Go"
+										style="margin-top: 2px;" title="Search Policy" />
+								</span></td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</table>
 				<div id="infoDiv" name="infoDiv"
-					style="width: 100%; text-align: center;">
-					<%-- <jsp:include page="/pages/policy issuance/mc renewal cover/infoDiv.jsp"></jsp:include> --%>
-					<table style="margin-top: 10px; width: 100%;">
-						<c:if test="${lineCd eq 'MC'}">
-							<tr>
-								<td class="rightAligned" style="width: 25%;">Assured Name</td>
-								<td class="leftAligned"><input id="txtAssuredName"
-									name="capsField" class="leftAligned" type="text"
-									style="width: 71%;" value="" title="Assured Name" disabled /></td>
-							</tr>
-							<tr>
-								<td class="rightAligned" style="width: 25%;">Item Title</td>
-								<td class="leftAligned"><input id="txtItemTitle"
-									name="capsField" class="leftAligned" type="text"
-									style="width: 50%;" value="" title="Item Title" disabled /></td>
-							</tr>
-							<tr>
-								<td class="rightAligned" style="width: 25%;">Color</td>
-								<td class="leftAligned"><input id="txtItemColor"
-									name="capsField" class="leftAligned" type="text"
-									style="width: 50%;" value="" title="Item Color" disabled /></td>
-							</tr>
-							<tr>
-								<td class="rightAligned" style="width: 25%;">Motor No</td>
-								<td class="leftAligned"><input id="txtItemMotorNo"
-									name="capsField" class="leftAligned" type="text"
-									style="width: 50%;" value="" title="Motor No" disabled /></td>
-							</tr>
-							<tr>
-								<td class="rightAligned" style="width: 25%;">Serial No</td>
-								<td class="leftAligned"><input id="txtItemSerialNo"
-									name="capsField" class="leftAligned" type="text"
-									style="width: 50%;" value="" title="Serial No" disabled /></td>
-							</tr>
-							<tr>
-								<td class="rightAligned" style="width: 25%;">Plate No</td>
-								<td class="leftAligned"><input id="txtItemPlateNo"
-									name="capsField" class="leftAligned" type="text"
-									style="width: 50%;" value="" title="Plate No" disabled /></td>
-							</tr>
-						</c:if>
-						<c:if test="${lineCd eq 'OC' }">
-							<tr>
-								<td class="rightAligned" style="width: 25%;">Assured Name</td>
-								<td class="leftAligned"><input id="txtAssuredName"
-									name="capsField" class="leftAligned" type="text"
-									style="width: 71%;" value="" title="Assured Name" disabled /></td>
-							</tr>
-							<tr>
-								<td class="rightAligned" style="width: 25%;">Item Title</td>
-								<td class="leftAligned"><input id="txtItemTitle"
-									name="capsField" class="leftAligned" type="text"
-									style="width: 50%;" value="" title="Item Title" disabled /></td>
-							</tr>
-						</c:if>
-					</table>
-				</div>
+					style="width: 100%; text-align: center;"></div>
 				<!-- report type for OC -->
 				<div id="ocReportTypeDiv" name="ocReportTypeDiv"
 					style="width: 100%; text-align: center;">
@@ -240,10 +272,23 @@
 					</tr>
 					<tr>
 						<td class="rightAligned" style="width: 25%;">Line</td>
-						<td class="leftAligned" colspan="5"><input
-							id="batchTxtLineCd" class="leftAligned required" type="text"
-							name="capsField" style="width: 8%;" value="${lineCd}"
-							title="Line Code" disabled /></td>
+						<c:choose>
+							<c:when
+								test='${page eq "ClgOnePager" || page eq "12PlanOnePager" || page eq "PsBankOnePager"}'>
+								<td class="leftAligned"><select name='selBranchLineCd'
+									id='selBranchLineCd'>
+										<c:forEach var="lineCd" items="${lineCdArray}">
+											<option>${lineCd}</option>
+										</c:forEach>
+								</select></td>
+							</c:when>
+							<c:otherwise>
+								<td class="leftAligned" colspan="5"><input
+									id="batchTxtLineCd" class="leftAligned required" type="text"
+									name="capsField" style="width: 8%;" value="${lineCd}"
+									title="Line Code" disabled /></td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 
 					<tr>
@@ -281,10 +326,10 @@
 							style="margin-top: 3px;">Posting Date</label></td>
 					</tr>
 				</table>
-				<div id="infoDiv" name="infoDiv"
+				<%-- <div id="infoDiv" name="infoDiv"
 					style="width: 100%; text-align: center;">
 					<jsp:include page="/pages/policy issuance/one pager/infoDiv.jsp"></jsp:include>
-				</div>
+				</div> --%>
 			</div>
 			<%-- </c:if> --%>
 			<div class="sectionDiv" id="issueDiv"
@@ -317,8 +362,21 @@
 
 
 <script type="text/javascript">
-	var lineCd = $F("lineCd");
 	var page = $F("page");
+
+	var lineCd = '';
+
+	/* if (page == 'ClgOnePager') {
+		lineCd = $F("selLineCd");
+		$("selBranchLineCd").disable();
+	} else
+		lineCd = $F("lineCd"); */
+	if (page != 'ClgOnePager'/*   && page != 'PsBankOnePager' && page != '12PlanOnePager' */) {
+		lineCd = $F("lineCd");
+	} else {
+		lineCd = $F("selLineCd");
+		$("selBranchLineCd").disable();
+	}
 
 	var fromCalendar = new dhtmlXCalendarObject({
 		input : "txtFromDate",
@@ -349,24 +407,6 @@
 		$("issueDiv").show();
 
 	function togglePrintOption(option) {
-		/* var fromCalendar = new dhtmlXCalendarObject({
-			input : "txtFromDate",
-			button : "imgFromDate"
-		});
-		var toCalendar = new dhtmlXCalendarObject({
-			input : "txtToDate",
-			button : "imgToDate"
-		}); */
-		//reset fields
-		//if mc
-		if (lineCd == 'MC') {
-			$("txtAssuredName").value = "";
-			$("txtItemTitle").value = "";
-			$("txtItemColor").value = "";
-			$("txtItemMotorNo").value = "";
-			$("txtItemSerialNo").value = "";
-			$("txtItemPlateNo").value = "";
-		}
 		if (lineCd == 'OC') {
 			$("txtAssuredName").value = "";
 			$("txtItemTitle").value = "";
@@ -382,14 +422,44 @@
 			} else
 				$("txtIssCd").enable();
 			//enable individual fields
-			$("txtLineCd").addClassName("required");
+			/* if (page == 'ClgOnePager') {
+				$("selLineCd").enable();
+				$("selBranchLineCd").disable();
+			} else{
+				$("txtLineCd").addClassName("required");
+				$("batchTxtLineCd").removeClassName("required");
+			} */
+
+			if (page != 'ClgOnePager' && page != 'PsBankOnePager'
+					&& page != '12PlanOnePager') {
+				$("txtLineCd").addClassName("required");
+				$("batchTxtLineCd").removeClassName("required");
+			} else {
+				$("selLineCd").enable();
+				$("selBranchLineCd").disable();
+				if(page == 'ClgOnePager'){
+					$("txtSublineCd").disable();
+					$("txtSublineCd").value = 'CLG';
+				}else
+					$("txtSublineCd").enable();
+				
+				if(page == 'PsBankOnePager' || page == '12PlanOnePager'){
+					$("txtIssCd").disable();
+					if(page == 'PsBankOnePager'){
+						$("txtIssCd").value = 'PS';
+					}else
+						$("txtIssCd").value = 'TP';
+				}else
+					$("txtIssCd").enable();
+			}
+
 			//$("txtSublineCd").enable();
 			//$("txtIssCd").enable();
 			$("txtIssueYy").enable();
 			$("txtPolSeqNo").enable();
 			$("txtRenewNo").enable();
 			//disable batch fields
-			$("batchTxtLineCd").removeClassName("required");
+
 			$("batchTxtSublineCd").disable();
 			$("batchTxtIssCd").disable();
 			$("txtFromDate").disable();
@@ -415,7 +485,7 @@
 			$("rdoByIssueDate").enable();
 			$("rdoByPostingDate").enable();
 			//enable batch fields
-			$("batchTxtLineCd").addClassName("required");
+
 			$("batchTxtSublineCd").enable();
 			$("batchTxtIssCd").enable();
 			$("txtFromDate").enable();
@@ -424,7 +494,28 @@
 			$("imgFromDate").show();
 			$("imgToDate").show();
 			//disable individual fields
-			$("txtLineCd").removeClassName("required");
+			/* if (page == 'ClgOnePager') {
+				$("selLineCd").disable();
+				$("selBranchLineCd").enable();
+			} else{
+				$("txtLineCd").removeClassName("required");
+				$("batchTxtLineCd").addClassName("required");
+			} */
+
+			if (page != 'ClgOnePager' && page != 'PsBankOnePager'
+					&& page != '12PlanOnePager') {
+				$("txtLineCd").removeClassName("required");
+				$("batchTxtLineCd").addClassName("required");
+			} else {
+				$("selLineCd").disable();
+				$("selBranchLineCd").enable();
+				if(page == 'ClgOnePager'){
+					$("batchTxtSublineCd").disable();
+					$("batchTxtSublineCd").value = 'CLG';
+				}else
+					$("batchTxtSublineCd").enable();
+			}
+
 			$("txtSublineCd").disable();
 			$("txtIssCd").disable();
 			$("txtIssueYy").disable();
@@ -520,9 +611,16 @@
 			.observe(
 					"click",
 					function() {
-						if (isPolicyNoFieldsOk()) {
+						var txtLineCd = '';
+						if (page != 'ClgOnePager' && page != 'PsBankOnePager'
+								&& page != '12PlanOnePager') {
+							txtLineCd = $F("txtLineCd").trim().toUpperCase();
+						} else
+							txtLineCd = $F('selLineCd').trim().toUpperCase();
+
+						if (isPolicyNoFieldsOk(txtLineCd)) {
 							//check user access. 95 = TRAN_CD of policy issuance
-							var userInput = "95 " + $F("txtLineCd") + " "
+							var userInput = "95 " + txtLineCd + " "
 									+ $F("txtIssCd").trim().toUpperCase();
 							if (!checkUserAccess(userInput, userAccessObj,
 									userAccessObjLength)) {
@@ -541,8 +639,8 @@
 										"Invalid Input. Renew No must be number",
 										"E");
 							} else {
-								var lineCd = $F("txtLineCd").trim()
-										.toUpperCase();
+								//var lineCd = $F("txtLineCd").trim().toUpperCase();
+								var lineCd = txtLineCd;
 								var sublineCd = $F("txtSublineCd").trim()
 										.toUpperCase();
 								var renewNo = $F("txtRenewNo").trim();
@@ -551,13 +649,7 @@
 								var mcClg = 'MCCLG0';
 								var fiClg = 'FICLG0';
 								var userInput2 = lineCd + sublineCd + renewNo;
-								if (/* (page == '12pMC' && renewNo != 0)
-										|| (page == '12pFI' && renewNo != 0)
-										|| (page != '12pMC' && page != '12pFI')
-										&& ((userInput2 != ocClg) && (userInput2 != paClg))
-										|| (userInput2 == mcClg)
-										|| (userInput2 == fiClg) */
-										validateInput()) {
+								if (validateInput(lineCd)) {
 									new Ajax.Updater(
 											'infoDiv',
 											contextPath
@@ -569,9 +661,8 @@
 													action : "checkPolicyId",
 													moduleId : "onePager",
 													redirectPage : "/pages/policy issuance/one pager/infoDiv.jsp",
-													lineCd : $F("txtLineCd")
-															.trim()
-															.toUpperCase(),
+													//lineCd : $F("txtLineCd").trim().toUpperCase(),
+													lineCd : lineCd,
 													sublineCd : $F(
 															"txtSublineCd")
 															.trim()
@@ -589,12 +680,6 @@
 												onCreate : showNotice("Fetching Details. Please wait..."),
 												onComplete : function(response) {
 													hideNotice("");
-													/* var errorMsg2 = $F("errorMsg2");
-													var assuredName = $F("txtAssuredName");
-													if (checkBlankNull($F("errorMsg2"))) {
-														$("btnPrintOnePager").enable();
-													} else
-														alert("No data found.");  */
 												}
 											});
 								} else {
@@ -611,13 +696,13 @@
 						$("txtSublineCd").focus();
 					});
 
-	function validateInput() {
-		var lineCd = $F("txtLineCd").trim().toUpperCase();
+	 function validateInput(lineCd) {
+		//var lineCd = $F("txtLineCd").trim().toUpperCase();
 		var sublineCd = $F("txtSublineCd").trim().toUpperCase();
 		var renewNo = $F("txtRenewNo").trim();
 		var issCd = $F("txtIssCd").trim().toUpperCase();
 		var userInput = lineCd + sublineCd + renewNo;
-		var isValid = false;
+		var isValid = true;
 		var mcClg = 'MCCLG0';
 		var fiClg = 'FICLG0';
 
@@ -630,35 +715,56 @@
 				} else
 					isValid = true;
 			} else if (lineCd != 'MC' || lineCd != 'FI')
-				if(sublineCd != 'CLG' && renewNo != '0'){
+				if (sublineCd != 'CLG' && renewNo != '0') {
 					isValid = true;
-				}else
+				} else
 					isValid = false;
-			else
-				isValid = true;
-		}else if (issCd == 'TP'){
+			/* else
+				isValid = true; */
+		} else if (issCd == 'TP') {
 			//if tp renewNo != 0
 			//else if mc||fi clg 0
-			if((lineCd == 'MC' || lineCd == 'FI') && renewNo == '0'){
-				if(sublineCd == 'CLG'){
+			if ((lineCd == 'MC' || lineCd == 'FI') && renewNo == '0') {
+				if (sublineCd == 'CLG') {
 					isValid = true;
-				}else
+				} else
 					isValid = false;
-			}else if(renewNo =='0')
+			} else if (renewNo == '0')
 				isValid = false;
-			else
-				isValid = true;
+			/* else
+				isValid = true; */
 		} else if (renewNo == '0')
 			isValid = false;
-		else
-			isValid = true;
-		
-		return isValid;
-		
-	}
+		/* else
+			isValid = true; */
+		if(page == '12PlanOnePager' || page == 'regFI'){
+			if(renewNo == '0'){
+				isValid = false;
+			}
+		}
 
-	function isPolicyNoFieldsOk() {
-		var lineCd = $F("txtLineCd");
+		return isValid;
+
+	}
+	
+	/*function validateInput(lineCd) {
+		//var lineCd = $F("txtLineCd").trim().toUpperCase();
+		var sublineCd = $F("txtSublineCd").trim().toUpperCase();
+		var renewNo = $F("txtRenewNo").trim();
+		var issCd = $F("txtIssCd").trim().toUpperCase();
+		var userInput = lineCd + sublineCd + renewNo;
+		var isValid = true;
+		
+		if(page == '12PlanOnePager' || page == 'regFI'){
+			if(renewNo == '0'){
+				isValid = false;
+			}
+		}
+		return isValid;
+	}*/
+
+	function isPolicyNoFieldsOk(lineCd) {
+		//var lineCd = $F("txtLineCd");
 		var sublineCd = $F("txtSublineCd");
 		var issCd = $F("txtIssCd");
 		var issueYY = $F("txtIssueYy");
@@ -672,11 +778,11 @@
 			return true;
 	}
 
-	function isBatchFieldsOk() {
+	function isBatchFieldsOk(batchLineCd) {
 		//var userId = $F("batchTxtUser");
 		var fromDate = $F("txtFromDate");
 		var toDate = $F("txtToDate");
-		var batchLineCd = $F("batchTxtLineCd");
+		//var batchLineCd = $F("batchTxtLineCd");
 		var batchIssCd = $F("batchTxtIssCd");
 		if (/* checkBlankNull(userId) ||  */checkBlankNull(fromDate)
 				|| checkBlankNull(toDate) || checkBlankNull(batchLineCd)) {
@@ -697,27 +803,70 @@
 	var reportLink = "http://localhost:2010/GeniisysAdHocReports/";
 	var strWindowFeatures = "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,resizable=yes,fullscreen=yes";
 	var reportName = $F("reportName");
+	var reportBatch = $F("reportBatch");
 	$("btnPrintOnePager")
 			.observe(
 					"click",
 					function() {
 						var issuePlace = $F("txtIssuePlace");
+						var lineCd = '';
+						var batchLineCd = '';
+						if (page != 'ClgOnePager' && page != 'PsBankOnePager'
+								&& page != '12PlanOnePager') {
+							lineCd = $F("txtLineCd");
+							batchLineCd = $F("batchTxtLineCd");
+						} else {
+							lineCd = $F('selLineCd');
+							batchLineCd = $F('selBranchLineCd');
+							/*set page */
+							if (page == 'ClgOnePager') {
+								if (lineCd == 'FI') {
+									reportName = 'POLICY_DOCUMENT_REG_CLG_ONEPAGER';
+								} else {
+									reportName = 'POLICY_DOCUMENT_MTR_ONEPAGER';
+								}
+								if (batchLineCd == 'FI') {
+									reportBatch = 'POLICY_DOCUMENT_REG_CLG_ONEPAGER_BATCH';
+								} else {
+									reportBatch = 'POLICY_DOCUMENT_MTR_ONEPAGER_BATCH';
+								}
+							}
+							if (page == 'PsBankOnePager') {
+								if (lineCd == 'FI') {
+									reportName = 'POLICY_DOCUMENT_PS_FI_ONEPAGER';
+								} else {
+									reportName = 'POLICY_DOCUMENT_PS_FI_ONEPAGER';
+								}
+								if (batchLineCd == 'FI') {
+									reportBatch = 'POLICY_DOCUMENT_PS_FI_ONEPAGER_BATCH';
+								} else {
+									reportBatch = 'POLICY_DOCUMENT_PS_FI_ONEPAGER_BATCH';
+								}
+							}
+							if (page == '12PlanOnePager') {
+								if (lineCd == 'FI') {
+									reportName = 'POLICY_DOCUMENT_REG_TP_ONEPAGER';
+								} else if (lineCd == 'MC') {
+									reportName = 'POLICY_DOCUMENT_12PMTR';
+								} else {
+									reportName = 'POLICY_DOCUMENT_PA_TP_ONEPAGER';
+								}
+								if (batchLineCd == 'FI') {
+									reportBatch = 'POLICY_DOCUMENT_REG_TP_ONEPAGER_BATCH';
+								} else if (lineCd == 'MC') {
+									reportBatch = 'POLICY_DOCUMENT_12PMTR_ONEPAGER_BATCH';
+								} else {
+									reportBatch = 'POLICY_DOCUMENT_PA_TP_ONEPAGER_BATCH';
+								}
+
+							}
+						}
+
 						if (!checkBlankNull(issuePlace)) {
 							if (printOptionVal == "I") {
-								/* //report per subline
-								var txtSubline = $F("txtSublineCd");
-								if(txtSubline == 'REG' && page == 'regFI'){
-									reportName = "POLICY_DOCUMENT_REG_FI_ONEPAGER";
-								}
-								else if(txtSubline == 'PS'){
-									reportName = "POLICY_DOCUMENT_PS_FI_ONEPAGER";
-								}else
-									reportName = $F("reportName"); */
-								if (!isPolicyNoFieldsOk()) {
-									//alert("Please input required fields");
+								if (!isPolicyNoFieldsOk(lineCd)) {
 									showMessageBox(
 											"Please input required fields", "I");
-									//showMessageBox("Please input required fields", "I");
 								} else {
 									new Ajax.Updater(
 											"mainContents",
@@ -732,7 +881,7 @@
 													userId : $F("userId"),
 													reportName : reportName,
 													OCReportType : OCReportType,
-													lineCd : $F("txtLineCd"),
+													lineCd : lineCd,//$F("txtLineCd"),
 													sublineCd : $F("txtSublineCd"),
 													issCd : $F("txtIssCd"),
 													issueYY : $F("txtIssueYy"),
@@ -747,23 +896,13 @@
 											});
 								}
 							} else if (printOptionVal == "B") {
-								/* var txtSubline = $F("txtSublineCd");
-								if(txtSubline == 'REG'){
-									reportName = "POLICY_DOCUMENT_REG_FI_ONEPAGER_BATCH";
-								}
-								else if(txtSubline == 'PS'){
-									reportName = "POLICY_DOCUMENT_PS_FI_ONEPAGER_BATCH";
-								}else
-									reportName = $F("reportBatch"); */
 								if (compareDate($F("txtFromDate"),
 										$F("txtToDate"))) {
-									//alert("\"From Date\" should be earlier from \"To Date\".");
 									showMessageBox(
 											"\"From Date\" must be earlier from \"To Date\".",
 											"E");
 								} else {
-									if (!isBatchFieldsOk()) {
-										//alert("Please input required fields");
+									if (!isBatchFieldsOk(batchLineCd)) {
 										showMessageBox(
 												"Please input required fields",
 												"I");
@@ -778,11 +917,11 @@
 													parameters : {
 														action : "printBatch",
 														page : $F("page"),
-														reportName : $F("reportBatch"),
+														reportName : reportBatch,
 														dateType : dateType,
 														fromDate : $F("txtFromDate"),
 														toDate : $F("txtToDate"),
-														lineCd : $F("batchTxtLineCd"),
+														lineCd : batchLineCd,//$F("batchTxtLineCd"),
 														sublineCd : $F("batchTxtSublineCd"),
 														issCd : $F("batchTxtIssCd"),
 														issueCd : $F("txtIssCd"),
@@ -799,7 +938,6 @@
 								}
 							}
 						} else {
-							//alert("Please input required fields");
 							showMessageBox("Please input required fields", "I");
 						}
 					});
@@ -824,7 +962,6 @@
 		var errorMsg = $F("errorMsg");
 		if (!checkBlankNull(errorMsg)) {
 			hideNotice("");
-			//alert(errorMsg);
 			showMessageBox(errorMsg, "E");
 		} else {
 			var content = contextPath

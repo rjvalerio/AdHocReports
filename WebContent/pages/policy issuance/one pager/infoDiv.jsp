@@ -65,7 +65,7 @@
 							disabled /></td>
 					</tr>
 				</c:forEach>--%>
-	<c:choose>
+	<%-- <c:choose>
 		<c:when test='${lineCd eq "MC" }'>
 			<c:choose>
 				<c:when test="${fetchPolicyIdErrorMsg == null }">
@@ -218,7 +218,7 @@
 				</tr>
 			</c:forEach>
 		</c:otherwise>
-	</c:choose>
+	</c:choose> --%>
 </table>
 <script>
 	 var errorMsg2 = $F("errorMsg2");

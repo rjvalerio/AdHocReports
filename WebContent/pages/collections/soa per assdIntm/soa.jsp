@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <style>
-#selIntm option {
+/* #selIntm option {
 	width: 400px;
-}
+} */
 
 /* #selAssd option {
 	width: 340px;
@@ -53,7 +53,7 @@
 <div id="SOADetailsDiv">
 	<div id="SOASectionDiv" class="sectionDiv" style="margin-bottom: 10px;">
 		<div class="sectionDiv" id="SOAMainDiv"
-			style="width: 90%; height: 550px; margin-top: 40px; margin-left: 45px; margin-bottom: 10px;">
+			style="width: 90%; margin-top: 40px; margin-left: 45px; margin-bottom: 10px;">
 			<div id="parametersDiv"
 				style="width: 97%; margin-left: 8px; margin-top: 9px; float: left;">
 				
@@ -91,20 +91,24 @@
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Branch</td>
 							<td class="leftAligned"><select name="selBranch"
-								id="selBranch" style="width: 30%;">
+								id="selBranch" style="width: 100%;">
 									<option value=""></option>
 									<c:forEach var="branch" items="${ branchList }">
-										<option>${branch.issCd}</option>
+										<option>${branch.issName}</option>
 									</c:forEach>
-							</select> <input id="txtBranch" name="capsField" class="leftAligned"
+							</select><!--  <input id="txtBranch" name="capsField" class="leftAligned"
 								type="text" style="width: 65%;" value="" title="Branch Name"
-								disabled /></td>
+								disabled /> -->
+								<input id="txtBranchCd" name="capsField" class="leftAligned"
+								type="hidden" style="width: 65%;" value="" title="Branch Name"
+								disabled /> 
+								</td>
 						</tr>
 					</table>
 				</div>
 				
-				
-				<div class="sectionDiv" id="intmDiv"
+				<!-- old -->
+				<%-- <div class="sectionDiv" id="intmDiv"
 					style="width: 50%; margin-left: 1%; float: left; border-color: white;">
 					<table style="width: 100%;">
 						<tr>
@@ -128,8 +132,36 @@
 							</td>
 						</tr>
 					</table>
-				</div>
+				</div> --%>
 
+				<!-- new search intm -->
+				<div class="sectionDiv" id="intermediaryDiv"
+					style="width: 100%; margin-left: 1%; float: left; border-color: white;">
+					<table style="width: 100%;">
+						<tr>
+							<td class="rightAligned" style="width: 12%;">Intermediary</td>
+							<td class="leftAligned"><input id="txtIntmSearch"
+								name="capsField" class="leftAligned" type="text"
+								style="width: 45%;" value="" title="Search Intermediary" placeholder="TYPE INTERMEDIARY HERE.."/> <span>
+									<img
+									src="${pageContext.request.contextPath}/images/misc/searchIcon.png"
+									id="searchForIntm" name="searchForIntm" alt="Go"
+									style="margin-top: 2px;" title="Search Intermediary" />
+							</span></td>
+						</tr>
+						<tr>
+							<td class="rightAligned" style="width: 12%;"></td>
+							<td class="leftAligned">
+								<div class="sectionDiv" id="intermediaryResultDiv"
+									style="width: 90%; float: left; border-color: white;">
+									<div id="gridIntermediaryResult" style="width:90%; height: 200px; overflow:hidden"></div>
+									<input type="hidden" id="txtIntermediaryNo">
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
 				<div class="sectionDiv" id="assdDiv"
 					style="width: 100%; margin-left: 1%; float: left; border-color: white;">
 					<table style="width: 100%;">
@@ -156,6 +188,8 @@
 						</tr>
 					</table>
 				</div>
+				
+				
 
 				
 
@@ -210,6 +244,8 @@
 </div>
 
 <script type="text/javascript">
+	//$("intmDiv").hide();
+	
 	makeAllInputFieldsUpperCase();
 	var page = $F("page");
 	var reportName = 'SOA_PER_INTM_EXCEL';
@@ -220,22 +256,41 @@
 	var assdNo = "";
 	var userId = $F("userId");
 	
+	var intermediaryNo = "";
+	
 	var gridAssured;
 	var assuredList = "";
+	var gridIntm;
+	var intmList = "";
 	var data={ rows: []};
 	emptyAssuredGrid();
-	
+	emptyIntmGrid();
 	
 	function emptyAssuredGrid(){
 		gridAssured = new dhtmlXGridObject('gridAssuredResult');
 		gridAssured.setImagePath(contextPath + '/css/codebase/imgs/');
-		gridAssured.setHeader("No., Assured Name");
+		gridAssured.setHeader("Assured No., Assured Name");
 		gridAssured.setInitWidths("60,*");
 		gridAssured.setColAlign("left,left");
 		gridAssured.setColTypes("ro,ro");
 		gridAssured.setColSorting("str,str");
 		gridAssured.init();
 		gridAssured.parse(data,"json");
+	}
+	
+	function emptyIntmGrid(){
+		gridIntm = new dhtmlXGridObject('gridIntermediaryResult');
+		gridIntm.setImagePath(contextPath + '/css/codebase/imgs/');
+		//gridIntm.setHeader("Intm No., Intm Type, Intermediary Name");
+		//gridIntm.setHeader("&nbsp;,&nbsp;,&nbsp;");
+		gridIntm.setHeader("Intm No.,#combo_filter, Intermediary Name");
+		gridIntm.setInitWidths("60,60,*");
+		gridIntm.setColAlign("left,left,left");
+		gridIntm.setColTypes("ro,ro,ro");
+		gridIntm.setColSorting("str,str,str");
+		gridIntm.init();
+		gridIntm.enableSmartRendering(true);
+		gridIntm.parse(data,"json");
 	}
 	
 	$("searchForAssured").observe("click",function() {
@@ -264,6 +319,31 @@
 		
 	});
 	
+	$("searchForIntm").observe("click",function() {
+		var parameter = $F("txtIntmSearch");
+		intermediaryNo = '';
+		
+		if(!parameter == ''){
+			new Ajax.Request(contextPath +'/SOAperAssdIntmController',
+					{
+						method : "POST",
+						parameters : {
+							action : "searchIntermediary",
+							parameter : parameter
+						},
+						onCreate : showNotice("Fetching Intermediary Details. Please wait..."),
+						onComplete : function(response) {
+							hideNotice("");
+							$("intermediaryResultDiv").update(response.responseText);
+						}
+					});
+		}else{
+			intermediaryNo = '';
+			$("txtIntermediaryNo").value = "";
+			emptyIntmGrid();
+		}
+	});
+	
 	$("rdoPremProd").checked = true;
 	
 	$$("input[name='reportType']").each(function(radio) {
@@ -290,13 +370,14 @@
 	function resetFields(){
 		intmNo = "";
 		assuredNo = "";
+		intermediaryNo = "";
 		//$("selAssd").value = "";
 		//$("txtAssdNo").writeAttribute("value",'');
 		//$("txtAssuredName").writeAttribute("value",'');
 		$("txtAssuredNo").value = "";
-		$("selIntm").value = "";
-		$("txtIntmNo").writeAttribute("value",'');
-		$("txtIntmType").writeAttribute("value",'');
+		//$("selIntm").value = "";
+		//$("txtIntmNo").writeAttribute("value",'');
+		//$("txtIntmType").writeAttribute("value",'');
 	}
 	
 	//print function
@@ -306,6 +387,8 @@
 			function() {
 					//if (validateInput()){
 						assdNo = $F("txtAssuredNo");
+						intermediaryNo = $F("txtIntermediaryNo");
+						branch = $F("txtBranchCd");
 						userId = $F("userId");
 						//alert(userId);
 							new Ajax.Request(
@@ -316,7 +399,7 @@
 										parameters : {
 											action : "printReport",
 											branchCd : branch,
-											intmNo : intmNo,
+											intmNo : intermediaryNo,//intmNo,
 											//assdNo : assuredNo,
 											assdNo : assdNo,
 											reportName : reportName,
@@ -362,7 +445,7 @@
 	//branch
 	$("selBranch").observe("change", function(){
 		var selected = $("selBranch").getValue();
-		getBranchName(selected,"txtBranch");
+		getBranchName(selected,"txtBranchCd");
 	});
 	
 	function getBranchName(selected,txtBranchName){
@@ -379,13 +462,13 @@
 		                 </c:forEach>
 		               ];
 		var bName = ''; 
-		for (var i = 0; i < branchCd.length; i++) {
-		if (selected == branchCd[i]) {
+		for (var i = 0; i < branchName.length; i++) {
+		if (selected == branchName[i]) {
 			bName = branchName[i];
 			branch = branchCd[i];
 		}
 		}
-		$(txtBranchName).writeAttribute("value",bName);
+		$(txtBranchName).writeAttribute("value",branch);
 		//$(txtBranchName).value = bName;
 		}
 	
@@ -443,10 +526,10 @@
 	}
 	
 	//intermediary
-	$("selIntm").observe("change", function(){
+	/* $("selIntm").observe("change", function(){
 		var selected = $("selIntm").getValue();
 		getIntmType(selected,"txtIntmType");
-	});
+	}); */
 	
 	function getIntmType(selected,txtIntmType){
 		var intmNo2 = [
