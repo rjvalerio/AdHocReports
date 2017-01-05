@@ -144,14 +144,12 @@
 				<tr>
 					<td class="rightAligned" style="width: 25%;">Branch</td>
 					<td class="leftAligned"><select name="selBranch"
-						id="selBranch" style="width: 100px;">
+						id="selBranch" style="width: 200px;">
 							<option value=""></option>
 							<c:forEach var="branch" items="${branches}">
-								<option>${branch.issCd}</option>
+								<option value = "${branch.issCd}">${branch.issName}</option>
 							</c:forEach>
-					</select> <input id="BranchDesc" class="leftAligned" type="text"
-						name="BranchDesc" style="width: 200px; height: 12px;"
-						title="Branch Description" disabled /></td>
+					</select></td>
 				</tr>
 			</table>
 		</div>
@@ -419,46 +417,6 @@
 		$(txtSign4).writeAttribute("value",sign);
 		}
 	
-	$("selBranch").observe("change", function(){
-		var selected = $("selBranch").getValue();
-		getBranch(selected,"BranchName","BranchDesc");
-	});
-	
-	function getBranch(selected,txtBranchName,txtBranchDesc){
-		var content = '';
-		var issId = [
-		                 <c:forEach var="branch" items="${branches}" varStatus="loop">
-		                   "${branch.issId}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		var issCd = [
-		                 <c:forEach var="branch" items="${branches}" varStatus="loop">
-		                   "${branch.issCd}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		var issName = [
-		             <c:forEach var="branch" items="${branches}" varStatus="loop">
-		               "${branch.issName}"
-		               <c:if test="${!loop.last}">,</c:if>
-		             </c:forEach>
-		           ];
-		
-		var branchName = '';
-		var branchDesc = '';
-		
-		for (var i = 0; i < issId.length; i++) {
-		if (selected == issCd[i]) {
-			branchName = issCd[i];
-			branchDesc = issName[i];
-		}
-		}
-		$(txtBranchName).writeAttribute("value",branchName);
-		$(txtBranchDesc).writeAttribute("value",branchDesc);
-		}
-	
-	
 	$$("input[name='rdPrintTag1']").each(function(radio) {
 		radio.observe("click", function() {
 			toogleDataPrintTag(radio.value);
@@ -526,7 +484,7 @@
 							datatag  : datatag,
 							dateFrom : $F("txtFromDate"),
 							dateTo :$F("txtToDate"),
-							branch : $F("BranchName"),
+							branch : $F("selBranch"),
 							checkby1 :$F("notedBySign1"),
 							checkby2 :$F("notedBySign2"),
 							checkby3 :$F("notedBySign3"),

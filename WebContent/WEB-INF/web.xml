@@ -25,7 +25,7 @@
 	<!-- when applying to live, uncomment adhoc user in welcomeUser.jsp and menu.jsp -->
 	<!-- test -->
 
-	<!-- <filter>
+	<!--<filter>
 		<filter-name>ServletFilter</filter-name>
 		<filter-class>com.geniisys.filter.ServletFilter</filter-class>
 	</filter>
