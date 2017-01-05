@@ -99,23 +99,22 @@
 					style="width: 50%; margin-left: 22%; margin-top: 9px; margin-bottom: 20px; float: left; border-color: white;">
 					<table style="margin-top: 10px; width: 100%;">
 						<tr>
-							<td class="rightAligned" style="width: 25%;">Branch</td>
-							<td class="leftAligned"><select name="selBranch"
-								id="selBranch" style="width: 30%;">
-									<option value=""></option>
-									<c:forEach var="branch" items="${ branchList }">
-										<option>${branch.issCd}</option>
-									</c:forEach>
-							</select> <input id="txtBranch" name="capsField" class="leftAligned"
-								type="text" style="width: 65%;" value="" title="Branch Name"
-								disabled /></td>
+							<td class="rightAligned" style="width: 50%;">Branch</td>
+							<td class="leftAligned">
+								<select name="selBranch"
+									id="selBranch" style="width: 90%;">
+										<option value=""></option>
+										<c:forEach var="branch" items="${branchList}">
+											<option value = "${branch.issCd}">${branch.issName}</option>
+										</c:forEach>
+								</select></td>
 						</tr>
 					</table>
 				</div>
 				<br />
 				<br /> <br />
 				<div class="sectionDiv" id="printDiv"
-					style="width: 97%; margin-left: 8px; margin-top: 9px; float: left; border-color: white;">
+					style="width: 97%; margin-left: 30px; margin-top: 9px; float: left; border-color: white;">
 					<div id="printofferLetterButtonsDiv" align="center">
 						<input type="button" class="button" style="width: 90px;"
 							id="btnCancel" value="Cancel"> <input type="button"
@@ -178,7 +177,7 @@
 									action : "printReport",
 									fromDate : fromDate,
 									toDate : toDate,
-									branchCd : issCd,
+									branchCd :  $F("selBranch"),
 									userId : userId,
 									reportName : reportName
 								},
@@ -193,34 +192,6 @@
 							"E");
 				}
 			});
-	
-	$("selBranch").observe("change", function(){
-		var selected = $("selBranch").getValue();
-		getBranchName(selected,"txtBranch");
-	});
-	
-	function getBranchName(selected,txtBranchName){
-		var branchCd = [
-		                 <c:forEach var="branch" items="${branchList}" varStatus="loop">
-		                   "${branch.issCd}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		var branchName = [
-		                 <c:forEach var="branch" items="${branchList}" varStatus="loop">
-		                   "${branch.issName}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		var bName = ''; 
-		for (var i = 0; i < branchCd.length; i++) {
-		if (selected == branchCd[i]) {
-			bName = branchName[i];
-			issCd = branchCd[i];
-		}
-		}
-		$(txtBranchName).writeAttribute("value",bName);
-		}
 
 	function printOutputPdf() {
 		var reportUrl = $F("reportUrl");

@@ -96,21 +96,20 @@
 					style="width: 50%; margin-left: 22%; margin-top: 9px; margin-bottom: 20px; float: left; border-color: white;">
 					<table style="margin-top: 10px; width: 100%;">
 						<tr>
-							<td class="rightAligned" style="width: 25%;">Branch</td>
-							<td class="leftAligned"><select name="selBranch"
-								id="selBranch" style="width: 30%;">
-									<option value=""></option>
-									<c:forEach var="branch" items="${ branchList }">
-										<option>${branch.issCd}</option>
-									</c:forEach>
-							</select> <input id="txtBranch" name="capsField" class="leftAligned"
-								type="text" style="width: 65%;" value="" title="Branch Name"
-								disabled /></td>
+							<td class="rightAligned" style="width: 50%;">Branch</td>
+							<td class="leftAligned">
+								<select name="selBranch"
+									id="selBranch" style="width: 50%;">
+										<option value=""></option>
+										<c:forEach var="branch" items="${branchList}">
+											<option value = "${branch.issCd}">${branch.issName}</option>
+										</c:forEach>
+								</select></td>
 						</tr>
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Payment Mode</td>
 							<td class="leftAligned"><select name="selPayment"
-								id="selPayment" style="width: 25%;">
+								id="selPayment" style="width: 50%;">
 									<option value="ALL">ALL</option>
 									<option value="CA">CA</option>
 									<option value="CC">CC</option>
@@ -121,26 +120,11 @@
 									<option value="WT">WT</option>
 							</select></td>
 						</tr>
-						<!-- <tr>
-							<td class="rightAligned" style="width: 25%;">Branch</td>
-							<td><div id="comboDivBranch"
-									style="width: 100%;"></div></td>
-						</tr>
-						<tr>
-							<td class="rightAligned" style="width: 25%;">Payment Mode</td>
-							<td class="leftAligned"><div id="comboDivPayment"
-									style="width: 25%;"></div></td>
-						</tr> -->
-						<!-- <tr>
-							<td class="rightAligned" style="width: 25%;">Assured</td>
-							<td><div id="comboDivAssured"
-									style="width: 100%;"></div></td>
-						</tr> -->
 					</table>
 				</div>
 				<br /> <br /> <br />
 				<div class="sectionDiv" id="printDiv"
-					style="width: 97%; margin-left: 8px; margin-top: 9px; float: left; border-color: white;">
+					style="width: 97%; margin-left: 30px; margin-top: 9px; float: left; border-color: white;">
 					<div id="printofferLetterButtonsDiv" align="center">
 						<input type="button" class="button" style="width: 90px;"
 							id="btnCancel" value="Cancel"> <input type="button"
@@ -159,63 +143,6 @@
 	var reportName = 'COLLECTION_BREAKDOWN_REP';
 	var issCd = '';
 	makeInputFieldUpperCase();
-	
-	/* var comboAssured;
-	var dataAssured = $F("assuredList2");
-	
-	comboAssured = new dhtmlXCombo("comboDivAssured");
-	comboAssured.load(dataAssured);
-	comboAssured.setFilterHandler(function(mask, option){
-		var r = false;
-		if (mask.length == 0) {
-			r = true;
-		} else if (option.text.match(new RegExp("^"+mask,"i")) != null) {
-			r = true;
-		}
-		return r; 
-	}); */
-	
-	/* var comboPayMethod,comboBranch;
-	var dataBranch = $F("branchList4");
-	var dataPayMethod = '{options:['+
-	'{value: "1", text: "ALL",selected:true},'+
-	'{value: "2", text: "CA"},'+
-	'{value: "3", text: "CC"},'+
-	'{value: "4", text: "CHK"},'+
-	'{value: "5", text: "CM"},'+
-	'{value: "6", text: "CMI"},'+
-	'{value: "7", text: "CW"},'+
-	'{value: "8", text: "WT"}'+
-	']}';
-	var data2 = '{options:['+
-	'{value: "1", text: "Copenhagen Airport"},'+
-	'{value: "2", text: "Dublin Airport", selected: true},'+
-	'{value: "3", text: "Frankfurt Airport"}'+
-	']}';
-	
-	comboBranch = new dhtmlXCombo("comboDivBranch");
-	comboBranch.load(dataBranch);
-	comboBranch.setFilterHandler(function(mask, option){
-		var r = false;
-		if (mask.length == 0) {
-			r = true;
-		} else if (option.text.match(new RegExp("^"+mask,"i")) != null) {
-			r = true;
-		}
-		return r; 
-	});
-	
-	comboPayMethod = new dhtmlXCombo("comboDivPayment");
-	comboPayMethod.load(dataPayMethod);
-	comboPayMethod.setFilterHandler(function(mask, option){
-		var r = false;
-		if (mask.length == 0) {
-			r = true;
-		} else if (option.text.match(new RegExp("^"+mask,"i")) != null) {
-			r = true;
-		}
-		return r; 
-	}); */
 	
 	var fromCalendar = new dhtmlXCalendarObject({
 		input : "txtFromDate",
@@ -248,8 +175,6 @@
 				var fromDate = $F("txtFromDate");
 				var toDate = $F("txtToDate");
 				var payMode = $F("selPayment");
-				//issCd = comboBranch.getSelectedValue();
-				//var payMode = comboPayMethod.getSelectedText();
 				var userId = $F("userId");
 				if(payMode == 'ALL'){
 					payMode = '';
@@ -267,7 +192,7 @@
 									action : "printReport",
 									fromDate : fromDate,
 									toDate : toDate,
-									branchCd : issCd,
+									branchCd : $F("selBranch"),
 									payMode : payMode,
 									reportName : reportName
 								},
@@ -289,33 +214,10 @@
 			});
 	
 	$("selBranch").observe("change", function(){
-		var selected = $("selBranch").getValue();
-		getBranchName(selected,"txtBranch");
+		 issCd = $("selBranch").getValue();
+		console.log("issCd: " + issCd);
 	});
 	
-	function getBranchName(selected,txtBranchName){
-		var branchCd = [
-		                 <c:forEach var="branch" items="${branchList}" varStatus="loop">
-		                   "${branch.issCd}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		var branchName = [
-		                 <c:forEach var="branch" items="${branchList}" varStatus="loop">
-		                   "${branch.issName}"
-		                   <c:if test="${!loop.last}">,</c:if>
-		                 </c:forEach>
-		               ];
-		var bName = ''; 
-		for (var i = 0; i < branchCd.length; i++) {
-		if (selected == branchCd[i]) {
-			bName = branchName[i];
-			issCd = branchCd[i];
-		}
-		}
-		$(txtBranchName).writeAttribute("value",bName);
-		}
-
 	function printOutputXls() {
 		var reportUrl = $F("reportUrl");
 		var reportXls = $F("reportXls");

@@ -41,9 +41,7 @@
 <label>&nbsp;&nbsp;&nbsp;Data Parameter</label>	
 			<table style="margin-top: 10px; width: 100%;">
 				<tr>	
-					<td class="rightAligned" style="width: 25%;">
-						Branch
-					</td>
+					<td class="rightAligned" style="width: 25%;">Branch</td>
 					<td class="leftAligned">
 							<select name="selBranch"
 								id="selBranch" style="width: 100px;">
@@ -67,8 +65,7 @@
 			<table style="margin-top: 10px; width: 100%;">
 			<tr>	
 						<td class="leftAligned" style="width: 25%;">
-							 <input type="radio" class="leftAligned" id="rdPOrix1" name="rdPOrix" value=1>By Period
-						</td>
+							 <input type="radio" class="leftAligned" id="rdPOrix1" name="rdPOrix" value=1>By Period</td>
 						<td class="rightAligned" style="width: 25%;">From</td>
 						<td class="leftAligned" style="width: 42%;">
 							<div

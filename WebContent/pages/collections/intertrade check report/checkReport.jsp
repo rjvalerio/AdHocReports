@@ -36,27 +36,27 @@
 </div>
 <div class="sectionDiv" style="margin-bottom: 10px;">
 	<div class="sectionDiv"
-		style="margin: 10px; margin-left: 60px; display: block; margin-top: 15px; float: left; width: 450px;">
+		style="margin: 10px; margin-left: 250px; display: block; margin-top: 15px; float: left; width: 450px;">
 		<br>
+		<label>&nbsp;&nbsp;&nbsp;Data Parameter</label>	
 		<table style="margin-top: 10px; width: 100%;">
-			<tr>
-				<td class="rightAligned" style="width: 25%;">Branch</td>
-				<td class="leftAligned"><select name="selBranch" id="selBranch"
-					style="width: 100px;">
-						<option value=""></option>
-						<c:forEach var="branch" items="${branches}">
-							<option>${branch.issCd}</option>
-						</c:forEach>
-				</select> <input id="BranchDesc" class="leftAligned" type="text"
-					name="BranchDesc" style="width: 200px; height: 12px;"
-					title="Branch Description" disabled /></td>
-			</tr>
+				<tr>
+					<td class="rightAligned" style="width: 25%;">Branch</td>
+					<td class="leftAligned">
+						<select name="selBranch"
+							id="selBranch" style="width: 80%;">
+								<option value=""></option>
+								<c:forEach var="branch" items="${branches}">
+									<option value = "${branch.issCd}">${branch.issName}</option>
+								</c:forEach>
+						</select></td>
+				</tr>
 		</table>
 		<br>
 	</div>
 
 	<div class="sectionDiv"
-		style="margin: 10px; margin-left: 60px; display: block; margin-top: 2px; float: left; width: 450px;">
+		style="margin: 10px; margin-left: 250px; display: block; margin-top: 2px; float: left; width: 450px;">
 		<br> <label>&nbsp;&nbsp;&nbsp;Based on Accounting Entry</label>
 		<table style="margin-top: 10px; width: 100%;">
 			<tr>
@@ -231,7 +231,7 @@
 											fromDate : $F("txtFromDate"),
 											toDate : $F("txtToDate"),
 											asofDate : $F("txtAsOfDate"),
-											branch : $F("BranchName")
+											branch : $F("selBranch")
 										},
 										onCreate : showNotice("Generating report. Please wait..."),
 										onComplete : function(response) {
@@ -318,38 +318,5 @@
 			return false;
 	}
 
-	$("selBranch").observe("change", function(){
-		var selected = $("selBranch").getValue();
-		getBranch(selected,"BranchName","BranchDesc");
-	});
-	
-	function getBranch(selected,txtBranchName,txtBranchDesc){
-		var issCd = [
-	                 <c:forEach var="branch" items="${branches}" varStatus="loop">
-	                   "${branch.issCd}"
-	                   <c:if test="${!loop.last}">,</c:if>
-	                 </c:forEach>
-	               ];
-		
-		var issName = [
-		             <c:forEach var="branch" items="${branches}" varStatus="loop">
-		               "${branch.issName}"
-		               <c:if test="${!loop.last}">,</c:if>
-		             </c:forEach>
-		           ];
-		
-		var branchName = '';
-		var branchDesc = '';
-		
-			for (var i = 0; i < issCd.length; i++) {
-				if (selected == issCd[i]) {
-					branchName = issCd[i];
-					branchDesc = issName[i];
-				}
-			}
-			
-		$(txtBranchName).writeAttribute("value",branchName);
-		$(txtBranchDesc).writeAttribute("value",branchDesc);
-		}
 	
 </script>
