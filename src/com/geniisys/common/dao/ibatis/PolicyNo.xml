@@ -65,6 +65,8 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd
 		AND a.POL_SEQ_NO = NVL(#polSeqNo#,a.POL_SEQ_NO)
 		AND a.RENEW_NO = NVL(#renewNo#,a.RENEW_NO)
 		AND (SELECT extract_user from giex_expiry where policy_id = a.policy_id) = #userId#
+		AND a.POLICY_ID NOT IN(SELECT policy_id FROM gipi_polbasic WHERE pol_flag = '4')
+		AND a.POLICY_ID NOT IN(SELECT policy_id FROM gipi_polbasic WHERE pol_flag = '5')
 		<!--AND #userId# = (SELECT extract_user from giex_expiry where policy_id = a.policy_id) -->
 	</select>
 	

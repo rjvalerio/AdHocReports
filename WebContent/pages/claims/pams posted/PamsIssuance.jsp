@@ -76,15 +76,15 @@
 					</td>
 					<td class="leftAligned">
 							<select name="selBranch"
-								id="selBranch" style="width: 100px;">
+								id="selBranch" style="width: 200px;">
 									<option value=""></option>
 									<c:forEach var="branch" items="${branches}">
-										<option>${branch.issCd}</option>
+										<option value="${branch.issCd}">${branch.issName}</option>
 									</c:forEach>
 							</select>
 							
-						<input id="BranchDesc" class="leftAligned" type="text" name="BranchDesc" 
-						style="width: 200px; height: 12px;" title="Branch Description" disabled/>			
+						<!-- <input id="BranchDesc" class="leftAligned" type="text" name="BranchDesc" 
+						style="width: 200px; height: 12px;" title="Branch Description" disabled/>	 -->		
 					</td>
 				</tr>
 				<tr>	
@@ -242,10 +242,10 @@
 		$(txtDesig).writeAttribute("value",desig);
 		}
 	
-	$("selBranch").observe("change", function(){
+	/* $("selBranch").observe("change", function(){
 		var selected = $("selBranch").getValue();
 		getBranch(selected,"BranchName","BranchDesc");
-	});
+	}); */
 	
 	function getBranch(selected,txtBranchName,txtBranchDesc){
 		var content = '';
@@ -366,7 +366,7 @@
 							rdbutton : dataType,
 							dateFrom : $F("txtFromDate"),
 							dateTo :$F("txtToDate"),
-							branch : $F("BranchName"),
+							branch : $F("selBranch"), //$F("BranchName"),
 							user :$F("UserId"),
 							checkby :$F("notedBySign"),
 							checkdes : $F("notedByDesig") 
