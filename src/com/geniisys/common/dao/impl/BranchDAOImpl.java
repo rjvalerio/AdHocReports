@@ -2,6 +2,7 @@ package com.geniisys.common.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.geniisys.common.dao.BranchDAO;
 import com.geniisys.common.entity.Branch;
@@ -51,6 +52,14 @@ private SqlMapClient sqlMap;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return branchList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Branch> getAllBranchesByUserAndTranCd(Map<String, Object> params) throws SQLException {
+		sqlMap = MyAppSqlConfig.getSqlMapInstance();
+		List<Branch> branchList = sqlMap.queryForList("getAllBranchesByUserAndTranCd",params);
 		return branchList;
 	}
 }

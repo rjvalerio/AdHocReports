@@ -23,13 +23,6 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd
 		<result property="issName" column="ISS_NAME"/>		
 	</resultMap>
 
-	<!-- <resultMap class="com.geniisys.common.entity.Branch" id="branchResultMap2">
-		<result property="issCd" column="ISS_CD" />
-		<result property="issName" column="ISS_NAME" />
-		<result property="pdfSw" column="PDF_SW" />
-		<result property="credPdfSw" column="CRED_PDF_SW" />
-	</resultMap> -->
-
 	<select id="getAllBranches" resultMap="branchResultMap">
 		SELECT DISTINCT(ISS_CD)
 		"ISS_CD",ISS_NAME FROM GIIS_ISSOURCE ORDER BY 1 ASC
@@ -39,21 +32,7 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd
 		SELECT DISTINCT ACCT_ISS_CD,ISS_CD ,ISS_NAME FROM GIIS_ISSOURCE ORDER BY ISS_CD
 	</select>
 
-	<!-- <select id="getAllBranches2" resultMap="branchResultMap2">
-		SELECT DISTINCT(ISS_CD)
-		"ISS_CD",ISS_NAME,DECODE(PDF_SW,'Y','true','false')PDF_SW,DECODE(CRED_PDF_SW,'Y','true','false')CRED_PDF_SW
-		FROM GIIS_ISSOURCE ORDER BY 1 ASC
-	</select> -->
-
 	<select id="getAllBranches3" resultClass="java.lang.String">
-		<!-- SELECT replace(str,'^',',')str FROM( SELECT (SELECT SUBSTR(SYS_CONNECT_BY_PATH(str, 
-			'^'),2)csv FROM( SELECT str,row_number() over (order by rownum) rn, count 
-			(*) over () cnt from (SELECT '{id:' || rownum || ', data: ["' || a.iss_cd 
-			|| '", "' || a.iss_name || '",' || a.PDF_SW || ',"' || a.CRED_PDF_SW || '"]}' 
-			str from ( SELECT ISS_CD, ISS_NAME,DECODE(PDF_SW, 'Y','true','false')PDF_SW, 
-			DECODE(CRED_PDF_SW,'Y','true','false')CRED_PDF_SW FROM GIIS_ISSOURCE ORDER 
-			BY 2 ASC) a)) WHERE rn = cnt START WITH rn = 1 CONNECT BY rn = PRIOR rn + 
-			1)str FROM DUAL) -->
 		SELECT str || ']}' from(SELECT '{ rows: [' || replace(str,'^',',')str
 		FROM(
 		SELECT (SELECT SUBSTR(SYS_CONNECT_BY_PATH(str, '^'),2)csv FROM(
@@ -71,6 +50,27 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd
 		WHERE rn = cnt
 		START WITH rn = 1
 		CONNECT BY rn = PRIOR rn + 1)str FROM DUAL))
+	</select>
+	
+	<select id="getAllBranchesByUserAndTranCd" resultMap="branchResultMap">
+		SELECT iss_cd,iss_name
+		FROM GIIS_ISSOURCE
+		WHERE ISS_CD IN(SELECT distinct a.iss_cd
+				FROM giis_user_grp_line a, giis_users b,giis_user_grp_dtl c
+				WHERE a.user_grp = b.user_grp
+					AND a.user_grp = c.user_grp
+					AND a.tran_cd = c.tran_cd
+					AND b.user_id = #userId#
+					AND a.tran_cd = #tranCd#
+				UNION
+				SELECT distinct a.iss_cd
+				FROM giis_user_line a,giis_user_iss_cd b
+				WHERE a.USERID = #userId#
+					AND b.USERID = a.USERID
+					AND b.ISS_CD = a.ISS_CD
+					AND b.TRAN_CD = a.TRAN_CD
+					AND a.tran_cd = #tranCd#)
+		ORDER BY 1
 	</select>
 	
 	<update id="updateGiisIssource" parameterMap="branchParameterMap">

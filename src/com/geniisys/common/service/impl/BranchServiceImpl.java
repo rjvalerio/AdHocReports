@@ -1,15 +1,19 @@
 package com.geniisys.common.service.impl;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.geniisys.common.dao.BranchDAO;
 import com.geniisys.common.dao.impl.BranchDAOImpl;
 import com.geniisys.common.entity.Branch;
-import com.geniisys.common.entity.Tariff;
 import com.geniisys.common.service.BranchService;
 
-public class BranchServiceImpl implements BranchService{
-	
+public class BranchServiceImpl implements BranchService {
+
 	private BranchDAO branchDAO = new BranchDAOImpl();
 
 	@Override
@@ -32,15 +36,24 @@ public class BranchServiceImpl implements BranchService{
 		List<Branch> branchList = this.branchDAO.getAllBranches();
 		String branchString = "{ options: [{value:\"\",text:\"\",selected: true},";
 		Integer count = 1;
-		
+
 		for (Branch branch : branchList) {
-			branchString = branchString + "{value:\"" + branch.getIssCd() + "\", text: \"" + branch.getIssName() +"\"},";
+			branchString = branchString + "{value:\"" + branch.getIssCd() + "\", text: \"" + branch.getIssName()
+					+ "\"},";
 			count++;
 		}
 		branchString = branchString.substring(0, branchString.length() - 1) + "]}";
 		branchString.trim();
 		return branchString;
 	}
-	
-	
+
+	@Override
+	public List<Branch> getAllBranchesByUserAndTranCd(HttpServletRequest request) throws SQLException {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("userId", request.getParameter("userId"));
+		params.put("tranCd", request.getParameter("tranCd"));
+		List<Branch> branchList = branchDAO.getAllBranchesByUserAndTranCd(params);
+		return branchList;
+	}
+
 }

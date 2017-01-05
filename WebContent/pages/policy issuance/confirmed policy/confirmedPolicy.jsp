@@ -20,19 +20,29 @@
 <!-- hidden fields -->
 <input type="hidden" id="page" name="page" value="${page}">
 <input type="hidden" id="lineCd" name="lineCd" value="${lineCd}">
-<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
+<%-- <input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}"> --%>
 <input type="hidden" id="userId" name="userId" value="${adhocUser}">
-<input type="hidden" id="reportTitle" name="reportTitle"
+<%-- <input type="hidden" id="reportTitle" name="reportTitle"
 	value="${reportTitle}">
 <input type="hidden" id="reportName" name="reportName"
 	value="${reportName}">
 <input type="hidden" id="reportUrl" name="reportUrl"
 	value="${reportUrl}">
 <input type="hidden" id="reportXls" name="reportXls"
-	value="${reportXls}">
+	value="${reportXls}"> --%>
 <input type="hidden" id="selDestination" name="selDestination"
 	value="screen">
-<%-- <input type="text" id="letterType" name= "letterType" value = "${letterType}"> --%>
+	
+<div id="hiddenDiv">
+	<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
+	<input type="hidden" id="reportTitle" name="reportTitle"
+		value="${reportTitle}"> <input type="hidden" id="reportName"
+		name="reportName" value="${reportName}"> <input type="hidden"
+		id="reportUrl" name="reportUrl" value="${reportUrl}"> <input
+		type="hidden" id="reportXls" name="reportXls" value="${reportXls}">
+	<input type="hidden" id="outputType" name="outputType"
+		value="${outputType}">
+</div>
 <!-- end hidden fields -->
 
 <br />
@@ -56,34 +66,28 @@
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Line</td>
 							<td class="leftAligned"><select name="selLine" id="selLine"
-								style="width: 30%;">
+								style="width: 65%;">
 									<option value=""></option>
 									<c:forEach var="line" items="${ lineList }">
-										<option>${line.lineCd}</option>
+										<option value="${line.lineCd}">${line.lineName}</option>
 									</c:forEach>
-							</select> <input id="txtLineName" name="capsField" class="leftAligned"
+							</select> <!-- <input id="txtLineName" name="capsField" class="leftAligned"
 								type="text" style="width: 65%;" value="" title="Line Name"
-								disabled /></td>
+								disabled /> --></td>
 						</tr>
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Source</td>
 							<td class="leftAligned"><select name="selBranch"
-								id="selBranch" style="width: 30%;">
+								id="selBranch" style="width: 65%;">
 									<option value=""></option>
 									<c:forEach var="branch" items="${ branchList }">
-										<option>${branch.issCd}</option>
+										<option value="${branch.issCd}">${branch.issName}</option>
 									</c:forEach>
-							</select> <input id="txtBranch" name="capsField" class="leftAligned"
+							</select> <!-- <input id="txtBranch" name="capsField" class="leftAligned"
 								type="text" style="width: 65%;" value="" title="Branch Name"
-								disabled /></td>
+								disabled /> --></td>
 						</tr>
 						<tr>
-							<!-- rdo button credBranchType -->
-							<!-- <td class="rightAligned" style="width: 25%;">12 Plan</td> -->
-							<!-- <td class="rightAligned" style="width: 30%;"><input type="radio" id="rdoTp"
-								name="otherParams" value="1"
-								style="margin-left: 15px; float: left; margin-left: 50px;"
-								checked="" /> <label for="rdoTp" style="margin-top: 3px;">12 Plan</label></td> -->
 							<td class="rightAligned" style="width: 30%;"><input
 								type="checkbox" id="chkBoxTP" name="chkBoxTP">12 plan</td>
 							<td class="leftAligned"><input id="txt12Plan1"
@@ -94,12 +98,6 @@
 								title="Crediting Branch" disabled /></td>
 						</tr>
 						<tr>
-							<!-- Dealers intermediary -->
-							<!-- <td class="rightAligned" style="width: 25%;">Dealers</td> -->
-							<!-- <td class="rightAligned" style="width: 30%;"><input type="radio" id="rdoDealers"
-								name="otherParams" value="1"
-								style="margin-left: 15px; float: left; margin-left: 50px;"
-								checked="" /> <label for="rdoDealers" style="margin-top: 3px;">Dealers</label></td> -->
 							<td class="rightAligned" style="width: 30%;"><input
 								type="checkbox" id="chkBoxDealers" name="chkBoxDealers">Dealers</td>
 							<td class="leftAligned"><select name="selDealers"
@@ -209,6 +207,7 @@
 </div>
 
 <script type="text/javascript">
+	$("hiddenDiv").hide();
 	var page = $F("page");
 	var reportName = 'CONFIRM_POL_REPORT';
 	var line = '';
@@ -234,8 +233,6 @@
 			toggleTP = 2;
 		}else{
 			$('chkBoxTP').checked = false;
-			//$("txt12Plan1").value = '';
-			//$("txt12Plan2").value = '';
 			toggleTP = 1;
 		}
 	}
@@ -252,7 +249,7 @@
 		if (toggleDealers == 1){
 			$('chkBoxDealers').checked = true;
 			$("selLine").value = 'MC';
-			$("txtLineName").value = 'MOTOR CAR';
+			//$("txtLineName").value = 'MOTOR CAR';
 			toggleDealers = 2;
 		}else{
 			$('chkBoxDealers').checked = false;
@@ -265,8 +262,8 @@
 	function resetValues(){
 		$("selLine").value = '';
 		$("selBranch").value = '';
-		$("txtLineName").value = '';
-		$("txtBranch").value = '';
+		//$("txtLineName").value = '';
+		//$("txtBranch").value = '';
 		$("txtDealers").value = '';
 		$("selDealers").value = '';
 		$("txt12Plan1").value = '';
@@ -321,8 +318,8 @@
 								
 							}
 							
-							new Ajax.Updater(
-									"mainContents",
+							new Ajax.Request(
+									//"mainContents",
 									contextPath + "/ConfirmedPolicyController",
 									{
 										evalScripts : true,
@@ -331,6 +328,7 @@
 											action : "printConfirmedPolicy",
 											reportName : reportName,
 											lineCd : lineCd,
+											branchCd : branchCd,
 											tpCd : tpCd,
 											fromDatePSD : $("rdoPosting").checked ? fromDate : "",
 											toDatePSD : $("rdoPosting").checked ? toDate : "",
@@ -342,7 +340,8 @@
 										},
 										onCreate : showNotice("Generating report. Please wait..."),
 										onComplete : function(response) {
-											printOutputXls();
+											//printOutputXls();
+											$("hiddenDiv").update(response.responseText);
 										}
 									});
 						}
@@ -405,10 +404,10 @@
 		$(txtDealers).value = iNo;
 		}
 	
-	$("selBranch").observe("change", function(){
+	/* $("selBranch").observe("change", function(){
 		var selected = $("selBranch").getValue();
 		getBranchName(selected,"txtBranch");
-	});
+	}); */
 	
 	function getBranchName(selected,txtBranchName){
 		var branchCd = [
@@ -430,14 +429,13 @@
 			branch = branchCd[i];
 		}
 		}
-		//$(txtBranchName).writeAttribute("value",bName);
 		$(txtBranchName).value = bName;
 		}
 	
-	$("selLine").observe("change", function(){
+	/* $("selLine").observe("change", function(){
 		var selected = $("selLine").getValue();
 		getLineName(selected,"txtLineName");
-	});
+	}); */
 	
 	function getLineName(selected,txtLineName){
 		var lineCd = [
@@ -461,7 +459,6 @@
 		}
 		}
 		line = subCd;
-		//$(txtLineName).writeAttribute("value",sName);
 		$(txtLineName).value = sName;
 		}
 	

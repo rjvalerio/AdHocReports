@@ -72,8 +72,17 @@ public class PremProductionController extends HttpServlet {
 			IntermediaryService intmService = new IntermediaryServiceImpl();
 			// AssuredService assuredService = new AssuredServiceImpl();
 
-			List<Line> lineList = (List<Line>) lineService.getAllLines();
-			List<Branch> branchList = (List<Branch>) branchService.getAllBranches();
+			//List<Line> lineList = (List<Line>) lineService.getAllLines();
+			List<Line> lineList = null;
+			List<Branch> branchList = null;
+			try {
+				lineList = (List<Line>) lineService.getLinesByUserAndTranCd(request);
+				branchList = (List<Branch>) branchService.getAllBranchesByUserAndTranCd(request);
+			} catch (SQLException e) {
+				errorMsg = e.getMessage();
+			}
+			//List<Branch> branchList = (List<Branch>) branchService.getAllBranches();
+			
 			List<Intermediary> intmList = (List<Intermediary>) intmService.getAllActiveIntermediary();
 			// List<Assured> assdList = (List<Assured>)
 			// assuredService.getAllActiveAssured();

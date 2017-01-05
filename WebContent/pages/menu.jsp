@@ -212,6 +212,7 @@
 <script type="text/javascript">
 	initializeMenu();
 	var divToUpdate = "mainContents";
+	var userId = $F("adhocUser");
 	//end homepage
 
 	/* CLAIMS MENU */
@@ -476,7 +477,7 @@
 
 		checkUserAccess2('FPRODREP', moduleIdObjLength, userModuleObj,
 				"confirmedPolicy",
-				"/ConfirmedPolicyController?action=toConfirmedPolicyPage",
+				"/ConfirmedPolicyController?action=toConfirmedPolicyPage&tranCd=96&userId="+userId,
 				"Please wait.....", "Confirmed Policy");
 
 		//batch gen
@@ -528,7 +529,7 @@
 		var premProductionAccess = 'FPRMPRODRP DP_FRM FSOADLRS GPRC001 PROD800 ';
 		checkUserAccess3(premProductionAccess, moduleIdObjLength,
 				userModuleObj, "premProduction",
-				"/PremProductionController?action=toPremProductionPage",
+				"/PremProductionController?action=toPremProductionPage&tranCd=98&userId="+userId,
 				"Premium Production Report");
 		checkUserAccess2('FTYTADLRS', moduleIdObjLength, userModuleObj,
 				"toyotaDealers",

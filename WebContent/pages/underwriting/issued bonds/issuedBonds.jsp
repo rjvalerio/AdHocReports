@@ -56,14 +56,14 @@
 						<tr>
 							<td class="rightAligned" style="width: 25%;">Subline</td>
 							<td class="leftAligned"><select name="selSubline"
-								id="selSubline" style="width: 30%;">
+								id="selSubline" style="width: 100%;">
 									<option value=""></option>
 									<c:forEach var="subline" items="${ sublineList }">
-										<option>${subline.sublineCd}</option>
+										<option value="${subline.sublineCd}">${subline.sublineName}</option>
 									</c:forEach>
-							</select> <input id="txtSublineName" name="capsField" class="leftAligned"
+							</select> <!-- <input id="txtSublineName" name="capsField" class="leftAligned"
 								type="text" style="width: 65%;" value="" title="Subline Name"
-								disabled /></td>
+								disabled /> --></td>
 						</tr>
 					</table>
 				</div>
@@ -204,6 +204,7 @@
 			.observe(
 					"click",
 					function() {
+						subline = $F("selSubline");
 						if (validateInput()) {
 							new Ajax.Updater(
 									"mainContents",
@@ -256,10 +257,10 @@
 						"Please wait.....", "Home");
 			});
 	
-	$("selSubline").observe("change", function(){
+	/* $("selSubline").observe("change", function(){
 		var selected = $("selSubline").getValue();
 		getSublineName(selected,"txtSublineName");
-	});
+	}); */
 	
 	function getSublineName(selected,txtSublineName){
 		var sublineCd = [
