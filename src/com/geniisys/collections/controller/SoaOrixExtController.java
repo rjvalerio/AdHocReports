@@ -59,7 +59,8 @@ public class SoaOrixExtController extends HttpServlet {
 			List<AccountingEntry> accountingEntry = null;
 			try {
 				signatoryList = (List<Signatory>) signatoryService.getAllActiveSignatory();
-				branches = (List<Branch>) branchService.getAllBranches();
+				//branches = (List<Branch>) branchService.getAllBranches();
+				branches = (List<Branch>) branchService.getAllBranchesByUserAndTranCd(request);
 				accountingEntry = (List<AccountingEntry>) accountingEntryService.getAllDate();
 
 			} catch (SQLException e) {
@@ -121,7 +122,7 @@ public class SoaOrixExtController extends HttpServlet {
 				request.setAttribute("reportXls", outputXls);
 
 				// redirect to right line
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page2);
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/collections/soa orix ext/hiddenDiv.jsp");
 				dispatcher.forward(request, response);
 			}
 		}

@@ -318,6 +318,7 @@
 			$("txtAssuredName").value = "";
 			$("txtItemTitle").value = "";
 		} */
+		$("errorMsg").value = '';
 		if (option == "I") {
 			//enable individual fields
 			$("txtLineCd").addClassName("required");
@@ -437,8 +438,8 @@
 			}
 		} else {
 			//alert("Please input required fields");
-			showMessageBox("Please input required fields", "I");
-			$("txtSublineCd").focus();
+			//showMessageBox("Please input required fields", "I");
+			//$("txtSublineCd").focus();
 		}
 	});
 	
@@ -477,12 +478,24 @@
 		var issueYY = $F("txtIssueYy");
 		var polSeqNo = $F("txtPolSeqNo");
 		var renewNo = $F("txtRenewNo");
+		var isOk = true;
+		
 		if (checkBlankNull(lineCd) || checkBlankNull(sublineCd)
 				|| checkBlankNull(issCd) || checkBlankNull(issueYY)
 				|| checkBlankNull(polSeqNo) || checkBlankNull(renewNo)) {
-			return false;
-		} else
-			return true;
+			isOk = false;
+			showMessageBox("Please input required fields", "I");
+			$("txtSublineCd").focus();
+			//return false;
+		}/*  else
+			isOk = true; */
+		if(renewNo == 0){
+			isOk = false;
+			showMessageBox("Invalid Renew No", "E");
+			$("txtRenewNo").focus();
+		}
+		
+		return isOk;
 	}
 
 	function isBatchFieldsOk() {

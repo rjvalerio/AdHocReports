@@ -317,10 +317,10 @@
 				"/pages/collections/dollar/receiptedDollarAcct.jsp",
 				"Receipted Dollar Account");
 		checkUserAccess2('SOA_FINAL', moduleIdObjLength, userModuleObj,
-				"soaPerAssdIntm", "/SOAperAssdIntmController?action=toSOAPage",
+				"soaPerAssdIntm", "/SOAperAssdIntmController?action=toSOAPage&tranCd=94&userId="+userId,
 				"SOA per Assured/Intermediary");
 		checkUserAccess2('FSOAORIX', moduleIdObjLength, userModuleObj,
-				"orixSoaExt", "/SoaOrixExtController?action=OrixSoaExt",
+				"orixSoaExt", "/SoaOrixExtController?action=OrixSoaExt&tranCd=94&userId="+userId,
 				"Please wait.....", "Statement of Account ORIX");
 		checkUserAccess2('FACINTRADE', moduleIdObjLength, userModuleObj,
 				"updateRefName",
