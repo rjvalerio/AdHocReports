@@ -135,20 +135,27 @@
 							<ul style="width: 160px;">
 								<li><a id="mcOnePager" name="mcOnePager">Motor Car
 										Policy One Pager</a></li>
-								<li><a id="12pMcOnePager" name="12pMcOnePager">12P
-										Motor Car One Pager</a></li>
+								<!-- <li><a id="12pMcOnePager" name="12pMcOnePager">12P
+										Motor Car One Pager</a></li> -->
 								<li><a id="regFiOnePager" name="regFiOnePager">REG Fire
 										Policy One Pager</a></li>
-								<li><a id="clgFiOnePager" name="clgFiOnePager">CLG Fire
+								<!-- <li><a id="clgFiOnePager" name="clgFiOnePager">CLG Fire
 										Policy One Pager</a></li>
 								<li><a id="12pFiOnePager" name="12pFiOnePager">12P Fire
 										Policy One Pager</a></li>
 								<li><a id="psFiOnePager" name="psFiOnePager">PS Fire
-										Policy One Pager</a></li>
+										Policy One Pager</a></li> -->
 								<li><a id="ocOnePager" name="ocOnePager">Other Casualty
 										One Pager</a></li>
-								<li><a id="12paOnePager" name="12paOnePager">12P PA
-										Policy One Pager</a></li>
+								<!-- <li><a id="12paOnePager" name="12paOnePager">12P PA
+										Policy One Pager</a></li> -->
+								<li class="menuSeparator"></li>
+								<li><a id="clgOnePager" name="clgOnePager">CLG One Pager
+								</a></li>
+								<li><a id="psBankOnePager" name="psBankOnePager">PS BANK One Pager
+								</a></li>
+								<li><a id="12planOnePager" name="12planOnePager">12 Plan One Pager
+								</a></li>
 							</ul></li>
 						<li><a id="renewal" name="renewal">Renewal</a>
 							<ul style="width: 160px;">
@@ -334,19 +341,23 @@
 		disableMenu('ocRenewal');
 		disableMenu('paRenewal');
 		disableMenu('mcOnePager');
-		disableMenu('12pMcOnePager');
+		//disableMenu('12pMcOnePager');
 		disableMenu('regFiOnePager');
-		disableMenu('clgFiOnePager');
-		disableMenu('12pFiOnePager');
-		disableMenu('psFiOnePager');
+		//disableMenu('clgFiOnePager');
+		//disableMenu('12pFiOnePager');
+		//disableMenu('psFiOnePager');
 		disableMenu('ocOnePager');
-		disableMenu('12paOnePager');
+		//disableMenu('12paOnePager');
 		disableMenu('SOtherBondDoc');
 		disableMenu('bondDetails');
 		disableMenu('nonRenewal');
 		disableMenu('thankYou');
 		disableMenu('confirmedPolicy');
 		disableMenu('batchGen');
+		
+		disableMenu('clgOnePager');
+		disableMenu('psBankOnePager');
+		disableMenu('12planOnePager');
 	} else {
 		//renewal
 		//check renewal access per module
@@ -397,37 +408,54 @@
 		checkUserAccess2('FMCCONFCOV', moduleIdObjLength, userModuleObj,
 				"mcOnePager", "/OnePagerController?action=toMC",
 				"Please wait.....", "Motor Car One Pager");
-		checkUserAccess2('FCMC_TP', moduleIdObjLength, userModuleObj,
+		/* checkUserAccess2('FCMC_TP', moduleIdObjLength, userModuleObj,
 				"12pMcOnePager", "/OnePagerController?action=to12PMC",
-				"Please wait.....", "12P Motor Car One Pager");
+				"Please wait.....", "12P Motor Car One Pager"); */
 		checkUserAccess2('GIRC003', moduleIdObjLength, userModuleObj,
 				"regFiOnePager", "/OnePagerController?action=toREGFI",
 				"Please wait.....", "REG Fire One Pager");
-		checkUserAccess2('GIRC003', moduleIdObjLength, userModuleObj,
+		/* checkUserAccess2('GIRC003', moduleIdObjLength, userModuleObj,
 				"clgFiOnePager", "/OnePagerController?action=toCLGFI",
 				"Please wait.....", "CLG Fire One Pager");
 		checkUserAccess2('GIRC003', moduleIdObjLength, userModuleObj,
 				"12pFiOnePager", "/OnePagerController?action=to12PFI",
-				"Please wait.....", "12P Fire One Pager");
+				"Please wait.....", "12P Fire One Pager"); 
 		checkUserAccess2('GIRC003', moduleIdObjLength, userModuleObj,
 				"psFiOnePager", "/OnePagerController?action=toPSFI",
-				"Please wait.....", "PS Fire One Pager");
+				"Please wait.....", "PS Fire One Pager");*/
 		checkUserAccess2('FOCINDEMTY', moduleIdObjLength, userModuleObj,
 				"ocOnePager", "/OnePagerController?action=toOC",
 				"Please wait.....", "Other Casualty One Pager");
-		checkUserAccess2('FPACOC', moduleIdObjLength, userModuleObj,
+		/* checkUserAccess2('FPACOC', moduleIdObjLength, userModuleObj,
 				"12paOnePager", "/OnePagerController?action=to12pPA",
-				"Please wait.....", "12P PA One Pager");
+				"Please wait.....", "12P PA One Pager"); */
+		
+		var clgAccess = 'GIRC003 GPRC004 ';
+		checkUserAccess3(clgAccess, moduleIdObjLength,
+				userModuleObj, "clgOnePager",
+				"/OnePagerController?action=toClgOnePager",
+				"CLG One Pager");
+		var PsBankAccess = 'GIRC003 GPRC004 ';
+		checkUserAccess3(PsBankAccess, moduleIdObjLength,
+				userModuleObj, "psBankOnePager",
+				"/OnePagerController?action=toPSBankOnePager",
+				"PS BANK One Pager");
+		var PlanAccess = 'GIRC003 GPRC004 FPACOC ';
+		checkUserAccess3(PlanAccess, moduleIdObjLength,
+				userModuleObj, "12planOnePager",
+				"/OnePagerController?action=to12PlanOnePager",
+				"12 Plan One Pager");
+		
 
 		//to set to function
-		if (!checkUserAccess("95 MC TP", userAccessObj, userAccessObjLength))
+		/* if (!checkUserAccess("95 MC TP", userAccessObj, userAccessObjLength))
 			disableMenu('12pMcOnePager');
 		if (!checkUserAccess("95 FI TP", userAccessObj, userAccessObjLength))
 			disableMenu('12pFiOnePager');
 		if (!checkUserAccess("95 PA TP", userAccessObj, userAccessObjLength))
 			disableMenu('12paOnePager');
 		if (!checkUserAccess("95 FI PS", userAccessObj, userAccessObjLength))
-			disableMenu('psFiOnePager');
+			disableMenu('psFiOnePager'); */
 
 		//surety bonds
 		checkUserAccess2('FSUOTHDOCS', moduleIdObjLength, userModuleObj,

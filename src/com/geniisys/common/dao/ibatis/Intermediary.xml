@@ -18,6 +18,12 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd
 		<result property="intmType" column="INTM_TYPE" />
 		<result property="intmName" column="INTM_DESC" />
 	</resultMap>
+	
+	<resultMap class="com.geniisys.common.entity.Intermediary"
+		id="intmGridResultMap">
+		<result property="intmNo" column="INTM_NO" />
+		<result property="intmName" column="INTM_NAME" />
+	</resultMap>
 
 	<select id="getAllActiveIntermediary" resultMap="intmResultMap">
 		SELECT
@@ -51,6 +57,44 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd
 		SELECT INTM_TYPE,INTM_DESC
 		FROM GIIS_INTM_TYPE
 		ORDER BY 1,2
+	</select>
+	
+	<select id="searchIntermediary" resultMap="intmResultMap"
+		parameterClass="java.util.HashMap">
+		<!-- SELECT ASSD_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ASSD_NAME,'''',''),'"',''),',',''),CHR(10),''),'\','')) 
+			ASSD_NAME FROM giis_assured WHERE UPPER(assd_name) like '%' || NVL(UPPER(#assdName#),UPPER(assd_name)) 
+			|| '%' AND ASSD_NO = NVL(#assdNo#,ASSD_NO) ORDER BY 2 -->
+		SELECT
+		INTM_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(INTM_NAME,'''',''),'"',''),',',''),CHR(10),''),'\','')) INTM_NAME,INTM_TYPE
+        FROM GIIS_INTERMEDIARY
+        WHERE UPPER(INTM_NAME) like '%' || UPPER(#parameter#) || '%'
+        AND #parameter# IS NOT null
+        UNION ALL
+        SELECT
+        INTM_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(INTM_NAME,'''',''),'"',''),',',''),CHR(10),''),'\','')) INTM_NAME,INTM_TYPE
+        FROM GIIS_INTERMEDIARY
+        WHERE TO_CHAR(INTM_NO) = NVL(#parameter#,INTM_NO)
+        ORDER BY 2
+	</select>
+	
+	<select id="searchIntermediaryDealers" resultMap="intmResultMap"
+		parameterClass="java.util.HashMap">
+		<!-- SELECT ASSD_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(ASSD_NAME,'''',''),'"',''),',',''),CHR(10),''),'\','')) 
+			ASSD_NAME FROM giis_assured WHERE UPPER(assd_name) like '%' || NVL(UPPER(#assdName#),UPPER(assd_name)) 
+			|| '%' AND ASSD_NO = NVL(#assdNo#,ASSD_NO) ORDER BY 2 -->
+		SELECT
+		INTM_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(INTM_NAME,'''',''),'"',''),',',''),CHR(10),''),'\','')) INTM_NAME,INTM_TYPE
+        FROM GIIS_INTERMEDIARY
+        WHERE UPPER(INTM_NAME) like '%' || UPPER(#parameter#) || '%'
+        AND #parameter# IS NOT null
+        AND INTM_TYPE = 'DL'
+        UNION ALL
+        SELECT
+        INTM_NO,TRIM(REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(INTM_NAME,'''',''),'"',''),',',''),CHR(10),''),'\','')) INTM_NAME,INTM_TYPE
+        FROM GIIS_INTERMEDIARY
+        WHERE TO_CHAR(INTM_NO) = NVL(#parameter#,INTM_NO)
+        AND INTM_TYPE = 'DL'
+        ORDER BY 2
 	</select>
 
 </sqlMap>

@@ -420,7 +420,7 @@
 					issueYY : $F("txtIssueYy").trim(),
 					polSeqNo : $F("txtPolSeqNo").trim(),
 					renewNo : $F("txtRenewNo").trim(),
-					userId : 'CPIRALPH' //userId
+					userId : userId
 				},
 				onCreate : showNotice("Fetching Details. Please wait..."),
 				onComplete : function(response) {

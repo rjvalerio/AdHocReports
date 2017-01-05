@@ -2,9 +2,11 @@ package com.geniisys.common.dao.impl;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.geniisys.common.dao.BranchDAO;
 import com.geniisys.common.dao.IntermediaryDAO;
+import com.geniisys.common.entity.Assured;
 import com.geniisys.common.entity.Branch;
 import com.geniisys.common.entity.Intermediary;
 import com.geniisys.util.MyAppSqlConfig;
@@ -53,6 +55,22 @@ private SqlMapClient sqlMap;
 
 		try {
 			intmList =  sqlMap.queryForList("getAllDealersIntm");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return intmList;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Intermediary> searchIntermediary(Map<String, Object> params) throws SQLException {
+		List<Intermediary> intmList = null;
+		sqlMap = MyAppSqlConfig.getSqlMapInstance();
+
+		try {
+			intmList =  sqlMap.queryForList("searchIntermediary",params);
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
