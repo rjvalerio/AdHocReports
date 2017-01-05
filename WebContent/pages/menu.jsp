@@ -8,8 +8,8 @@
 <input type="hidden" id="userModuleList" name="userModuleList" value='${userModuleList}'> --%>
 	<jsp:include page="/pages/userAccess.jsp"></jsp:include>
 </div>
-<input type="hidden" id="adhocUser" name="adhocUser" value="${adhocUser}">
-<!--<input type="hidden" id="adhocUser" name="adhocUser" value="CPIRALPH">-->
+<%-- <input type="hidden" id="adhocUser" name="adhocUser" value="${adhocUser}"> --%>
+<input type="hidden" id="adhocUser" name="adhocUser" value="CPIRALPH">
 
 <script type="text/javascript">
 	//init user access
