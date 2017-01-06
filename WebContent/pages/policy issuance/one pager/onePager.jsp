@@ -328,24 +328,24 @@
 							style="margin-top: 3px;">Posting Date</label></td>
 					</tr>
 				</table>
-				<%-- <div id="infoDiv" name="infoDiv"
-					style="width: 100%; text-align: center;">
-					<jsp:include page="/pages/policy issuance/one pager/infoDiv.jsp"></jsp:include>
-				</div> --%>
 			</div>
 			<%-- </c:if> --%>
-			<div class="sectionDiv" id="issueDiv"
-				style="width: 97%; margin-left: 8px; margin-top: 9px; float: left;">
+			<div class="sectionDiv" id="issueDiv" style="width: 97%; margin-left: 8px; margin-top: 9px; float: left;">
 				<table style="margin-top: 10px; width: 100%;">
 					<tr>
-						<td class="rightAligned" style="width: 25%;"></td>
-						<td class="rightAligned"><label for="txtIssuePlace"
-							style="margin-top: 3px; margin-left: 15px; float: left; margin-left: 50px;">Issued
+						<td class="rightAligned" style="width: 25%; margin-left: 100px;"><label for="txtIssuePlace"
+							style="margin-top: 3px; margin-left: 140px;">Issued
 								At</label></td>
-						<td class="leftAligned"><input id="txtIssuePlace"
-							class="leftAligned required" type="text" name="capsField"
-							style="width: 50%;" title="Issued Place" maxlength="100"
+						<td class="leftAligned" colspan="5"><input id="txtIssuePlace" class="required" type="text" name="capsField" style="width: 55%; margin-left: 5px;" title="Issued Place" maxlength="100"
 							placeholder="eg. MAKATI CITY, PHILIPPINES" /></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td colspan="2"></td>
+						<td class="leftAligned"><input type="checkbox" id="chkPdfSw"
+							name="chkPdfSw"> PDF Switch</td>
 					</tr>
 				</table>
 			</div>
@@ -368,12 +368,7 @@
 
 	var lineCd = '';
 
-	/* if (page == 'ClgOnePager') {
-		lineCd = $F("selLineCd");
-		$("selBranchLineCd").disable();
-	} else
-		lineCd = $F("lineCd"); */
-	if (page != 'ClgOnePager'/*   && page != 'PsBankOnePager' && page != '12PlanOnePager' */) {
+	if (page != 'ClgOnePager') {
 		lineCd = $F("lineCd");
 	} else {
 		lineCd = $F("selLineCd");
@@ -398,11 +393,6 @@
 		$("rdoDefault").checked = true;
 	}
 
-	/*  if(page != 'psFI' && page != 'regFI' && page != 'clgFI' && page != '12pFI'){
-		$("issueDiv").hide();
-	}else
-		$("issueDiv").show();  */
-
 	if (page == 'OC' && page == 'otherOC' && page == '3yOC') {
 		$("issueDiv").hide();
 	} else
@@ -424,13 +414,6 @@
 			} else
 				$("txtIssCd").enable();
 			//enable individual fields
-			/* if (page == 'ClgOnePager') {
-				$("selLineCd").enable();
-				$("selBranchLineCd").disable();
-			} else{
-				$("txtLineCd").addClassName("required");
-				$("batchTxtLineCd").removeClassName("required");
-			} */
 
 			if (page != 'ClgOnePager' && page != 'PsBankOnePager'
 					&& page != '12PlanOnePager') {
@@ -455,8 +438,6 @@
 					$("txtIssCd").enable();
 			}
 
-			//$("txtSublineCd").enable();
-			//$("txtIssCd").enable();
 			$("txtIssueYy").enable();
 			$("txtPolSeqNo").enable();
 			$("txtRenewNo").enable();
@@ -466,7 +447,6 @@
 			$("batchTxtIssCd").disable();
 			$("txtFromDate").disable();
 			$("txtToDate").disable();
-			//$("batchTxtUser").disable();
 			$("rdoByIssueDate").disable();
 			$("rdoByPostingDate").disable();
 			$("imgFromDate").hide();
@@ -492,17 +472,9 @@
 			$("batchTxtIssCd").enable();
 			$("txtFromDate").enable();
 			$("txtToDate").enable();
-			//$("batchTxtUser").enable();
 			$("imgFromDate").show();
 			$("imgToDate").show();
 			//disable individual fields
-			/* if (page == 'ClgOnePager') {
-				$("selLineCd").disable();
-				$("selBranchLineCd").enable();
-			} else{
-				$("txtLineCd").removeClassName("required");
-				$("batchTxtLineCd").addClassName("required");
-			} */
 
 			if (page != 'ClgOnePager' && page != 'PsBankOnePager'
 					&& page != '12PlanOnePager') {
@@ -531,7 +503,6 @@
 			printOptionVal = "B";
 			$("btnPrintOnePager").enable();
 			$("txtSublineCd").value = "";
-			//$("txtIssCd").value = "";
 			$("txtIssueYy").value = "";
 			$("txtPolSeqNo").value = "";
 			$("txtRenewNo").value = "";
@@ -552,14 +523,6 @@
 			$("batchTxtSublineCd").value = "REG";
 			$("batchTxtSublineCd").disable();
 		}
-		/* if(page =="psFI"){
-			$("batchTxtIssCd").value = "PS";
-			$("batchTxtIssCd").disable();
-		} */
-		/* if(page =="12pMC"){
-			$("batchTxtIssCd").value = "TP";
-			$("batchTxtIssCd").disable();
-		} */
 	}
 
 	$$("input[name='printOption']").each(function(radio) {
@@ -621,12 +584,10 @@
 							txtLineCd = $F('selLineCd').trim().toUpperCase();
 
 						if (isPolicyNoFieldsOk(txtLineCd)) {
-							//check user access. 95 = TRAN_CD of policy issuance
 							var userInput = "95 " + txtLineCd + " "
 									+ $F("txtIssCd").trim().toUpperCase();
 							if (!checkUserAccess(userInput, userAccessObj,
 									userAccessObjLength)) {
-								//alert("User has no access.");
 								showMessageBox("User has no access.", "E");
 							} else if (!/^\d+$/.test($F("txtIssueYy").trim())) {
 								showMessageBox(
@@ -641,7 +602,6 @@
 										"Invalid Input. Renew No must be number",
 										"E");
 							} else {
-								//var lineCd = $F("txtLineCd").trim().toUpperCase();
 								var lineCd = txtLineCd;
 								var sublineCd = $F("txtSublineCd").trim()
 										.toUpperCase();
@@ -655,7 +615,7 @@
 									new Ajax.Updater(
 											'infoDiv',
 											contextPath
-													+ /*'/OutputController'*/'/OnePagerController',
+													+ '/OnePagerController',
 											{
 												evalScripts : true,
 												method : "POST",
@@ -663,7 +623,6 @@
 													action : "checkPolicyId",
 													moduleId : "onePager",
 													redirectPage : "/pages/policy issuance/one pager/infoDiv.jsp",
-													//lineCd : $F("txtLineCd").trim().toUpperCase(),
 													lineCd : lineCd,
 													sublineCd : $F(
 															"txtSublineCd")
@@ -677,7 +636,8 @@
 													polSeqNo : $F("txtPolSeqNo")
 															.trim(),
 													renewNo : $F("txtRenewNo")
-															.trim()
+															.trim(),
+													page : $F("page")
 												},
 												onCreate : showNotice("Fetching Details. Please wait..."),
 												onComplete : function(response) {
@@ -685,21 +645,17 @@
 												}
 											});
 								} else {
-									//alert("Invalid renew number.");
 									showMessageBox("Invalid renew number.", "E");
 									$("btnPrintOnePager").disable();
 								}
 							}
 						} else {
-							//alert("Please input required fields");
 							showMessageBox("Please input required fields", "I");
-							//$("txtSublineCd").focus();
 						}
 						$("txtSublineCd").focus();
 					});
 
 	 function validateInput(lineCd) {
-		//var lineCd = $F("txtLineCd").trim().toUpperCase();
 		var sublineCd = $F("txtSublineCd").trim().toUpperCase();
 		var renewNo = $F("txtRenewNo").trim();
 		var issCd = $F("txtIssCd").trim().toUpperCase();
@@ -721,11 +677,7 @@
 					isValid = true;
 				} else
 					isValid = false;
-			/* else
-				isValid = true; */
 		} else if (issCd == 'TP') {
-			//if tp renewNo != 0
-			//else if mc||fi clg 0
 			if ((lineCd == 'MC' || lineCd == 'FI') && renewNo == '0') {
 				if (sublineCd == 'CLG') {
 					isValid = true;
@@ -733,12 +685,8 @@
 					isValid = false;
 			} else if (renewNo == '0')
 				isValid = false;
-			/* else
-				isValid = true; */
 		} else if (renewNo == '0')
 			isValid = false;
-		/* else
-			isValid = true; */
 		if(page == '12PlanOnePager' || page == 'regFI'){
 			if(renewNo == '0'){
 				isValid = false;
@@ -748,25 +696,8 @@
 		return isValid;
 
 	}
-	
-	/*function validateInput(lineCd) {
-		//var lineCd = $F("txtLineCd").trim().toUpperCase();
-		var sublineCd = $F("txtSublineCd").trim().toUpperCase();
-		var renewNo = $F("txtRenewNo").trim();
-		var issCd = $F("txtIssCd").trim().toUpperCase();
-		var userInput = lineCd + sublineCd + renewNo;
-		var isValid = true;
-		
-		if(page == '12PlanOnePager' || page == 'regFI'){
-			if(renewNo == '0'){
-				isValid = false;
-			}
-		}
-		return isValid;
-	}*/
 
 	function isPolicyNoFieldsOk(lineCd) {
-		//var lineCd = $F("txtLineCd");
 		var sublineCd = $F("txtSublineCd");
 		var issCd = $F("txtIssCd");
 		var issueYY = $F("txtIssueYy");
@@ -781,12 +712,10 @@
 	}
 
 	function isBatchFieldsOk(batchLineCd) {
-		//var userId = $F("batchTxtUser");
 		var fromDate = $F("txtFromDate");
 		var toDate = $F("txtToDate");
-		//var batchLineCd = $F("batchTxtLineCd");
 		var batchIssCd = $F("batchTxtIssCd");
-		if (/* checkBlankNull(userId) ||  */checkBlankNull(fromDate)
+		if (checkBlankNull(fromDate)
 				|| checkBlankNull(toDate) || checkBlankNull(batchLineCd)) {
 			return false;
 		} else
@@ -810,6 +739,7 @@
 			.observe(
 					"click",
 					function() {
+						var pdfSw = $("chkPdfSw").checked ? "Y" : "N";
 						var issuePlace = $F("txtIssuePlace");
 						var lineCd = '';
 						var batchLineCd = '';
@@ -883,13 +813,14 @@
 													userId : $F("userId"),
 													reportName : reportName,
 													OCReportType : OCReportType,
-													lineCd : lineCd,//$F("txtLineCd"),
+													lineCd : lineCd,
 													sublineCd : $F("txtSublineCd"),
 													issCd : $F("txtIssCd"),
 													issueYY : $F("txtIssueYy"),
 													polSeqNo : $F("txtPolSeqNo"),
 													renewNo : $F("txtRenewNo"),
-													issuePlace : $F("txtIssuePlace")
+													issuePlace : $F("txtIssuePlace"),
+													pdfSw : pdfSw
 												},
 												onCreate : showNotice("Generating report. Please wait..."),
 												onComplete : function(response) {
@@ -923,12 +854,13 @@
 														dateType : dateType,
 														fromDate : $F("txtFromDate"),
 														toDate : $F("txtToDate"),
-														lineCd : batchLineCd,//$F("batchTxtLineCd"),
+														lineCd : batchLineCd,
 														sublineCd : $F("batchTxtSublineCd"),
 														issCd : $F("batchTxtIssCd"),
 														issueCd : $F("txtIssCd"),
 														userId : $F("batchTxtUserId"),
-														issuePlace : $F("txtIssuePlace")
+														issuePlace : $F("txtIssuePlace"),
+														pdfSw : pdfSw
 													},
 													onCreate : showNotice("Generating report. Please wait..."),
 													onComplete : function(

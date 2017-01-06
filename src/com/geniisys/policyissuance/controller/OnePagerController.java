@@ -148,7 +148,7 @@ public class OnePagerController extends HttpServlet {
 		if (action.equals("checkPolicyId")) {
 			String redirectPage = request.getParameter("redirectPage");
 			String moduleId = request.getParameter("moduleId");
-
+			String page = request.getParameter("page");
 			// using service
 			PolicyNoService policyNoService = new PolicyNoServiceImpl();
 			ExtractIdService extractIdservice = new ExtractIdServiceImpl();
@@ -168,8 +168,11 @@ public class OnePagerController extends HttpServlet {
 			Integer policyId = null;
 			try {
 
-				//policyId = (Integer) gipiPolbasicService.fetchPolicyId(request);
-				policyId = (Integer) gipiPolbasicService.fetchTpPolicyId(request);
+				if(page.equals("12PlanOnePager")){
+					policyId = (Integer) gipiPolbasicService.fetchTpPolicyId(request);
+				}else{
+					policyId = (Integer) gipiPolbasicService.fetchPolicyId(request);
+				}
 				item = itemService.getGipiItem(policyId, lineCd);
 
 				Integer assdNo = assuredService.fetchAssuredNo(policyId);
@@ -218,7 +221,8 @@ public class OnePagerController extends HttpServlet {
 			String reportName = request.getParameter("reportName");
 			String issuePlace = request.getParameter("issuePlace");
 			Integer polId = Integer.parseInt(request.getParameter("policyId").trim());
-
+			String pdfSw = request.getParameter("pdfSw");
+			
 			sqlMap = MyAppSqlConfig.getSqlMapInstance();
 			HashMap<String, Object> parameters = new HashMap<String, Object>();
 			// using service
@@ -234,6 +238,7 @@ public class OnePagerController extends HttpServlet {
 				parameters.put("P_POLICY_ID", polId);
 				parameters.put("P_USER", userId);
 				parameters.put("P_PLACE", issuePlace);
+				parameters.put("P_PDF_SW", pdfSw);
 				if (page.equalsIgnoreCase("OC")) {
 					Integer yearDiff = onePagerService.getYearDiff(policyId);
 					reportName = "POLICY_DOCUMENT_OTHER_OC_ONEPAGER";
@@ -303,7 +308,8 @@ public class OnePagerController extends HttpServlet {
 			String dateType = request.getParameter("dateType");
 			String issuePlace = request.getParameter("issuePlace");
 			String issueCd = request.getParameter("issueCd");
-
+			String pdfSw = request.getParameter("pdfSw");
+			
 			System.out.println("Issue code: " + issueCd);
 
 			sqlMap = MyAppSqlConfig.getSqlMapInstance();
@@ -323,7 +329,8 @@ public class OnePagerController extends HttpServlet {
 			parameters.put("P_USER", userId);
 			parameters.put("P_DATE_TYPE", dateType);
 			parameters.put("P_PLACE", issuePlace);
-
+			parameters.put("P_PDF_SW", pdfSw);
+			
 			try {
 				DefaultJasperReportsContext context = DefaultJasperReportsContext.getInstance();
 				JRPropertiesUtil.getInstance(context).setProperty("net.sf.jasperreports.xpath.executer.factory",

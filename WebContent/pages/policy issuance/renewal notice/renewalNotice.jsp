@@ -272,6 +272,16 @@
 							style="width: 50%;" value="" title="Contact Number 3"
 							maxlength="20" /></td>
 					</tr>
+					<tr>
+						<td></td>
+					<tr>
+					<tr>
+						<td class="rightAligned" style="width: 25%;"></td>
+						<td class="leftAligned" colspan="5">
+						<input type="checkbox" id="chkPdfSw"
+							name="chkPdfSw"> PDF Switch
+						</td>
+					</tr>
 				</table>
 			</div>
 			<div class="sectionDiv" id="printDiv"
@@ -535,6 +545,7 @@
 			.observe(
 					"click",
 					function() {
+						var pdfSw = $("chkPdfSw").checked ? "Y" : "N";
 						//get contacts
 						var txtSales1 = $F("txtSales1").trim();
 						var txtSales2 = $F("txtSales2").trim();
@@ -568,7 +579,8 @@
 												issCd : $F("txtIssCd").trim().toUpperCase(),
 												issueYY : $F("txtIssueYy").trim(),
 												polSeqNo : $F("txtPolSeqNo").trim(),
-												renewNo : $F("txtRenewNo").trim()
+												renewNo : $F("txtRenewNo").trim(),
+												pdfSw : pdfSw
 											},
 											onCreate : showNotice("Generating report. Please wait..."),
 											onComplete : function(response) {
@@ -606,7 +618,8 @@
 												lineCd : $F("batchTxtLineCd").trim().toUpperCase(),
 												sublineCd : $F("batchTxtSublineCd").trim().toUpperCase(),
 												issCd : $F("batchTxtIssCd").trim().toUpperCase(),
-												userId : $F("batchTxtUser").trim().toUpperCase()
+												userId : $F("batchTxtUser").trim().toUpperCase(),
+												pdfSw : pdfSw
 											},
 											onCreate : showNotice("Generating report. Please wait..."),
 											onComplete : function(response) {
