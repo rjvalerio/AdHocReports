@@ -305,13 +305,15 @@
 							style="width: 8%;" value="" title="Issue Source Code"
 							maxlength="2" /></td>
 					</tr>
-					<!-- <tr>
-						<td class="rightAligned" style="width: 25%;">Extract User</td>
-						<td class="leftAligned" colspan="5"><input idf="batchTxtUser"
-							class="leftAligned" type="text" name="capsField"
-							style="width: 10%;" value="" title="Extract User" maxlength="10"/>
-						</td>
-					</tr> -->
+					<c:if test='${tag eq "Y"}'>
+					<tr>
+						<td class="rightAligned" style="width: 25%;">User</td>
+						<td class="leftAligned" colspan="5"><input
+							id="batchTxtUserId" class="leftAligned" type="text"
+							name="capsField" style="width: 15%;" value=""
+							maxlength="8" /></td>
+					</tr>
+					</c:if>
 					<tr>
 						<td class="rightAligned" style="width: 10%;"></td>
 						<td class="rightAligned"><input type="radio"
@@ -925,7 +927,7 @@
 														sublineCd : $F("batchTxtSublineCd"),
 														issCd : $F("batchTxtIssCd"),
 														issueCd : $F("txtIssCd"),
-														//userId : $F("batchTxtUser"),
+														userId : $F("batchTxtUserId"),
 														issuePlace : $F("txtIssuePlace")
 													},
 													onCreate : showNotice("Generating report. Please wait..."),

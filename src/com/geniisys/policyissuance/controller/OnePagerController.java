@@ -72,7 +72,6 @@ public class OnePagerController extends HttpServlet {
 		}
 		if (action.equals("to12PMC")) {
 			setRequestPerPage("12pMC", request);
-
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
 			dispatcher.forward(request, response);
 		}
@@ -138,6 +137,7 @@ public class OnePagerController extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		if(action.equals("to12PlanOnePager")){
+			request.setAttribute("tag", "Y");
 			setRequestPerPage("12PlanOnePager", request);
 			
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(onePagerPage);
