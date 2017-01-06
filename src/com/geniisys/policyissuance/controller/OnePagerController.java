@@ -168,7 +168,8 @@ public class OnePagerController extends HttpServlet {
 			Integer policyId = null;
 			try {
 
-				policyId = (Integer) gipiPolbasicService.fetchPolicyId(request);
+				//policyId = (Integer) gipiPolbasicService.fetchPolicyId(request);
+				policyId = (Integer) gipiPolbasicService.fetchTpPolicyId(request);
 				item = itemService.getGipiItem(policyId, lineCd);
 
 				Integer assdNo = assuredService.fetchAssuredNo(policyId);

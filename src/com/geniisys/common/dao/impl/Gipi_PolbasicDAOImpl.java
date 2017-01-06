@@ -34,5 +34,12 @@ public class Gipi_PolbasicDAOImpl implements Gipi_PolbasicDAO{
 		Integer policyId = (Integer) sqlMap.queryForObject("onePagerFetchPolicyId", policyNo);
 		return policyId;
 	}
+
+	@Override
+	public Integer fetchTpPolicy(PolicyNo policyNo) throws SQLException {
+		sqlMap = MyAppSqlConfig.getSqlMapInstance();
+		Integer policyId = (Integer) sqlMap.queryForObject("fetchTpPolicy", policyNo);
+		return policyId;
+	}
 	
 	}

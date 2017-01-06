@@ -47,6 +47,20 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd
 		AND ENDT_SEQ_NO = 0
 	</select>
 	
+	<select id="fetchTpPolicy" resultClass="java.lang.Integer" parameterMap="policyNoParamMap">
+		SELECT policy_id FROM GIPI_POLBASIC
+		WHERE LINE_CD =NVL(?,LINE_CD)
+		AND SUBLINE_CD = NVL(?,SUBLINE_CD)
+		AND ISS_CD = NVL(?,ISS_CD)
+		AND ISSUE_YY = NVL(?,ISSUE_YY)
+		AND POL_SEQ_NO = NVL(?,POL_SEQ_NO)
+		AND RENEW_NO =
+		NVL(?,RENEW_NO)
+		AND ENDT_YY = 0
+		AND ENDT_SEQ_NO = 0
+		AND pol_flag NOT IN ('4','5')
+	</select>
+	
 	
 	<!-- <select id="fetchRefPolNo" resultMap="Gipi_PolbasicResultMap" parameterClass="java.lang.Integer">
 	    SELECT RTRIM(GET_TOKEN(REF_POL_NO,1))REF_NO,REF_POL_NO,ASSD_NO, ENDT_SEQ_NO, 
