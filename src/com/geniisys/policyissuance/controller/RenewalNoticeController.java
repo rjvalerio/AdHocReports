@@ -229,12 +229,13 @@ public class RenewalNoticeController extends HttpServlet{
 				setRequestPerPage(page,request);
 				
 				//redirect to right line
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/policy issuance/renewal notice/hiddenDiv.jsp");
             	dispatcher.forward(request,response);
 			}
 		}
 		
 		if(action.equals("printBatch")){
+			errorMsg = "";
 			DefaultJasperReportsContext context = DefaultJasperReportsContext.getInstance();
 			JRPropertiesUtil.getInstance(context).setProperty("net.sf.jasperreports.xpath.executer.factory",
 				    "net.sf.jasperreports.engine.util.xml.JaxenXPathExecuterFactory");
@@ -328,7 +329,7 @@ public class RenewalNoticeController extends HttpServlet{
 				setRequestPerPage(page,request);
 				
 				//redirect to right line
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(renewalNoticePage);
+				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/pages/policy issuance/renewal notice/hiddenDiv.jsp");
             	dispatcher.forward(request,response);
 			}
 		}

@@ -11,10 +11,13 @@
 </div>
 
 <!-- hidden fields -->
-<input type="hidden" id="page" name="page" value="${page}">
 <input type="hidden" id="lineCd" name="lineCd" value="${lineCd}">
-<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
 <input type="hidden" id="userId" name="userId" value="${adhocUser}">
+
+<input type="hidden" id="page" name="page" value="${page}">
+
+<div id="hiddenDiv">
+<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
 <input type="hidden" id="reportTitle" name="reportTitle"
 	value="${reportTitle}">
 <input type="hidden" id="reportName" name="reportName"
@@ -25,6 +28,7 @@
 	value="${reportUrl}">
 <input type="hidden" id="selDestination" name="selDestination"
 	value="screen">
+</div>
 <!-- end hidden fields -->
 
 <br />
@@ -285,6 +289,8 @@
 
 
 <script type="text/javascript">
+
+	$("hiddenDiv").hide();
 	var lineCd = $F("lineCd");
 	var fromCalendar = new dhtmlXCalendarObject({
 		input : "txtFromDate",
@@ -543,8 +549,8 @@
 								//alert("Please input required fields");
 								showMessageBox("Please input required fields", "I");
 							} else {
-								new Ajax.Updater(
-										"mainContents",
+								new Ajax.Request(
+										//"mainContents",
 										contextPath
 												+ "/RenewalNoticeController",
 										{
@@ -566,7 +572,8 @@
 											},
 											onCreate : showNotice("Generating report. Please wait..."),
 											onComplete : function(response) {
-												printOutputPdf();
+												//printOutputPdf();
+												$("hiddenDiv").update(response.responseText);
 											}
 										});
 							}
@@ -580,8 +587,9 @@
 								//alert("Please input required fields");
 								showMessageBox("Please input required fields", "I");
 							} else {
-								new Ajax.Updater(
-										"mainContents",
+								$("errorMsg").value = "";
+								new Ajax.Request(
+										//"mainContents",
 										contextPath
 												+ "/RenewalNoticeController",
 										{
@@ -602,7 +610,8 @@
 											},
 											onCreate : showNotice("Generating report. Please wait..."),
 											onComplete : function(response) {
-												printOutputPdf();
+												//printOutputPdf();
+												$("hiddenDiv").update(response.responseText);
 											}
 										});
 							}
