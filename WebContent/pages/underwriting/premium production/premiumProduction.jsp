@@ -598,7 +598,8 @@ var filterGridBy = "";
 											toDate2 : $("rdoComparative").checked ? $F("txtToDate2") : '',
 											bookingMonth : $("rdoBooking").checked ? $F("selMonth") : '',
 											bookingYear : $("rdoBooking").checked ? $F("txtBookingYear") : 0,
-											intmNo : intmNo
+											intmNo : intmNo,
+											userId : $F("userId")
 										},
 										onCreate : showNotice("Generating report. Please wait..."),
 										onComplete : function(response) {

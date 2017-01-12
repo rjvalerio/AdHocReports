@@ -25,6 +25,7 @@
 	value="${reportPdf}">
 <input type="hidden" id="selDestination" name="selDestination"
 	value="screen">
+<input type="hidden" id="userId" name="userId" value="${adhocUser}">
 <input type="hidden" id="BranchName" value="">
 
 <br />
@@ -219,6 +220,7 @@
 					"click",
 					function() {
 						if (validateInput()) {
+							var userId = $F("userId");
 							new Ajax.Updater(
 									"mainContents",
 									contextPath + "/IntertradeCheckReportController",
@@ -231,7 +233,8 @@
 											fromDate : $F("txtFromDate"),
 											toDate : $F("txtToDate"),
 											asofDate : $F("txtAsOfDate"),
-											branch : $F("selBranch")
+											branch : $F("selBranch"),
+											userId : userId
 										},
 										onCreate : showNotice("Generating report. Please wait..."),
 										onComplete : function(response) {

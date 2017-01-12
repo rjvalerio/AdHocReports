@@ -514,6 +514,7 @@
 		var fromDate = $F("txtFromDate");
 		var toDate = $F("txtToDate");
 		branchCd = $F("selBranch");
+		var userId = $F("userId");
 		new Ajax.Updater(
 				"mainContents",
 				contextPath + "/ThankYouLetterController",
@@ -528,7 +529,8 @@
 						toDate : toDate,
 						signatory : sign,
 						designation : desig,
-						reportName : reportName
+						reportName : reportName,
+						userId : userId
 					},
 					onCreate : showNotice("Generating report. Please wait..."),
 					onComplete : function(response) {
