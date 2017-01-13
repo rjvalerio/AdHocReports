@@ -16,25 +16,21 @@ function checkUserAccess2(id, length, obj,menu,func,title){
 		if (id == userAcc) {
 			isExists = true;
 			enableMenu(menu);
-			if(menu=='checkRequest'){
+			/*if(menu=='checkRequest'){
 				$(menu).observe("click", function() {
-				new Ajax.Updater("blankDiv",contextPath + func,{
-					method:"POST",
+				new Ajax.Request(//"blankDiv1",
+						contextPath + func,{
+					method:"GET",
 					evalScripts:true,
 					asynchronous: true,
 					onCreate: showNotice("Please wait....."),
 					onComplete: function (response) {
 						hideNotice("");
-						//alert(respose.responsetext);
-						//$("blankDiv").update(response.responseText);
-						//$("openCheckRequest").click();
-						/*var win = window.open(, '_blank');
-						 win.focus();*/
 					}
-				})
 				});
-			}else
-			goToPage(menu,func,"Please wait.....",title);
+				});
+			}else*/
+				goToPage(menu,func,"Please wait.....",title);
 		}	
 	}
 	if(!isExists){
@@ -75,6 +71,7 @@ function checkUserLineCd(lineCd, objLength, lineCdObj) {
 		var userAcc = lineCdObj.userLineCd[i];
 		if (lineCd == userAcc) {
 			isExists = true;
+			break;
 		}
 	}
 	return isExists;
