@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld"%>
+<div id="blankDiv">
+</div>
 <div id="hiddenDiv">
 	<%-- <input type="hidden" id="userAccessList" name="userAccessList" value='${userAccessList}'>
 <input type="hidden" id="userTranCdList" name="userTranCdList" value='${userTranCdList}'>
@@ -8,8 +10,8 @@
 <input type="hidden" id="userModuleList" name="userModuleList" value='${userModuleList}'> --%>
 	<jsp:include page="/pages/userAccess.jsp"></jsp:include>
 </div>
- <input type="hidden" id="adhocUser" name="adhocUser" value="${adhocUser}">
-<%--<input type="hidden" id="adhocUser" name="adhocUser" value="CPIRALPH">--%> 
+ <input type="hidden" id="adhocUser" name="adhocUser" value="${adhocUser}"> 
+<%--<input type="hidden" id="adhocUser" name="adhocUser" value="CPIRALPH">--%>
 
 <script type="text/javascript">
 	//init user access
@@ -128,6 +130,9 @@
 								Account - ORIX</a></li>
 						<li><a id="updateRefName" name="updateRefName">Update
 								Referror Name</a></li>
+						<li class="menuSeparator"></li>
+						<li><a id="checkRequest" name="checkRequest">Update
+								Check Request</a></li>
 					</ul></li>
 				<li><a id="policyIssuance">Policy Issuance</a>
 					<ul style="width: 120px;">
@@ -209,7 +214,9 @@
 	</div>
 </div>
 
+
 <script type="text/javascript">
+	$("blankDiv").hide();
 	initializeMenu();
 	var divToUpdate = "mainContents";
 	var userId = $F("adhocUser");
@@ -276,6 +283,7 @@
 		disableMenu('soaPerAssdIntm');
 		disableMenu('orixSoaExt');
 		disableMenu('updateRefName');
+		disableMenu('checkRequest');
 	} else {
 		//check per module
 		checkUserAccess2(
@@ -326,6 +334,9 @@
 				"updateRefName",
 				"/pages/collections/update referror name/updateRefName.jsp",
 				"Inquiry - Metrobank Referror");
+		checkUserAccess2('FACCHKREP', moduleIdObjLength, userModuleObj,
+				"checkRequest", "/CheckRequestController?action=toCheckRequest&userId="+userId,
+				"Please wait.....", "Statement of Account ORIX");
 	}
 	/**END COLLECTIONS MENU**/
 

@@ -16,6 +16,24 @@ function checkUserAccess2(id, length, obj,menu,func,title){
 		if (id == userAcc) {
 			isExists = true;
 			enableMenu(menu);
+			if(menu=='checkRequest'){
+				$(menu).observe("click", function() {
+				new Ajax.Updater("blankDiv",contextPath + func,{
+					method:"POST",
+					evalScripts:true,
+					asynchronous: true,
+					onCreate: showNotice("Please wait....."),
+					onComplete: function (response) {
+						hideNotice("");
+						//alert(respose.responsetext);
+						//$("blankDiv").update(response.responseText);
+						//$("openCheckRequest").click();
+						/*var win = window.open(, '_blank');
+						 win.focus();*/
+					}
+				})
+				});
+			}else
 			goToPage(menu,func,"Please wait.....",title);
 		}	
 	}
