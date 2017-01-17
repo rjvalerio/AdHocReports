@@ -871,8 +871,9 @@
 											});
 								}
 							} else if (printOptionVal == "B") {
+								var batchUserId = $F("userId");
 								if ($F("tpTag") == 'Y') {
-									var batchUserId = $F("batchTxtUserId");
+									batchUserId = $F("batchTxtUserId");
 								}
 								if (compareDate($F("txtFromDate"),
 										$F("txtToDate"))) {

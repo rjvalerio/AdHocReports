@@ -332,8 +332,8 @@ public class OnePagerController extends HttpServlet {
 			parameters.put("P_CRED_BRANCH", issueCd);
 			parameters.put("P_TO_DATE", toDate);
 			parameters.put("P_FROM_DATE", fromDate);
-			//parameters.put("P_USER", userId);
-			parameters.put("P_USER_ID", userId);
+			parameters.put("P_USER", userId);
+			//parameters.put("P_USER_ID", userId);
 			parameters.put("P_DATE_TYPE", dateType);
 			parameters.put("P_PLACE", issuePlace);
 			parameters.put("P_PDF_SW", pdfSw);

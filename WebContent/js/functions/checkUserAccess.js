@@ -16,7 +16,7 @@ function checkUserAccess2(id, length, obj,menu,func,title){
 		if (id == userAcc) {
 			isExists = true;
 			enableMenu(menu);
-			/*if(menu=='checkRequest'){
+			if(menu=='checkRequest'){
 				$(menu).observe("click", function() {
 				new Ajax.Request(//"blankDiv1",
 						contextPath + func,{
@@ -29,7 +29,7 @@ function checkUserAccess2(id, length, obj,menu,func,title){
 					}
 				});
 				});
-			}else*/
+			}else
 				goToPage(menu,func,"Please wait.....",title);
 		}	
 	}

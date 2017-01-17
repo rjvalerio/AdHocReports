@@ -1,5 +1,5 @@
 function goToPage(button, url, msg, pageTitle) {
-	if (button == 'checkRequest') {
+/*	if (button == 'checkRequest') {
 		$(menu).observe("click", function() {
 			new Ajax.Request(// "blankDiv1",
 			contextPath + url, {
@@ -12,9 +12,9 @@ function goToPage(button, url, msg, pageTitle) {
 				}
 			});
 		});
-	} else {
+	} else {*/
 		$(button).observe("click", function() {
 			goToModule(divToUpdate, contextPath + url, msg, pageTitle);
 		});
-	}
+	/*}*/
 }
