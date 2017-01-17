@@ -2,7 +2,6 @@
 <!-- hidden fields -->
 <input type="hidden" id="page" name="page" value="${page}">
 <input type="hidden" id="lineCd" name="lineCd" value="${lineCd}">
-<input type="hidden" id="userId" name="userId" value="${adhocUser}">
 <div id="hiddenDiv">
 <input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
 <input type="hidden" id="reportTitle" name="reportTitle"

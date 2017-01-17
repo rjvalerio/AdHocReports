@@ -198,7 +198,10 @@ public class PremProductionController extends HttpServlet {
 			String outputPdf = getServletContext().getInitParameter("GENERATED_REPORTS_DIR") + reportName + ".pdf";
 			String outputXls = getServletContext().getInitParameter("GENERATED_REPORTS_DIR") + reportName + ".xls";
 			HashMap<String, Object> parameters = new HashMap<String, Object>();
-
+			
+			//issCd == branchCd
+			//yung ibang report ibang parameter para s branchCd
+			//p_iss_cd,p_branch_cd, at p_cred_branch pero same value lng pinapasa ng java s report :/
 			parameters.put("P_LINE_CD", lineCd);
 			parameters.put("P_SUBLINE_CD", sublineCd);
 			parameters.put("P_ISS_CD", issCd);

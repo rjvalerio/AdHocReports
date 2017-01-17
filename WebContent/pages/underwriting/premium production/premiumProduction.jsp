@@ -32,8 +32,8 @@ var filterGridBy = "";
 <!-- hidden fields -->
 <input type="hidden" id="page" name="page" value="${page}">
 <input type="hidden" id="lineCd" name="lineCd" value="${lineCd}">
-<%-- <input type="hidden" id="userId" name="userId" value="${adhocUser}"> --%>
-<input type="hidden" id="userId" name="userId" value="CPIRALPH">
+<input type="hidden" id="userId" name="userId" value="${adhocUser}">
+<!-- <input type="hidden" id="userId" name="userId" value="MISMEM"> -->
 
 <div id="hiddenDiv">
 	<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
@@ -215,7 +215,7 @@ var filterGridBy = "";
 													style="float: left; border: solid 1px gray; width: 108px; height: 20px; margin-right: 3px;">
 													<input type="text" class="required"
 														style="float: left; margin-top: 0px; margin-right: 3px; width: 74%; border: none;"
-														name="fmDate" id="txtFromDate" readonly="readonly" /> <img
+														name="txtFromDate" id="txtFromDate" readonly="readonly" /> <img
 														id="imgFromDate" alt="imgFromDate" style="height: 18px;"
 														class="hover"
 														src="${pageContext.request.contextPath}/images/misc/but_calendar.gif" />
@@ -251,7 +251,7 @@ var filterGridBy = "";
 													style="float: left; border: solid 1px gray; width: 108px; height: 20px; margin-right: 3px;">
 													<input type="text"
 														style="float: left; margin-top: 0px; margin-right: 3px; width: 74%; border: none;"
-														name="fmDate" id="txtFromDate2" readonly="readonly" /> <img
+														name="fmDate" id="txtFromDate2" readonly="readonly"/> <img
 														id="imgFromDate2" alt="imgFromDate2" style="height: 18px;"
 														class="hover"
 														src="${pageContext.request.contextPath}/images/misc/but_calendar.gif" />
@@ -450,6 +450,7 @@ var filterGridBy = "";
 			emptyIntmGrid();
 		}
 	});
+
 	/*END INTERMEDIARY*/
 	
 	//$("lineOnlyDiv").hide();
@@ -494,6 +495,22 @@ var filterGridBy = "";
 	var toCalendar2 = new dhtmlXCalendarObject({
 		input : "txtToDate2",
 		button : "imgToDate2"
+	});	
+	
+	fromCalendar.attachEvent("onClick", function(side,d){
+		//alert("onClick event called, "+side+" calendar, date "+fromCalendar.getFormatedDate(null,d));
+		var strFromD = fromCalendar.getFormatedDate(null,d);
+		var subtractedYear = +strFromD.substring(0, 4) - 1;
+		var strFromD2 = subtractedYear.toString() + strFromD.substring(4,10);
+		$("txtFromDate2").value = strFromD2;
+	});
+	
+	toCalendar.attachEvent("onClick", function(side,d){
+		//alert("onClick event called, "+side+" calendar, date "+fromCalendar.getFormatedDate(null,d));
+		var strToD = toCalendar.getFormatedDate(null,d);
+		var subtractedYear = +strToD.substring(0, 4) - 1;
+		var strToD2 = subtractedYear.toString() + strToD.substring(4,10);
+		$("txtToDate2").value = strToD2;
 	});
 	
 	//toggle report type
@@ -655,6 +672,9 @@ var filterGridBy = "";
 						 /* if(rdoReportTypeValue == 4 || rdoReportTypeValue == 5){
 							lineCdVal = $("selLine");
 						} */
+						if(reportName == 'Daily_Report_Per_Month' || reportName == 'Daily_Report_Per_Acct_Ent_Date'){
+							reportName = $("rdoAcct").checked ? 'Daily_Report_Per_Acct_Ent_Date': 'Daily_Report_Per_Month';
+						}
 							 new Ajax.Request(
 									contextPath + "/PremProductionController",
 									{
@@ -676,7 +696,7 @@ var filterGridBy = "";
 											bookingYear : $("rdoBooking").checked ? $F("txtBookingYear") : 0,
 											intmType : $F("selIntmType"),
 											intmNo : intmNo,
-											userId : userId//$F("userId")
+											userId : $F("userId")//userId
 										},
 										onCreate : showNotice("Generating report. Please wait..."),
 										onComplete : function(response) {
