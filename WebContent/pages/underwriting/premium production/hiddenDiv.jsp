@@ -3,7 +3,7 @@
 <input type="hidden" id="page" name="page" value="${page}">
 <input type="hidden" id="lineCd" name="lineCd" value="${lineCd}">
 <div id="hiddenDiv">
-<input type="hidden" id="errorMsg" name="errorMsg" value="${errorMsg}">
+<input type="text" id="errorMsg" name="errorMsg" value="${errorMsg}">
 <input type="hidden" id="reportTitle" name="reportTitle"
 	value="${reportTitle}">
 <input type="hidden" id="reportName" name="reportName"

@@ -55,7 +55,7 @@ public class NonRenewalController extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 	private SqlMapClient sqlMap;
-	public static String errorMsg = "";
+	//public String errorMsg = "";
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -65,6 +65,7 @@ public class NonRenewalController extends HttpServlet {
 		String page = "/pages/policy issuance/non renewal/nonRenewal.jsp";
 		String redirectPage = "/pages/policy issuance/non renewal/infoDiv.jsp";
 		/*request.getParameter("redirectPage");*/
+		String errorMsg = "";
 		
 		if (action.equals("toNonRenewPage")) {
 			SignatoryService signatoryService = new SignatoryServiceImpl();
