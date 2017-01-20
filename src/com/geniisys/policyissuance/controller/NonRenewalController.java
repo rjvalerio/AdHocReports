@@ -77,8 +77,7 @@ public class NonRenewalController extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.setAttribute("pageTitle", "Non Renewal");
-			request.setAttribute("reportName", "POLICY_DOCUMENT_MTR_ONEPAGER");
-			request.setAttribute("reportBatch", "POLICY_DOCUMENT_MTR_ONEPAGER_BATCH");
+			request.setAttribute("reportName", "NON_RENEW_PCI");
 
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
 			dispatcher.forward(request, response);
@@ -108,7 +107,15 @@ public class NonRenewalController extends HttpServlet {
 				
 				Integer extractId = null;
 				policyId = (Integer) policyNoService.getPolicyIdNonRenew(request);
-				extractId = (Integer) extractIdservice.getExtractId(policyId);
+				if(policyId != null){
+					policyId = (Integer) policyNoService.getPolicyIdNonRenewByUserId(request);
+					if(policyId == null){
+						errorMsg = "User has no access.";
+					}
+				}else{
+					errorMsg = "No data found.";
+				}
+				/*extractId = (Integer) extractIdservice.getExtractId(policyId);
 				System.out.println("policyId: " + policyId);
 				System.out.println("extractId: " + extractId);
 				if (extractId == null) {
@@ -130,8 +137,8 @@ public class NonRenewalController extends HttpServlet {
 				Gipi_Polbasic = gipiPolbasicService.fetchRefPolNo(policyId);
 				assuredGipiPolbasic = assuredService.getAssured(assdNoGipiPolbasic);
 				bond_dtl = gipiPolbasicService.getBondDtl(policyId);
-				gipi_Invoices = gipiInvoiceService.fetchGipiInvoice(policyId);
-
+				gipi_Invoices = gipiInvoiceService.fetchGipiInvoice(policyId);*/
+				
 				// request.setAttribute("errorMsg", errorMsg);
 
 			} catch (SQLException e1) {
