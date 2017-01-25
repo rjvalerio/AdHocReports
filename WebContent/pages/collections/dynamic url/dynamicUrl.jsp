@@ -128,7 +128,7 @@
 	
 	$("btnPrintReport").observe("click", function() {
 		var url = $F("txtUrl");
-		var userId = "CPIRALPH";//$F("userId");
+		var userId = $F("userId");
 		if (checkBlankNull(url)) {
 			showMessageBox("Please select url","I");
 		} else {
