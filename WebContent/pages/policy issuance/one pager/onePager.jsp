@@ -908,7 +908,7 @@
 														sublineCd :/*  $F("batchTxtSublineCd"), */sublineCd,
 														issCd : $F("batchTxtIssCd"),
 														issueCd : /* $F("txtIssCd"), */issCd,
-														userId : "CPIRALPH",//$F("userId"),
+														userId : $F("userId"),
 														batchUserId : batchUserId,
 														issuePlace : $F("txtIssuePlace"),
 														pdfSw : pdfSw

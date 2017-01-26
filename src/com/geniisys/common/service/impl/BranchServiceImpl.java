@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.geniisys.common.dao.BranchDAO;
 import com.geniisys.common.dao.impl.BranchDAOImpl;
 import com.geniisys.common.entity.Branch;
+import com.geniisys.common.entity.CreditingEmail;
 import com.geniisys.common.service.BranchService;
 
 public class BranchServiceImpl implements BranchService {
@@ -54,6 +55,26 @@ public class BranchServiceImpl implements BranchService {
 		params.put("tranCd", request.getParameter("tranCd"));
 		List<Branch> branchList = branchDAO.getAllBranchesByUserAndTranCd(params);
 		return branchList;
+	}
+
+	@Override
+	public List<CreditingEmail> fetchCredBranchEmail(HttpServletRequest request) throws SQLException {
+		String branchCd = request.getParameter("branchCode");
+		List<CreditingEmail> emailList = branchDAO.fetchCredBranchEmail(branchCd);
+		return emailList;
+	}
+
+	@Override
+	public void updateCreditingEmail(HttpServletRequest request) throws SQLException {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("emailAdd", request.getParameter("emailAdd"));
+		params.put("primarySw", request.getParameter("primarySw"));
+		params.put("credBranchCd", request.getParameter("credBranchCd"));
+		System.out.println(params.get("emailAdd"));
+		System.out.println(params.get("primarySw"));
+		System.out.println(params.get("credBranchCd"));
+		branchDAO.updateCreditingEmail(params);
+		System.out.println("update finished");
 	}
 
 }
