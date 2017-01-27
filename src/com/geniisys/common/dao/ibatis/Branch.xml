@@ -39,7 +39,15 @@ PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd
 			SET EMAIL_ADD = #emailAdd#,
                  PRIMARY_SW = DECODE(#primarySw#,'on','Y','')
 		WHERE TRIM(CRED_BRANCH_CD) = TRIM(#credBranchCd#)
+		AND UPPER(EMAIL_ADD) = UPPER(#oldEmail#)
 	</update>
+	
+	<insert id="insertCreditingEmail" parameterClass="java.util.HashMap">
+		INSERT INTO GIIS_CRED_BRANCH_EMAIL
+			(CRED_BRANCH_CD, EMAIL_ADD, PRIMARY_SW)
+			VALUES
+			(#credBranchCd#, #emailAdd#, DECODE(#primarySw#,'on','Y',''))
+	</insert>
 
 	<select id="getAllBranches" resultMap="branchResultMap">
 		SELECT DISTINCT(ISS_CD)

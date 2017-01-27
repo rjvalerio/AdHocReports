@@ -38,7 +38,6 @@ public class DynamicUrlController extends HttpServlet {
 			UrlService urlService = new UrlServiceImpl();
 			try {
 				String urlList = (String) urlService.getAllUrl();
-				System.out.println(urlList);
 				request.setAttribute("urlList", urlList);
 			} catch (SQLException e) {
 				e.printStackTrace();

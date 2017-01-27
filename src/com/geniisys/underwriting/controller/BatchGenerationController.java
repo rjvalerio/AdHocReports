@@ -94,10 +94,9 @@ public class BatchGenerationController extends HttpServlet {
 			BranchService branchService = new BranchServiceImpl();
 			try {
 				List<CreditingEmail> credEmailList = branchService.fetchCredBranchEmail(request);
-				for (CreditingEmail creditingEmail : credEmailList) {
-					System.out.println(creditingEmail.getEmailAdd());
-				}
+				Integer credEmailCount = credEmailList.size();
 				request.setAttribute("credEmailList", credEmailList);
+				request.setAttribute("credEmailCount", credEmailCount);
 				request.setAttribute("branchCode", request.getParameter("branchCode"));
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -111,7 +110,20 @@ public class BatchGenerationController extends HttpServlet {
 		if(action.equals("updateCreditingEmail")){
 			BranchService branchService = new BranchServiceImpl();
 			try {
-				branchService.updateCreditingEmail(request);
+					branchService.updateCreditingEmail(request);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				errorMsg = e.getMessage();
+			}
+			
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/BatchGenerationController?action=toBatchGenerationPage");
+			dispatcher.forward(request, response);
+		}
+		
+		if(action.equals("insertCreditingEmail")){
+			BranchService branchService = new BranchServiceImpl();
+			try {
+					branchService.insertCreditingEmail(request);
 			} catch (SQLException e) {
 				e.printStackTrace();
 				errorMsg = e.getMessage();

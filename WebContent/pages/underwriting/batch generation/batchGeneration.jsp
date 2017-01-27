@@ -123,6 +123,7 @@ var gridSubline;
 <div id="credEmailResultDiv">
 <input type="text" id="credEmailList" name="credEmailList" value="${credEmailList}">
 <input type="text" id="branchCode" name="branchCode" value="${branchCode}">
+<input type="text" id="credEmailCount" name="credEmailCount" value="${credEmailCount}">
 </div>
 
 <script type="text/javascript">

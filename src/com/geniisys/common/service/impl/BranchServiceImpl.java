@@ -70,11 +70,20 @@ public class BranchServiceImpl implements BranchService {
 		params.put("emailAdd", request.getParameter("emailAdd"));
 		params.put("primarySw", request.getParameter("primarySw"));
 		params.put("credBranchCd", request.getParameter("credBranchCd"));
-		System.out.println(params.get("emailAdd"));
-		System.out.println(params.get("primarySw"));
-		System.out.println(params.get("credBranchCd"));
+		params.put("oldEmail", request.getParameter("oldEmail"));
+		System.out.println(params.get("oldEmail"));
 		branchDAO.updateCreditingEmail(params);
 		System.out.println("update finished");
+	}
+
+	@Override
+	public void insertCreditingEmail(HttpServletRequest request) throws SQLException {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("emailAdd", request.getParameter("extraEmail"));
+		params.put("primarySw", request.getParameter("extraPrimarySw"));
+		params.put("credBranchCd", request.getParameter("credBranchCd"));
+		branchDAO.insertCreditingEmail(params);
+		System.out.println("insert finished");
 	}
 
 }

@@ -16,4 +16,5 @@ public interface BranchService {
 	String getAllBranches4();
 	List<CreditingEmail> fetchCredBranchEmail(HttpServletRequest request) throws SQLException;
 	void updateCreditingEmail(HttpServletRequest request) throws SQLException;
+	void insertCreditingEmail(HttpServletRequest request) throws SQLException;
 }

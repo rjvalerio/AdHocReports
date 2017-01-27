@@ -14,4 +14,5 @@ public interface BranchDAO {
 	String getAllBranches3();
 	List<CreditingEmail> fetchCredBranchEmail(String branchCd) throws SQLException;
 	void updateCreditingEmail(Map<String,Object> params) throws SQLException;
+	void insertCreditingEmail(Map<String,Object> params) throws SQLException;
 }

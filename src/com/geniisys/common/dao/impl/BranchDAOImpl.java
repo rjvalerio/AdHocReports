@@ -75,8 +75,12 @@ private SqlMapClient sqlMap;
 	@Override
 	public void updateCreditingEmail(Map<String,Object> params) throws SQLException {
 		sqlMap = MyAppSqlConfig.getSqlMapInstance();
-		System.out.println("inside daoimpl");
 		sqlMap.update("updateCreditingEmail", params);
-		System.out.println("end daoimpl");
+	}
+
+	@Override
+	public void insertCreditingEmail(Map<String, Object> params) throws SQLException {
+		sqlMap = MyAppSqlConfig.getSqlMapInstance();
+		sqlMap.insert("insertCreditingEmail", params);
 	}
 }
