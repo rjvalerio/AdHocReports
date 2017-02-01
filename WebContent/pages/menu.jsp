@@ -1,15 +1,9 @@
 <%@ taglib prefix="c" uri="/WEB-INF/tld/c.tld"%>
 <div id="hiddenDiv">
-	<%-- <input type="hidden" id="userAccessList" name="userAccessList" value='${userAccessList}'>
-<input type="hidden" id="userTranCdList" name="userTranCdList" value='${userTranCdList}'>
-<input type="hidden" id="userClaimsLineCdList" name="userClaimsLineCdList" value='${userClaimsLineCdList}'>
-<input type="hidden" id="userPolIssuanceLineCdList" name="userPolIssuanceLineCdList" value='${userPolIssuanceLineCdList}'>
-<input type="hidden" id="userPolIssuanceIssCdList" name="userPolIssuanceIssCdList" value='${userPolIssuanceIssCdList}'>
-<input type="hidden" id="userModuleList" name="userModuleList" value='${userModuleList}'> --%>
 	<jsp:include page="/pages/userAccess.jsp"></jsp:include>
 </div>
 <input type="hidden" id="adhocUser" name="adhocUser" value="${adhocUser}">
-<%--<input type="hidden" id="adhocUser" name="adhocUser" value="CPIRALPH">--%> 
+<%--<input type="hidden" id="adhocUser" name="adhocUser" value="CPIRALPH">--%>
 
 <script type="text/javascript">
 	//init user access
@@ -19,15 +13,6 @@
 	var userAccess3 = '}';
 	var userAccessConcat = userAccess.concat(userAccess2.concat(userAccess3));
 	if (userAccessConcat == '{"userAccess" :}') {
-		// showNotice("Please wait..."),
-		/* window.onload = function() {
-		 location.reload();
-		    if(!window.location.hash) {
-		        window.location = window.location + '#loaded';
-		        location.reload();
-		       // hideNotice("");
-		    } 
-		} */
 		var userId = $F("adhocUser");
 		new Ajax.Updater(
 				"hiddenDiv",
@@ -283,6 +268,7 @@
 		disableMenu('soaPerAssdIntm');
 		disableMenu('orixSoaExt');
 		disableMenu('updateRefName');
+		disableMenu('dynamicUrl');
 		//disableMenu('checkRequest');
 	} else {
 		//check per module

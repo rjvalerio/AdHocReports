@@ -23,7 +23,8 @@ showCreditingBranchModal($F("branchCode"));
 //custom messagebox
 function showCreditingBranchModal(branchCode){
 	//alert($F("credEmailCount"));
-   var message = "<table style='width:250px; margin-left:20px'>"+
+	var message = "";
+   /* var message = "<table style='width:250px; margin-left:20px'>"+
 					"<tr>"+
 						"<th>"+
 							"Email Address"+
@@ -45,7 +46,7 @@ function showCreditingBranchModal(branchCode){
 						"</td>"+
 					"</tr>"+
 					"</c:forEach>"+
-					"<tr>"+
+					"<tr id='extraTr'>"+
 						"<td>"+
 							"<input type='text' id='extraEmail' style='width:100%;'>"+
 						"</td>"+
@@ -53,17 +54,59 @@ function showCreditingBranchModal(branchCode){
 							"<input type='checkbox' name='chkPdfSw' id='extraChkPdfSw'>"+
 						"</td>"+
 					"</tr>"+
-				"</table>";
+				"</table>"; */
 		var oldEmail = ''
 		var oldChk = '';
 		if(emailList != '[]'){
+			message = "<table style='width:250px; margin-left:20px'>"+
+			"<tr>"+
+				"<th>"+
+					"Email Address"+
+				"</th>"+
+				"<th>"+
+					"P"+
+				"</th>"+
+			"</tr>"+
+			"<c:forEach var='email' items='${credEmailList}' varStatus='loop'>"+
+			"<tr>"+
+				"<td>"+
+					"<input type='hidden' id='${loop.index}' value='${loop.index}'>"+
+					"<input type='text' id='txtEmail' value='${email.emailAdd}' style='width:100%;'>"+
+				"</td>"+
+				"<td>"+
+					"<input type='checkbox' id='chkEmail' name='chkPdfSw' style='width:100%;'"+
+					"<c:if test='${email.primarySw eq 1}'>checked</c:if>"+
+					">"+
+				"</td>"+
+			"</tr>"+
+			"</c:forEach>"+
+		"</table>";
 			oldEmail = $F("txtEmail");
 			if($F("chkEmail") == '1'){
 				oldChk = 'on';	
 			}
+		}else{
+			message = "<table style='width:250px; margin-left:20px'>"+
+			"<tr>"+
+				"<th>"+
+					"Email Address"+
+				"</th>"+
+				"<th>"+
+					"P"+
+				"</th>"+
+			"</tr>"+
+			"<tr id='extraTr'>"+
+				"<td>"+
+					"<input type='text' id='extraEmail' style='width:100%;'>"+
+				"</td>"+
+				"<td>"+
+					"<input type='checkbox' name='chkPdfSw' id='extraChkPdfSw' style='width:100%;'>"+
+				"</td>"+
+			"</tr>"+
+		"</table>"; 
 		}
 		Dialog.alert("<div style='margin-top: 5px; float: left; width: 100%'>" +
-		 	   "<span style='float: left; padding: 5px 8px 8px 8px; width: 10%; height: 80px;'>"+
+		 	   "<span style='float: left; padding: 5px 8px 8px 8px; width: 10%; height: 50px;'>"+
 	     		message+
 	    		 "</div>", {
 		title: "Crediting Branch Email",
@@ -75,11 +118,13 @@ function showCreditingBranchModal(branchCode){
 					email = '';
 				}
 				if(oldEmail != $F("txtEmail") || oldChk != $F("chkEmail")){
-					updateEmailValues(branchCd,$F("txtEmail"),$F("chkEmail"),oldEmail);
+					if(!checkBlankNull($F("txtEmail")))
+						updateEmailValues(branchCd,$F("txtEmail"),$F("chkEmail"),oldEmail);
 				}
-				if(!checkBlankNull($F("extraEmail"))){
+				
+				/* if(!checkBlankNull($F("extraEmail"))){
 					insertEmailValues(branchCd,$F("extraEmail"),$F("extraChkPdfSw"));
-				}
+				} */
 			}else{
 				if(!checkBlankNull($F("extraEmail"))){
 					insertEmailValues(branchCd,$F("extraEmail"),$F("extraChkPdfSw"));

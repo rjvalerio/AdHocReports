@@ -760,7 +760,6 @@
 			return false;
 	}
 
-	var reportLink = "http://localhost:2010/GeniisysAdHocReports/";
 	//var strWindowFeatures = "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,resizable=yes,fullscreen=yes";
 	var reportName = $F("reportName");
 	var reportBatch = $F("reportBatch");
