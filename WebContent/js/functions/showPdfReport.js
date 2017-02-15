@@ -8,6 +8,7 @@
  * @param reportTitle
  */
 function showPdfReport(reportUrl, reportTitle){
+	alert("inside show pdf report");
 	var checkUrl = reportUrl + "&checkIfReportExists=true";
 	new Ajax.Request(checkUrl, {
 		evalScripts: true,
